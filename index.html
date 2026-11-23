@@ -218,6 +218,166 @@
       .qr-phases { grid-template-columns: 1fr; }
     }
 
+    /* Prompt Techniques 4-Column Architectural Matrix */
+    .tech-section {
+      margin-top: 24px;
+      background: var(--surface);
+      border: 1px solid var(--ink);
+    }
+
+    .tech-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--hairline-strong);
+    }
+
+    .tech-head h3 {
+      font-family: var(--font-cond);
+      font-size: clamp(26px, 3vw, 38px);
+      font-weight: 800;
+      text-transform: uppercase;
+      line-height: 0.95;
+      color: var(--ink);
+    }
+
+    .tech-head h3 em {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      text-transform: none;
+      color: var(--tcs-blue);
+    }
+
+    [data-theme="dark"] .tech-head h3 em { color: var(--volt); }
+
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .tech-col {
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid var(--hairline);
+      transition: background 0.25s ease;
+    }
+
+    .tech-col:last-child { border-right: 0; }
+
+    .tech-col-top {
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--hairline);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .tech-num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--tcs-blue);
+    }
+
+    [data-theme="dark"] .tech-num { color: var(--volt); }
+
+    .tech-col-top svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--ink);
+      fill: none;
+      stroke-width: 1.75;
+    }
+
+    .tech-title {
+      padding: 16px 20px 10px;
+      font-family: var(--font-cond);
+      font-size: 24px;
+      font-weight: 800;
+      text-transform: uppercase;
+      line-height: 1;
+      color: var(--ink);
+    }
+
+    .tech-def {
+      padding: 0 20px 18px;
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--ink-soft);
+      border-bottom: 1px solid var(--hairline);
+      flex: 1;
+    }
+
+    .tech-ex {
+      padding: 16px 20px 20px;
+      background: var(--paper);
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: var(--ink);
+      font-style: italic;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 165px;
+    }
+
+    .tech-ex-label {
+      font-family: var(--font-mono);
+      font-style: normal;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .tech-copy {
+      align-self: flex-start;
+      appearance: none;
+      font-family: var(--font-mono);
+      font-style: normal;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 9px;
+      border: 1px solid var(--hairline-strong);
+      background: transparent;
+      color: var(--ink);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tech-copy:hover {
+      background: var(--ink);
+      color: var(--paper);
+      border-color: var(--ink);
+    }
+
+    [data-theme="dark"] .tech-copy:hover {
+      background: var(--volt);
+      color: #0A0B0D;
+      border-color: var(--volt);
+    }
+
+    @media (max-width: 1100px) {
+      .tech-grid { grid-template-columns: repeat(2, 1fr); }
+      .tech-col { border-bottom: 1px solid var(--hairline); }
+    }
+
+    @media (max-width: 640px) {
+      .tech-grid { grid-template-columns: 1fr; }
+      .tech-col { border-right: 0; }
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     html {
@@ -1505,7 +1665,7 @@
           </button>
           <button class="sub-btn" role="tab" aria-selected="false" data-subtab="c1-qr">
             <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM18 18h3v3h-3zM14 19h2M19 14h2"/></svg>
-            04 · Mentor 3.0 (QR)
+            04 · Prompts &amp; Mentor 3.0
           </button>
         </div>
         <span class="nav-prog">CLASE 01 // DEL MECANISMO AL PROMPT PROFESIONAL</span>
@@ -1699,6 +1859,79 @@
               <button class="ed-btn ed-btn-light" id="btn-copy-mentor" type="button">Copiar Enlace</button>
               <a class="ed-btn ed-btn-light" href="clase-1/skills/SKILL.md" download="SKILL.md">↓ Descargar SKILL.md</a>
               <a class="ed-btn ed-btn-light" href="clase-1/skills/Mentor_de_Prompts.docx" download="Mentor_de_Prompts.docx">↓ Descargar Word (.docx)</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Técnicas de Prompts (Zero-shot, One-shot, Few-shot, Chain-of-Thought) -->
+        <div class="tech-section">
+          <div class="tech-head">
+            <h3>Técnicas de <em>Prompts</em></h3>
+            <span class="nav-prog">DEL ZERO-SHOT AL RAZONAMIENTO PASO A PASO</span>
+          </div>
+          <div class="tech-grid">
+            <div class="tech-col">
+              <div class="tech-col-top">
+                <span class="tech-num">01 / ZERO-SHOT</span>
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              </div>
+              <div class="tech-title">Zero-shot Learning</div>
+              <div class="tech-def">La IA responde sin haber recibido ejemplos previos.</div>
+              <div class="tech-ex">
+                <div>
+                  <span class="tech-ex-label">Ejemplo</span>
+                  "Escribe un artículo sobre productividad con IA"
+                </div>
+                <button class="tech-copy" type="button" data-copy-prompt="Escribe un artículo sobre productividad con IA">Copiar ejemplo</button>
+              </div>
+            </div>
+
+            <div class="tech-col">
+              <div class="tech-col-top">
+                <span class="tech-num">02 / ONE-SHOT</span>
+                <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              </div>
+              <div class="tech-title">One-shot Learning</div>
+              <div class="tech-def">La IA recibe un solo ejemplo para generar una salida similar.</div>
+              <div class="tech-ex">
+                <div>
+                  <span class="tech-ex-label">Ejemplo</span>
+                  "Aquí tienes un ejemplo de un párrafo con mi estilo. Escribe un artículo de productividad con IA."
+                </div>
+                <button class="tech-copy" type="button" data-copy-prompt="Aquí tienes un ejemplo de un párrafo con mi estilo. Escribe un artículo de productividad con IA.">Copiar ejemplo</button>
+              </div>
+            </div>
+
+            <div class="tech-col">
+              <div class="tech-col-top">
+                <span class="tech-num">03 / FEW-SHOT</span>
+                <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="1"/><path d="M2 20h20M8 10h8"/></svg>
+              </div>
+              <div class="tech-title">Few-shot Learning</div>
+              <div class="tech-def">La IA recibe varios ejemplos para captar el patrón y generar algo nuevo.</div>
+              <div class="tech-ex">
+                <div>
+                  <span class="tech-ex-label">Ejemplo</span>
+                  "Aquí tienes un audio de cómo comunico, un vídeo educativo y párrafos de mis libros. Escribe un artículo de productividad con IA."
+                </div>
+                <button class="tech-copy" type="button" data-copy-prompt="Aquí tienes un audio de cómo comunico, un vídeo educativo y párrafos de mis libros. Escribe un artículo de productividad con IA.">Copiar ejemplo</button>
+              </div>
+            </div>
+
+            <div class="tech-col">
+              <div class="tech-col-top">
+                <span class="tech-num">04 / CHAIN-OF-THOUGHT</span>
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(30 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(-30 12 12)"/></svg>
+              </div>
+              <div class="tech-title">Chain-of-Thought</div>
+              <div class="tech-def">La IA resuelve problemas de forma más efectiva cuando se le pide que piense paso a paso, en lugar de dar una respuesta inmediata.</div>
+              <div class="tech-ex">
+                <div>
+                  <span class="tech-ex-label">Ejemplo</span>
+                  "Escribe un artículo de productividad con IA con este plan:<br>1) Investiga sobre el tema<br>2) Encuentra 3 datos estadísticos de valor<br>3) Redacta un artículo con mi tono de voz (Adjunto mi hoja de estilo)"
+                </div>
+                <button class="tech-copy" type="button" data-copy-prompt="Escribe un artículo de productividad con IA con este plan: 1) Investiga sobre el tema 2) Encuentra 3 datos estadísticos de valor 3) Redacta un artículo con mi tono de voz (Adjunto mi hoja de estilo)">Copiar ejemplo</button>
+              </div>
             </div>
           </div>
         </div>
@@ -2294,6 +2527,18 @@
         } catch (e) {}
       });
     }
+
+    // Copy Prompt Technique examples
+    document.querySelectorAll('[data-copy-prompt]').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(btn.dataset.copyPrompt);
+          const orig = btn.textContent;
+          btn.textContent = 'Copiado';
+          setTimeout(() => { btn.textContent = orig; }, 1500);
+        } catch (e) {}
+      });
+    });
   </script>
 </body>
 </html>

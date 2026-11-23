@@ -3,71 +3,261 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TCS · Inteligencia Artificial Aplicada — Portal del Programa</title>
+  <title>TCS · IA LAB // ¿Qué está detrás de la IA?</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Carlito:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* TCS 65/25/10 Official Palette */
-      --bg: #FFFFFF;
-      --surface: #F7F8FA;
-      --surface-alt: #EFF2F6;
-      --ink: #000000;
-      --ink-secondary: #334155;
-      --ink-muted: #64748B;
-      --border: #E2E8F0;
-
-      /* 25% TCS Institutional Secondary */
+      --bg: #08090C;
+      --bg-elev: #0E1016;
+      --bg-card: rgba(16, 19, 27, 0.78);
+      --border: rgba(244, 244, 240, 0.12);
+      --border-strong: rgba(244, 244, 240, 0.24);
+      --bone: #F4F4F0;
+      --slate: #8E96A8;
+      --volt: #D2FF00;
       --tcs-blue: #0076CE;
-      --tcs-blue-dark: #005A9E;
-      --tcs-blue-soft: #EBF5FC;
+      --tcs-cyan: #00A8FF;
       --tcs-yellow: #F2B705;
-      --tcs-yellow-soft: #FEF8E1;
-
-      /* <= 10% Accent */
-      --accent-green: #0F7B4F;
-      --accent-green-soft: #E6F5EE;
-      --accent-red: #C81E1E;
-
-      --font: 'Calibri', 'Carlito', 'Segoe UI', system-ui, -apple-system, sans-serif;
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
       --ease: cubic-bezier(0.16, 1, 0.3, 1);
-      --radius: 8px;
-      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
-      --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.08);
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'Space Grotesk', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html, body {
-      min-height: 100%;
+    html {
+      scroll-behavior: smooth;
       background: var(--bg);
-      color: var(--ink);
-      font-family: var(--font);
-      font-size: 16px;
-      line-height: 1.5;
+      color: var(--bone);
+      font-family: var(--font-body);
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--bone);
+      overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Header */
-    .topbar {
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
+    /* Film Grain Overlay */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 90;
+      pointer-events: none;
+      opacity: 0.055;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* Kinetic Preloader Curtain */
+    #preloader {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: #050608;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 32px 6vw;
+      transition: transform 0.85s var(--ease), opacity 0.4s ease;
+    }
+
+    #preloader.done {
+      transform: translateY(-100%);
+      pointer-events: none;
+    }
+
+    .pre-top {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      color: var(--slate);
+      text-transform: uppercase;
+    }
+
+    .pre-center {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .pre-title {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 5vw, 68px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      line-height: 0.96;
+    }
+
+    .pre-title span { color: var(--volt); }
+
+    .pre-count {
+      font-family: var(--font-display);
+      font-size: clamp(56px, 11vw, 148px);
+      font-weight: 800;
+      color: var(--volt);
+      line-height: 0.85;
+      letter-spacing: -0.05em;
+    }
+
+    .pre-bar-wrap {
+      width: 100%;
+      height: 3px;
+      background: rgba(244, 244, 240, 0.12);
+      overflow: hidden;
+    }
+
+    .pre-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--tcs-blue), var(--volt));
+      transition: width 0.08s linear;
+    }
+
+    /* Custom Kinetic Cursor (Desktop) */
+    .cursor-dot, .cursor-ring {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 150;
+      transform: translate(-50%, -50%);
+      display: none;
+    }
+
+    @media (pointer: fine) {
+      .cursor-dot, .cursor-ring { display: block; }
+    }
+
+    .cursor-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--volt);
+      border-radius: 50%;
+      transition: transform 0.15s var(--ease);
+    }
+
+    .cursor-ring {
+      width: 34px;
+      height: 34px;
+      border: 1.5px solid rgba(210, 255, 0, 0.55);
+      border-radius: 50%;
+      transition: width 0.25s var(--ease), height 0.25s var(--ease), border-color 0.25s ease, background 0.25s ease;
+    }
+
+    body.cursor-hover .cursor-ring {
+      width: 56px;
+      height: 56px;
+      border-color: var(--volt);
+      background: rgba(210, 255, 0, 0.08);
+    }
+
+    /* Animated Topographic Background (Lando Norris signature motif) */
+    .topo-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+      opacity: 0.42;
+    }
+
+    .topo-bg svg {
+      width: 112%;
+      height: 112%;
+      margin: -6%;
+      transition: transform 0.4s var(--ease);
+    }
+
+    .topo-path {
+      fill: none;
+      stroke: rgba(244, 244, 240, 0.09);
+      stroke-width: 1;
+      stroke-dasharray: 12 18;
+      animation: topoDrift 36s linear infinite;
+    }
+
+    .topo-path.accent {
+      stroke: rgba(210, 255, 0, 0.16);
+      stroke-dasharray: 24 40;
+      animation-duration: 28s;
+      animation-direction: reverse;
+    }
+
+    .topo-path.blue {
+      stroke: rgba(0, 118, 206, 0.22);
+      stroke-dasharray: 18 32;
+      animation-duration: 42s;
+    }
+
+    @keyframes topoDrift {
+      from { stroke-dashoffset: 0; }
+      to { stroke-dashoffset: -600; }
+    }
+
+    /* Ambient Glow Blobs */
+    .glow-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(110px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.22;
+    }
+
+    .glow-1 {
+      width: 480px;
+      height: 480px;
+      background: var(--tcs-blue);
+      top: -160px;
+      right: -120px;
+    }
+
+    .glow-2 {
+      width: 420px;
+      height: 420px;
+      background: var(--volt);
+      bottom: -180px;
+      left: -140px;
+      opacity: 0.12;
+    }
+
+    /* Scroll Progress Bar */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--tcs-blue), var(--volt));
+      z-index: 120;
+    }
+
+    /* Sticky Telemetry Header */
+    .hud-header {
       position: sticky;
       top: 0;
-      z-index: 40;
+      z-index: 60;
+      background: rgba(8, 9, 12, 0.78);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
     }
 
-    .topbar-accent {
-      height: 4px;
-      background: linear-gradient(90deg, var(--tcs-blue) 0%, var(--tcs-blue) 78%, var(--tcs-yellow) 78%, var(--tcs-yellow) 100%);
-    }
-
-    .topbar-inner {
-      max-width: 1280px;
+    .hud-inner {
+      max-width: 1360px;
       margin: 0 auto;
-      padding: 14px 24px;
+      padding: 14px 28px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -75,425 +265,663 @@
       flex-wrap: wrap;
     }
 
-    .brand {
+    .hud-brand {
       display: flex;
       align-items: center;
       gap: 14px;
     }
 
-    .brand-mark {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--ink);
-      color: var(--bg);
+    .brand-tag {
+      font-family: var(--font-mono);
+      font-size: 12px;
       font-weight: 700;
-      font-size: 14px;
       letter-spacing: 0.14em;
-      padding: 6px 12px;
-      border-radius: 4px;
+      background: var(--volt);
+      color: #050608;
+      padding: 5px 10px;
+      border-radius: 3px;
+      text-transform: uppercase;
     }
 
-    .brand-text h1 {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--ink);
-      line-height: 1.2;
+    .brand-sub {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--slate);
+      text-transform: uppercase;
     }
 
-    .brand-text p {
-      font-size: 13px;
-      color: var(--ink-muted);
-    }
-
-    .meta-pills {
+    .hud-telemetry {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 14px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--slate);
+      letter-spacing: 0.08em;
       flex-wrap: wrap;
     }
 
-    .pill {
-      font-size: 12px;
-      font-weight: 700;
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--volt);
+      border: 1px solid rgba(210, 255, 0, 0.35);
+      background: rgba(210, 255, 0, 0.08);
       padding: 4px 10px;
       border-radius: 999px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--ink-secondary);
-      white-space: nowrap;
+      font-weight: 700;
     }
 
-    .pill-blue {
-      background: var(--tcs-blue-soft);
-      border-color: rgba(0, 118, 206, 0.25);
-      color: var(--tcs-blue-dark);
+    .live-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--volt);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--volt);
+      animation: pulse 1.6s ease-in-out infinite;
     }
 
-    /* Class Selector Bar */
-    .class-nav-wrap {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.35; transform: scale(0.75); }
     }
 
-    .class-nav {
-      max-width: 1280px;
+    /* Kinetic Hero */
+    .hero {
+      position: relative;
+      z-index: 2;
+      max-width: 1360px;
       margin: 0 auto;
-      padding: 0 24px;
-      display: flex;
-      gap: 6px;
-      overflow-x: auto;
-      scrollbar-width: none;
+      padding: 44px 28px 28px;
     }
-    .class-nav::-webkit-scrollbar { display: none; }
 
-    .class-btn {
-      appearance: none;
-      background: transparent;
-      border: none;
-      border-bottom: 3px solid transparent;
-      padding: 14px 18px;
-      cursor: pointer;
-      font-family: var(--font);
-      text-align: left;
-      display: flex;
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 28px;
+      align-items: end;
+    }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--volt);
+      margin-bottom: 12px;
+      display: inline-flex;
       align-items: center;
-      gap: 10px;
-      white-space: nowrap;
-      transition: background 0.25s var(--ease), border-color 0.25s var(--ease), color 0.25s var(--ease);
-      color: var(--ink-secondary);
+      gap: 8px;
     }
 
-    .class-btn:hover {
-      background: rgba(0, 118, 206, 0.05);
-      color: var(--ink);
+    .eyebrow::before {
+      content: "";
+      width: 24px;
+      height: 2px;
+      background: var(--volt);
+      display: inline-block;
     }
 
-    .class-btn.active {
-      border-bottom-color: var(--tcs-blue);
-      color: var(--ink);
-      background: var(--bg);
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 5.2vw, 72px);
+      font-weight: 800;
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
     }
 
-    .class-btn-num {
+    .hero-title .line {
+      display: block;
+      overflow: hidden;
+    }
+
+    .hero-title .line > span {
+      display: inline-block;
+      transform: translateY(115%);
+      transition: transform 0.9s var(--ease);
+    }
+
+    body.revealed .hero-title .line:nth-child(1) > span { transform: translateY(0); transition-delay: 0.05s; }
+    body.revealed .hero-title .line:nth-child(2) > span { transform: translateY(0); transition-delay: 0.16s; }
+
+    .hero-title .volt { color: var(--volt); }
+    .hero-title .outline {
+      color: transparent;
+      -webkit-text-stroke: 1.5px rgba(244, 244, 240, 0.72);
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .stat-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 12px 16px;
+      border-radius: 6px;
+      min-width: 118px;
+      backdrop-filter: blur(12px);
+    }
+
+    .stat-box strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 24px;
+      color: var(--bone);
+      line-height: 1;
+    }
+
+    .stat-box span {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: var(--slate);
+      text-transform: uppercase;
+    }
+
+    /* Infinite Kinetic Marquee */
+    .marquee-wrap {
+      position: relative;
+      z-index: 2;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: rgba(210, 255, 0, 0.04);
+      overflow: hidden;
+      padding: 10px 0;
+      margin-top: 10px;
+    }
+
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marquee 34s linear infinite;
+    }
+
+    .marquee-track:hover { animation-play-state: paused; }
+
+    .marquee-item {
+      font-family: var(--font-mono);
       font-size: 12px;
       font-weight: 700;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--tcs-blue);
+      color: var(--slate);
+      padding: 0 20px;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 20px;
     }
 
-    .class-btn-title {
-      font-size: 14px;
+    .marquee-item::after {
+      content: "✦";
+      color: var(--volt);
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* Kinetic Class Selector */
+    .class-deck-wrap {
+      position: relative;
+      z-index: 3;
+      max-width: 1360px;
+      margin: 26px auto 0;
+      padding: 0 28px;
+    }
+
+    .class-deck {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .class-card-btn {
+      position: relative;
+      appearance: none;
+      text-align: left;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 18px;
+      color: var(--bone);
+      cursor: pointer;
+      overflow: hidden;
+      backdrop-filter: blur(14px);
+      transition: transform 0.35s var(--ease), border-color 0.3s ease, background 0.3s ease;
+    }
+
+    .class-card-btn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(210, 255, 0, 0.12), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.35s var(--ease);
+    }
+
+    .class-card-btn:hover {
+      transform: translateY(-3px);
+      border-color: var(--border-strong);
+    }
+
+    .class-card-btn.active {
+      border-color: var(--volt);
+      background: rgba(210, 255, 0, 0.08);
+    }
+
+    .class-card-btn.active::before { opacity: 1; }
+
+    .class-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      position: relative;
+    }
+
+    .class-num {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1;
+      color: rgba(244, 244, 240, 0.25);
+      transition: color 0.3s ease;
+    }
+
+    .class-card-btn.active .class-num { color: var(--volt); }
+
+    .badge-status {
+      font-family: var(--font-mono);
+      font-size: 10px;
       font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 3px;
     }
 
-    .status-dot {
-      font-size: 11px;
+    .badge-live {
+      background: var(--volt);
+      color: #050608;
+    }
+
+    .badge-standby {
+      background: rgba(242, 183, 5, 0.14);
+      color: var(--tcs-yellow);
+      border: 1px solid rgba(242, 183, 5, 0.32);
+    }
+
+    .class-name {
+      font-family: var(--font-display);
+      font-size: 15px;
       font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      position: relative;
     }
 
-    .status-live {
-      background: var(--accent-green-soft);
-      color: var(--accent-green);
+    .class-sub {
+      font-size: 12px;
+      color: var(--slate);
+      margin-top: 3px;
+      position: relative;
     }
 
-    .status-soon {
-      background: var(--tcs-yellow-soft);
-      color: #8A6500;
-    }
-
-    /* Main Container */
-    .main {
-      max-width: 1280px;
+    /* Main Workspace */
+    .stage {
+      position: relative;
+      z-index: 3;
+      max-width: 1360px;
       margin: 0 auto;
-      padding: 28px 24px 64px;
+      padding: 28px 28px 80px;
     }
 
     .class-panel { display: none; }
-    .class-panel.active { display: block; animation: fadeUp 0.45s var(--ease) both; }
+    .class-panel.active {
+      display: block;
+      animation: panelEnter 0.55s var(--ease) both;
+    }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(10px); }
+    @keyframes panelEnter {
+      from { opacity: 0; transform: translateY(18px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Class Header */
-    .class-header {
+    /* Kinetic Sub-tabs */
+    .subtabs-bar {
       display: flex;
-      align-items: flex-end;
+      align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      gap: 16px;
       flex-wrap: wrap;
-      margin-bottom: 22px;
+      margin-bottom: 24px;
       padding-bottom: 18px;
       border-bottom: 1px solid var(--border);
     }
 
-    .class-eyebrow {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--tcs-blue);
-      margin-bottom: 4px;
-    }
-
-    .class-header h2 {
-      font-size: clamp(22px, 2.6vw, 30px);
-      font-weight: 700;
-      color: var(--ink);
-      line-height: 1.18;
-    }
-
-    .class-header p {
-      margin-top: 6px;
-      color: var(--ink-secondary);
-      max-width: 780px;
-      font-size: 15px;
-    }
-
-    /* Sub-tabs inside Clase 1 */
     .subtabs {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 22px;
-      background: var(--surface);
-      padding: 6px;
-      border-radius: var(--radius);
+      display: inline-flex;
+      gap: 6px;
+      background: rgba(16, 19, 27, 0.9);
       border: 1px solid var(--border);
-      width: fit-content;
+      padding: 6px;
+      border-radius: 8px;
+      flex-wrap: wrap;
     }
 
     .subtab-btn {
       appearance: none;
       border: 1px solid transparent;
       background: transparent;
-      color: var(--ink-secondary);
-      font-family: var(--font);
-      font-size: 14px;
+      color: var(--slate);
+      font-family: var(--font-mono);
+      font-size: 12px;
       font-weight: 700;
-      padding: 9px 16px;
-      border-radius: 6px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 10px 16px;
+      border-radius: 5px;
       cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s var(--ease);
+    }
+
+    .subtab-btn:hover {
+      color: var(--bone);
+      background: rgba(244, 244, 240, 0.06);
+    }
+
+    .subtab-btn.active {
+      background: var(--volt);
+      color: #050608;
+      box-shadow: 0 0 24px rgba(210, 255, 0, 0.25);
+    }
+
+    .subtab-panel { display: none; }
+    .subtab-panel.active {
+      display: block;
+      animation: panelEnter 0.45s var(--ease) both;
+    }
+
+    /* Kinetic Surface Card */
+    .k-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px;
+      backdrop-filter: blur(16px);
+      transition: border-color 0.3s ease, transform 0.35s var(--ease);
+    }
+
+    .k-card:hover { border-color: var(--border-strong); }
+
+    /* TAB 1: DUAL MOTION REELS */
+    .reel-controls-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .reel-switcher {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .k-btn {
+      appearance: none;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 9px 14px;
+      border-radius: 5px;
+      border: 1px solid var(--border);
+      background: rgba(16, 19, 27, 0.85);
+      color: var(--bone);
+      cursor: pointer;
+      text-decoration: none;
       display: inline-flex;
       align-items: center;
       gap: 8px;
       transition: all 0.25s var(--ease);
     }
 
-    .subtab-btn:hover {
-      color: var(--ink);
-      background: rgba(255, 255, 255, 0.7);
+    .k-btn:hover {
+      border-color: var(--volt);
+      color: var(--volt);
+      transform: translateY(-1px);
     }
 
-    .subtab-btn.active {
+    .k-btn.active {
       background: var(--tcs-blue);
+      border-color: var(--tcs-blue);
       color: #FFFFFF;
-      box-shadow: var(--shadow-sm);
     }
 
-    .subtab-panel { display: none; }
-    .subtab-panel.active { display: block; animation: fadeUp 0.35s var(--ease) both; }
-
-    /* Cards */
-    .card {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 22px;
-      box-shadow: var(--shadow-sm);
+    .k-btn-volt {
+      background: var(--volt);
+      border-color: var(--volt);
+      color: #050608;
     }
 
-    .card-muted {
-      background: var(--surface);
+    .k-btn-volt:hover {
+      background: #E4FF55;
+      color: #050608;
     }
 
-    .stagger > * {
-      animation: fadeUp 0.45s var(--ease) both;
-    }
-    .stagger > *:nth-child(1) { animation-delay: 0ms; }
-    .stagger > *:nth-child(2) { animation-delay: 90ms; }
-    .stagger > *:nth-child(3) { animation-delay: 180ms; }
-    .stagger > *:nth-child(4) { animation-delay: 270ms; }
-
-    /* Tab 1: Video Layout */
-    .video-grid {
+    .reels-layout {
       display: grid;
-      grid-template-columns: minmax(280px, 370px) 1fr;
+      grid-template-columns: minmax(290px, 380px) 1fr;
       gap: 28px;
       align-items: start;
     }
 
-    .video-frame-wrap {
-      background: #000000;
-      border-radius: 10px;
-      overflow: hidden;
-      border: 2px solid var(--ink);
-      box-shadow: var(--shadow-md);
-      aspect-ratio: 9 / 16;
-      max-height: 640px;
-      margin: 0 auto;
-      width: 100%;
+    .reels-layout.dual-mode {
+      grid-template-columns: repeat(2, minmax(280px, 380px));
+      justify-content: center;
     }
 
-    .video-frame-wrap video {
+    .video-chassis {
+      position: relative;
+      background: #030406;
+      border: 1px solid rgba(210, 255, 0, 0.35);
+      border-radius: 12px;
+      padding: 10px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65), 0 0 40px rgba(0, 118, 206, 0.12);
+    }
+
+    /* Corner HUD Brackets */
+    .video-chassis::before,
+    .video-chassis::after {
+      content: "";
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--volt);
+      pointer-events: none;
+    }
+    .video-chassis::before { top: -2px; left: -2px; border-right: 0; border-bottom: 0; border-radius: 10px 0 0 0; }
+    .video-chassis::after { bottom: -2px; right: -2px; border-left: 0; border-top: 0; border-radius: 0 0 10px 0; }
+
+    .video-viewport {
+      aspect-ratio: 9 / 16;
+      max-height: 620px;
+      width: 100%;
+      background: #000000;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .video-viewport video {
       width: 100%;
       height: 100%;
       object-fit: contain;
       display: block;
-      background: #000000;
     }
 
-    .video-meta-bar {
+    .video-hud-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 8px;
       margin-top: 10px;
-      font-size: 13px;
-      color: var(--ink-muted);
+      padding: 4px 4px 0;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--slate);
     }
 
-    .quote-box {
-      border-left: 4px solid var(--tcs-blue);
-      background: var(--tcs-blue-soft);
+    .reel-slot { display: none; }
+    .reel-slot.active { display: block; animation: panelEnter 0.4s var(--ease) both; }
+    .reels-layout.dual-mode .reel-slot { display: block; }
+    .reels-layout.dual-mode .reel-context { display: none; }
+
+    /* Context Panel beside Video */
+    .context-block { display: none; }
+    .context-block.active { display: block; animation: panelEnter 0.4s var(--ease) both; }
+
+    .k-quote {
+      border-left: 3px solid var(--volt);
+      background: rgba(210, 255, 0, 0.06);
       padding: 16px 18px;
-      border-radius: 0 var(--radius) var(--radius) 0;
-      margin: 14px 0 20px;
-      color: var(--ink);
+      border-radius: 0 8px 8px 0;
+      margin: 16px 0 22px;
       font-size: 15px;
+      color: var(--bone);
     }
 
-    .diag-levels {
+    .levels-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 12px;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
     }
 
-    .diag-card {
+    .level-tile {
+      background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--border);
-      border-radius: var(--radius);
+      border-radius: 8px;
       padding: 14px;
-      background: var(--bg);
+      transition: transform 0.3s var(--ease), border-color 0.3s ease;
     }
 
-    .diag-card strong {
+    .level-tile:hover {
+      transform: translateY(-3px);
+      border-color: var(--volt);
+    }
+
+    .level-tile strong {
       display: block;
-      font-size: 16px;
+      font-family: var(--font-display);
+      font-size: 17px;
       margin-bottom: 4px;
     }
 
-    .diag-card span {
-      font-size: 13px;
-      color: var(--ink-secondary);
-    }
+    .level-tile.l1 strong { color: var(--bone); }
+    .level-tile.l2 strong { color: var(--tcs-yellow); }
+    .level-tile.l3 strong { color: var(--volt); }
 
-    .diag-card.level-1 { border-top: 3px solid var(--ink); }
-    .diag-card.level-2 { border-top: 3px solid var(--tcs-yellow); }
-    .diag-card.level-3 { border-top: 3px solid var(--tcs-blue); }
+    .level-tile span { font-size: 13px; color: var(--slate); }
 
     .families-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
+      gap: 12px;
     }
 
-    .family-box {
-      background: var(--surface);
+    .family-tile {
+      background: rgba(255, 255, 255, 0.025);
       border: 1px solid var(--border);
-      border-radius: var(--radius);
+      border-radius: 8px;
       padding: 14px;
     }
 
-    .family-box h4 {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--tcs-blue-dark);
-      margin-bottom: 8px;
+    .family-tile h4 {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--tcs-cyan);
+      margin-bottom: 10px;
     }
 
-    .chip-list {
+    .chip-wrap {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
     }
 
     .chip {
-      font-size: 12px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      color: var(--ink);
-      padding: 3px 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 4px 8px;
       border-radius: 4px;
-      font-weight: 700;
+      background: rgba(244, 244, 240, 0.06);
+      border: 1px solid var(--border);
+      color: var(--bone);
     }
 
-    /* Tab 2: Mindmap */
-    .mindmap-toolbar {
+    /* Tool Comparison Cards (for Reel 02) */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .tool-tile {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--tcs-blue);
+      border-radius: 8px;
+      padding: 18px;
+      transition: transform 0.3s var(--ease), border-color 0.3s ease;
+    }
+
+    .tool-tile:nth-child(2) { border-top-color: var(--volt); }
+    .tool-tile:nth-child(3) { border-top-color: var(--tcs-yellow); }
+
+    .tool-tile:hover { transform: translateY(-4px); }
+
+    .tool-tile h4 {
+      font-family: var(--font-display);
+      font-size: 18px;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+
+    .tool-tile p { font-size: 13px; color: var(--slate); line-height: 1.55; }
+
+    /* TAB 2: INTERACTIVE MINDMAP */
+    .mm-toolbar {
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       gap: 12px;
       flex-wrap: wrap;
       margin-bottom: 14px;
     }
 
-    .btn-group {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      appearance: none;
-      font-family: var(--font);
-      font-size: 13px;
-      font-weight: 700;
-      padding: 7px 13px;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      background: var(--bg);
-      color: var(--ink);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      text-decoration: none;
-      transition: all 0.2s var(--ease);
-    }
-
-    .btn:hover {
-      border-color: var(--tcs-blue);
-      color: var(--tcs-blue);
-    }
-
-    .btn-primary {
-      background: var(--tcs-blue);
-      border-color: var(--tcs-blue);
-      color: #FFFFFF;
-    }
-
-    .btn-primary:hover {
-      background: var(--tcs-blue-dark);
-      border-color: var(--tcs-blue-dark);
-      color: #FFFFFF;
-    }
-
-    .btn.active {
-      background: var(--ink);
-      border-color: var(--ink);
-      color: #FFFFFF;
-    }
-
-    .mindmap-canvas-wrap {
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: #FFFFFF;
+    .mm-canvas-box {
       height: 640px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: radial-gradient(circle at 20% 20%, rgba(0, 118, 206, 0.08), transparent 45%), #0B0D12;
       position: relative;
       overflow: hidden;
     }
@@ -504,166 +932,177 @@
       display: block;
     }
 
-    .mindmap-hint {
+    /* Dark theme text override for Markmap SVG */
+    #mindmap-svg text,
+    #mindmap-svg foreignObject div {
+      color: #F4F4F0 !important;
+      fill: #F4F4F0 !important;
+      font-family: var(--font-body) !important;
+    }
+
+    .mm-hint {
       position: absolute;
-      bottom: 12px;
+      bottom: 14px;
       left: 14px;
-      font-size: 12px;
-      color: var(--ink-muted);
-      background: rgba(255, 255, 255, 0.92);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--slate);
+      background: rgba(8, 9, 12, 0.85);
       border: 1px solid var(--border);
-      padding: 4px 10px;
+      padding: 5px 12px;
       border-radius: 999px;
       pointer-events: none;
     }
 
-    .code-view {
+    .code-box {
       display: none;
-      background: #0F172A;
-      color: #F8FAFC;
-      border-radius: var(--radius);
+      background: #050608;
+      color: #E2E8F0;
+      border: 1px solid var(--border);
+      border-radius: 10px;
       padding: 20px;
-      overflow: auto;
       max-height: 640px;
-      font-family: var(--mono);
-      font-size: 13px;
-      line-height: 1.6;
+      overflow: auto;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      line-height: 1.65;
       white-space: pre;
     }
 
-    .code-view.active { display: block; }
+    .code-box.active { display: block; }
 
-    /* Tab 3: Slides iframe */
-    .slides-toolbar {
+    /* TAB 3: SLIDES */
+    .slides-bar {
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       gap: 12px;
       flex-wrap: wrap;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
-    .slides-frame-wrap {
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
+    .slides-shell {
+      border: 1px solid rgba(210, 255, 0, 0.25);
+      border-radius: 10px;
       overflow: hidden;
       background: #07080B;
-      box-shadow: var(--shadow-md);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65);
     }
 
-    .slides-frame-wrap iframe {
+    .slides-shell iframe {
       width: 100%;
-      height: calc(100vh - 240px);
-      min-height: 600px;
+      height: calc(100vh - 220px);
+      min-height: 620px;
       border: 0;
       display: block;
     }
 
-    /* Upcoming Classes (2, 3, 4) */
-    .soon-banner {
+    /* UPCOMING CLASSES (2, 3, 4) */
+    .standby-banner {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
       flex-wrap: wrap;
-      background: var(--tcs-yellow-soft);
-      border: 1px solid rgba(242, 183, 5, 0.45);
-      border-left: 5px solid var(--tcs-yellow);
-      border-radius: var(--radius);
-      padding: 16px 20px;
+      padding: 18px 22px;
+      border-radius: 10px;
+      background: linear-gradient(90deg, rgba(242, 183, 5, 0.12), rgba(0, 118, 206, 0.08));
+      border: 1px solid rgba(242, 183, 5, 0.35);
       margin-bottom: 22px;
     }
 
-    .soon-banner strong {
-      font-size: 15px;
-      color: var(--ink);
+    .standby-banner strong {
+      font-family: var(--font-display);
+      font-size: 17px;
+      text-transform: uppercase;
+      color: var(--tcs-yellow);
     }
 
-    .soon-banner p {
-      font-size: 14px;
-      color: var(--ink-secondary);
-      margin-top: 2px;
-    }
+    .standby-banner p { font-size: 14px; color: var(--slate); margin-top: 2px; }
 
     .pillars-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
+      gap: 16px;
       margin-bottom: 22px;
     }
 
-    .pillar-card {
-      background: var(--bg);
+    .pillar-box {
+      background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
       border-top: 3px solid var(--tcs-blue);
+      border-radius: 10px;
+      padding: 20px;
+      transition: transform 0.3s var(--ease), border-color 0.3s ease;
     }
 
-    .pillar-card.pillar-deliverable {
-      border-top-color: var(--tcs-yellow);
-      background: var(--surface);
-    }
+    .pillar-box:nth-child(2) { border-top-color: var(--volt); }
+    .pillar-box:nth-child(3) { border-top-color: var(--tcs-yellow); }
+    .pillar-box:hover { transform: translateY(-4px); border-color: var(--border-strong); }
 
-    .pillar-card h3 {
+    .pillar-box h3 {
+      font-family: var(--font-display);
       font-size: 15px;
-      font-weight: 700;
-      margin-bottom: 10px;
-      color: var(--ink);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      color: var(--bone);
     }
 
-    .pillar-card ul {
+    .pillar-box ul {
       padding-left: 18px;
-      color: var(--ink-secondary);
+      color: var(--slate);
       font-size: 14px;
     }
 
-    .pillar-card li {
-      margin-bottom: 6px;
-    }
+    .pillar-box li { margin-bottom: 7px; }
+    .pillar-box strong { color: var(--bone); }
 
-    .timeline-table {
+    .k-table {
       width: 100%;
       border-collapse: collapse;
       font-size: 14px;
-      margin-top: 10px;
+      margin-top: 12px;
     }
 
-    .timeline-table th,
-    .timeline-table td {
+    .k-table th, .k-table td {
       text-align: left;
-      padding: 10px 12px;
+      padding: 12px 14px;
       border-bottom: 1px solid var(--border);
     }
 
-    .timeline-table th {
-      background: var(--surface);
-      font-weight: 700;
-      color: var(--ink);
-      font-size: 13px;
+    .k-table th {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
+      color: var(--volt);
+      background: rgba(255, 255, 255, 0.02);
     }
 
-    .time-badge {
-      font-family: var(--mono);
-      font-size: 12px;
+    .k-table td { color: var(--slate); }
+    .k-table td:last-child { color: var(--bone); }
+
+    .mono-time {
+      font-family: var(--font-mono);
+      color: var(--tcs-cyan) !important;
       font-weight: 700;
-      color: var(--tcs-blue-dark);
       white-space: nowrap;
     }
 
     /* Footer */
     .footer {
+      position: relative;
+      z-index: 3;
       border-top: 1px solid var(--border);
-      background: var(--surface);
-      padding: 18px 24px;
-      font-size: 12px;
-      color: var(--ink-muted);
+      padding: 22px 28px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--slate);
+      letter-spacing: 0.08em;
     }
 
     .footer-inner {
-      max-width: 1280px;
+      max-width: 1360px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
@@ -672,179 +1111,332 @@
       flex-wrap: wrap;
     }
 
-    .footer a {
-      color: var(--tcs-blue);
-      text-decoration: none;
-      font-weight: 700;
+    .footer a { color: var(--volt); text-decoration: none; }
+
+    @media (max-width: 1024px) {
+      .class-deck { grid-template-columns: repeat(2, 1fr); }
+      .reels-layout, .reels-layout.dual-mode { grid-template-columns: 1fr; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .levels-grid, .families-grid, .tools-grid, .pillars-grid { grid-template-columns: 1fr; }
     }
 
-    @media (max-width: 960px) {
-      .video-grid { grid-template-columns: 1fr; }
-      .families-grid, .pillars-grid, .diag-levels { grid-template-columns: 1fr; }
-      .mindmap-canvas-wrap { height: 500px; }
+    @media (max-width: 600px) {
+      .class-deck { grid-template-columns: 1fr; }
+      .hud-inner, .hero, .class-deck-wrap, .stage { padding-left: 16px; padding-right: 16px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
+      #preloader { display: none; }
+      .hero-title .line > span { transform: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Corporate Header -->
-  <header class="topbar">
-    <div class="topbar-accent"></div>
-    <div class="topbar-inner">
-      <div class="brand">
-        <span class="brand-mark">TCS · IA LAB</span>
-        <div class="brand-text">
-          <h1>¿Qué está detrás de la IA y cómo aplicarlo en tu día a día?</h1>
-          <p>Programa Formativo de Faculty · 4 Clases Síncronas de 120 Minutos</p>
-        </div>
+  <!-- Kinetic Curtain Preloader -->
+  <div id="preloader" aria-hidden="true">
+    <div class="pre-top">
+      <span>TCS // IA LAB — TELEMETRY INIT</span>
+      <span>NOV 23–26 · 16H00–18H00</span>
+    </div>
+    <div class="pre-center">
+      <div class="pre-title">INTELIGENCIA<br>ARTIFICIAL <span>APLICADA</span></div>
+      <div class="pre-count" id="pre-count">00</div>
+    </div>
+    <div class="pre-bar-wrap"><div class="pre-bar" id="pre-bar"></div></div>
+  </div>
+
+  <!-- Custom Cursor -->
+  <div class="cursor-dot" id="cursor-dot"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
+
+  <!-- Scroll Telemetry Line -->
+  <div class="scroll-progress" id="scroll-progress"></div>
+
+  <!-- Ambient Glows & Topographic Contour Lines -->
+  <div class="glow-orb glow-1"></div>
+  <div class="glow-orb glow-2"></div>
+  <div class="topo-bg">
+    <svg id="topo-svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+      <path class="topo-path" d="M-100,180 C240,80 420,340 760,210 C1060,95 1240,260 1560,150" />
+      <path class="topo-path accent" d="M-120,320 C210,210 490,460 820,310 C1120,175 1300,380 1580,260" />
+      <path class="topo-path blue" d="M-80,480 C260,360 520,600 880,440 C1180,310 1320,520 1560,410" />
+      <path class="topo-path" d="M-100,650 C280,540 540,760 920,610 C1210,495 1360,680 1580,580" />
+      <path class="topo-path accent" d="M-120,800 C310,690 610,870 980,740 C1240,650 1390,810 1560,720" />
+    </svg>
+  </div>
+
+  <!-- Sticky HUD Header -->
+  <header class="hud-header">
+    <div class="hud-inner">
+      <div class="hud-brand">
+        <span class="brand-tag">TCS · IA LAB</span>
+        <span class="brand-sub">FACULTY PROGRAM // 4 SESIONES × 120 MIN</span>
       </div>
-      <div class="meta-pills">
-        <span class="pill pill-blue">23 al 26 de noviembre</span>
-        <span class="pill">16h00 – 18h00</span>
-        <span class="pill">25% Ingeniería · 75% Práctica</span>
+      <div class="hud-telemetry">
+        <span class="live-badge"><span class="live-dot"></span> CLASE 01 EN LÍNEA</span>
+        <span>23–26 NOV · 16H00–18H00</span>
+        <span id="hud-clock">--:--:--</span>
       </div>
     </div>
   </header>
 
-  <!-- Primary Class Selector -->
-  <nav class="class-nav-wrap" aria-label="Clases del programa">
-    <div class="class-nav">
-      <button class="class-btn active" data-class="clase-1">
-        <div>
-          <div class="class-btn-num">Clase 1</div>
-          <div class="class-btn-title">El Despertar y Prompting</div>
+  <!-- Kinetic Hero -->
+  <section class="hero">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">TATA CONSULTANCY SERVICES · PROGRAMA DE IA APLICADA</div>
+        <h1 class="hero-title">
+          <span class="line"><span>¿QUÉ ESTÁ DETRÁS <span class="volt">DE LA IA</span></span></span>
+          <span class="line"><span><span class="outline">Y CÓMO APLICARLO</span> HOY?</span></span>
+        </h1>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-box">
+          <strong>04</strong>
+          <span>Sesiones</span>
         </div>
-        <span class="status-dot status-live">Activa</span>
+        <div class="stat-box">
+          <strong>20</strong>
+          <span>Conceptos</span>
+        </div>
+        <div class="stat-box">
+          <strong>75%</strong>
+          <span>Práctica Real</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Infinite Marquee Ticker of the 20 Concepts -->
+  <div class="marquee-wrap" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="marquee-item">TOKENS</span>
+      <span class="marquee-item">VENTANA DE CONTEXTO</span>
+      <span class="marquee-item">EMBEDDINGS</span>
+      <span class="marquee-item">RAG</span>
+      <span class="marquee-item">FINE-TUNING</span>
+      <span class="marquee-item">SYSTEM PROMPT</span>
+      <span class="marquee-item">CHAIN OF THOUGHT</span>
+      <span class="marquee-item">FUNCTION CALLING</span>
+      <span class="marquee-item">MCP PROTOCOL</span>
+      <span class="marquee-item">WORKFLOWS</span>
+      <span class="marquee-item">AGENTS &amp; SUBAGENTS</span>
+      <span class="marquee-item">SKILLS.MD</span>
+      <span class="marquee-item">VIBE CODING</span>
+      <span class="marquee-item">GUARDRAILS &amp; SCOPES</span>
+      <!-- Duplicate for seamless loop -->
+      <span class="marquee-item">TOKENS</span>
+      <span class="marquee-item">VENTANA DE CONTEXTO</span>
+      <span class="marquee-item">EMBEDDINGS</span>
+      <span class="marquee-item">RAG</span>
+      <span class="marquee-item">FINE-TUNING</span>
+      <span class="marquee-item">SYSTEM PROMPT</span>
+      <span class="marquee-item">CHAIN OF THOUGHT</span>
+      <span class="marquee-item">FUNCTION CALLING</span>
+      <span class="marquee-item">MCP PROTOCOL</span>
+      <span class="marquee-item">WORKFLOWS</span>
+      <span class="marquee-item">AGENTS &amp; SUBAGENTS</span>
+      <span class="marquee-item">SKILLS.MD</span>
+      <span class="marquee-item">VIBE CODING</span>
+      <span class="marquee-item">GUARDRAILS &amp; SCOPES</span>
+    </div>
+  </div>
+
+  <!-- Primary 4-Class Deck -->
+  <nav class="class-deck-wrap" aria-label="Selector de clases">
+    <div class="class-deck">
+      <button class="class-card-btn active" data-class="clase-1">
+        <div class="class-card-top">
+          <span class="class-num">01</span>
+          <span class="badge-status badge-live">Activa</span>
+        </div>
+        <div class="class-name">El Despertar &amp; Prompting</div>
+        <div class="class-sub">2 Reels · Mapa Mental · Diapos</div>
       </button>
 
-      <button class="class-btn" data-class="clase-2">
-        <div>
-          <div class="class-btn-num">Clase 2</div>
-          <div class="class-btn-title">Markdown y Diapos TCS</div>
+      <button class="class-card-btn" data-class="clase-2">
+        <div class="class-card-top">
+          <span class="class-num">02</span>
+          <span class="badge-status badge-standby">Próximamente</span>
         </div>
-        <span class="status-dot status-soon">Próximamente</span>
+        <div class="class-name">Markdown &amp; Diapos TCS</div>
+        <div class="class-sub">MarkItDown · Cero AI Slop</div>
       </button>
 
-      <button class="class-btn" data-class="clase-3">
-        <div>
-          <div class="class-btn-num">Clase 3</div>
-          <div class="class-btn-title">Datos y Dashboards</div>
+      <button class="class-card-btn" data-class="clase-3">
+        <div class="class-card-top">
+          <span class="class-num">03</span>
+          <span class="badge-status badge-standby">Próximamente</span>
         </div>
-        <span class="status-dot status-soon">Próximamente</span>
+        <div class="class-name">Datos &amp; Dashboards</div>
+        <div class="class-sub">Auditoría · Vibe Coding</div>
       </button>
 
-      <button class="class-btn" data-class="clase-4">
-        <div>
-          <div class="class-btn-num">Clase 4</div>
-          <div class="class-btn-title">Skills, MCP y Seguridad</div>
+      <button class="class-card-btn" data-class="clase-4">
+        <div class="class-card-top">
+          <span class="class-num">04</span>
+          <span class="badge-status badge-standby">Próximamente</span>
         </div>
-        <span class="status-dot status-soon">Próximamente</span>
+        <div class="class-name">Skills, MCP &amp; Seguridad</div>
+        <div class="class-sub">Agentes · NVIDIA SkillSpector</div>
       </button>
     </div>
   </nav>
 
-  <main class="main">
+  <!-- Stage -->
+  <main class="stage">
 
     <!-- ==================== CLASE 1 ==================== -->
     <section id="clase-1" class="class-panel active">
-      <div class="class-header">
-        <div>
-          <div class="class-eyebrow">Sesión 1 · 120 Minutos · Disponible</div>
-          <h2>Clase 1: El Despertar — Del Mecanismo al Prompt Profesional</h2>
-          <p>Desmitifica la mecánica matemática detrás de los LLMs, evalúa tu nivel con los 20 conceptos de frontera y domina la metodología Mentor 3.0 para redactar prompts ejecutivos auditables.</p>
+      <div class="subtabs-bar">
+        <div class="subtabs" role="tablist" aria-label="Pestañas de la Clase 1">
+          <button class="subtab-btn active" role="tab" aria-selected="true" data-subtab="c1-videos">
+            🎬 01 · Videos Motion Graphics (2)
+          </button>
+          <button class="subtab-btn" role="tab" aria-selected="false" data-subtab="c1-mindmap">
+            🧠 02 · Mapa Mental Interactivo
+          </button>
+          <button class="subtab-btn" role="tab" aria-selected="false" data-subtab="c1-slides">
+            🖥️ 03 · Diapositivas (Módulo 1)
+          </button>
         </div>
+        <span class="brand-sub">SESIÓN 01 // 120 MINUTOS // EN VIVO</span>
       </div>
 
-      <!-- Clase 1 Sub-tabs -->
-      <div class="subtabs" role="tablist" aria-label="Recursos de la Clase 1">
-        <button class="subtab-btn active" role="tab" aria-selected="true" data-subtab="c1-video">
-          🎬 1. Video Introductorio
-        </button>
-        <button class="subtab-btn" role="tab" aria-selected="false" data-subtab="c1-mindmap">
-          🧠 2. Mapa Mental del Curso
-        </button>
-        <button class="subtab-btn" role="tab" aria-selected="false" data-subtab="c1-slides">
-          🖥️ 3. Diapositivas (Módulo 1)
-        </button>
-      </div>
+      <!-- PESTAÑA 1: VIDEOS MOTION GRAPHICS -->
+      <div id="c1-videos" class="subtab-panel active">
+        <div class="reel-controls-bar">
+          <div class="reel-switcher">
+            <button class="k-btn active" data-reel="reel-1">▶ Reel 01 · Hook 20 Conceptos</button>
+            <button class="k-btn" data-reel="reel-2">▶ Reel 02 · Mejores IAs &amp; Logos</button>
+            <button class="k-btn" id="btn-dual-reels">⊞ Ver ambos en paralelo</button>
+          </div>
+          <span class="brand-sub">FORMATO 9:16 · 720×1280 · 60 FPS</span>
+        </div>
 
-      <!-- Tab 1: Video Introductorio -->
-      <div id="c1-video" class="subtab-panel active">
-        <div class="video-grid stagger">
-          <div>
-            <div class="video-frame-wrap">
-              <video id="intro-video" controls playsinline preload="metadata">
-                <source src="clase-1/hook_20_conceptos_IA_TCS_FINAL.mp4" type="video/mp4" />
-                Tu navegador no soporta reproducción de video HTML5.
-              </video>
-            </div>
-            <div class="video-meta-bar">
-              <span>Hook Diagnóstico · 16.5s · 9:16</span>
-              <a href="clase-1/hook_20_conceptos_IA_TCS_FINAL.mp4" download class="btn">Descargar MP4</a>
+        <div class="reels-layout" id="reels-layout">
+          <!-- Reel 1 Player -->
+          <div class="reel-slot active" id="slot-reel-1">
+            <div class="video-chassis">
+              <div class="video-viewport">
+                <video id="vid-reel-1" controls playsinline preload="metadata">
+                  <source src="clase-1/hook_20_conceptos_IA_TCS_FINAL.mp4" type="video/mp4" />
+                </video>
+              </div>
+              <div class="video-hud-bar">
+                <span>REEL_01 // HOOK_20_CONCEPTOS.MP4</span>
+                <a class="k-btn" style="padding:4px 9px;font-size:10px;" href="clase-1/hook_20_conceptos_IA_TCS_FINAL.mp4" download>↓ MP4</a>
+              </div>
             </div>
           </div>
 
-          <div class="card">
-            <div class="class-eyebrow">Dinámica de Apertura · Primeros 10 Minutos</div>
-            <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 4px;">El Hook Diagnóstico: Los 20 Conceptos de la Frontera de IA</h3>
-
-            <div class="quote-box">
-              <strong>Pregunta Filtro:</strong> "¿Cuántos de estos 20 conceptos dominas y aplicas hoy en tu jornada laboral? Si comprendes y utilizas los 20, te encuentras en el <strong>1% avanzado</strong> que ya automatiza operaciones complejas de punta a punta."
-            </div>
-
-            <div class="diag-levels">
-              <div class="diag-card level-1">
-                <strong>Menos de 5</strong>
-                <span>Uso Casual · Interacción intuitiva tipo chatbot.</span>
+          <!-- Reel 2 Player -->
+          <div class="reel-slot" id="slot-reel-2">
+            <div class="video-chassis">
+              <div class="video-viewport">
+                <video id="vid-reel-2" controls playsinline preload="metadata">
+                  <source src="clase-1/motion_graphics_mejores_IAs_logos_v2.mp4" type="video/mp4" />
+                </video>
               </div>
-              <div class="diag-card level-2">
-                <strong>5 a 15</strong>
-                <span>Operador · Aplica prompts y flujos asistidos.</span>
-              </div>
-              <div class="diag-card level-3">
-                <strong>Los 20</strong>
-                <span>1% Avanzado · Automatización con agentes de punta a punta.</span>
+              <div class="video-hud-bar">
+                <span>REEL_02 // MEJORES_IAS_LOGOS_V2.MP4</span>
+                <a class="k-btn" style="padding:4px 9px;font-size:10px;" href="clase-1/motion_graphics_mejores_IAs_logos_v2.mp4" download>↓ MP4</a>
               </div>
             </div>
+          </div>
 
-            <div class="families-grid">
-              <div class="family-box">
-                <h4>🧩 1. Fundamentos Técnicos</h4>
-                <div class="chip-list">
-                  <span class="chip">Tokens</span>
-                  <span class="chip">Ventana de Contexto</span>
-                  <span class="chip">Embeddings</span>
-                  <span class="chip">RAG</span>
-                  <span class="chip">Fine-Tuning</span>
+          <!-- Right Dynamic Context Panel -->
+          <div class="k-card reel-context">
+            <!-- Context for Reel 1 -->
+            <div class="context-block active" id="ctx-reel-1">
+              <div class="eyebrow">REEL 01 · DINÁMICA DE APERTURA (10 MIN)</div>
+              <h2 style="font-family:var(--font-display);font-size:clamp(22px,2.4vw,30px);text-transform:uppercase;line-height:1.1;">
+                El Hook Diagnóstico: Los 20 Conceptos de la Frontera de IA
+              </h2>
+
+              <div class="k-quote">
+                <strong>Pregunta Filtro:</strong> "¿Cuántos de estos 20 conceptos dominas y aplicas hoy en tu jornada laboral? Si comprendes y utilizas los 20, estás en el <strong style="color:var(--volt);">1% avanzado</strong> que ya automatiza operaciones complejas de punta a punta."
+              </div>
+
+              <div class="levels-grid">
+                <div class="level-tile l1">
+                  <strong>&lt; 5 Conceptos</strong>
+                  <span>Uso Casual · Chatbot intuitivo sin metodología.</span>
+                </div>
+                <div class="level-tile l2">
+                  <strong>5 a 15 Conceptos</strong>
+                  <span>Operador · Flujos asistidos y prompts estructurados.</span>
+                </div>
+                <div class="level-tile l3">
+                  <strong>Los 20 Conceptos</strong>
+                  <span>1% Avanzado · Orquestación de agentes de punta a punta.</span>
                 </div>
               </div>
-              <div class="family-box">
-                <h4>⚙️ 2. Interacción y Lógica</h4>
-                <div class="chip-list">
-                  <span class="chip">Prompt</span>
-                  <span class="chip">System Prompt</span>
-                  <span class="chip">Razonamiento paso a paso</span>
-                  <span class="chip">Chain of Thought</span>
-                  <span class="chip">Function Calling</span>
-                  <span class="chip">MCP</span>
+
+              <div class="families-grid">
+                <div class="family-tile">
+                  <h4>🧩 01 · Fundamentos</h4>
+                  <div class="chip-wrap">
+                    <span class="chip">Tokens</span>
+                    <span class="chip">Ventana Contexto</span>
+                    <span class="chip">Embeddings</span>
+                    <span class="chip">RAG</span>
+                    <span class="chip">Fine-Tuning</span>
+                  </div>
+                </div>
+                <div class="family-tile">
+                  <h4>⚙️ 02 · Interacción</h4>
+                  <div class="chip-wrap">
+                    <span class="chip">Prompt</span>
+                    <span class="chip">System Prompt</span>
+                    <span class="chip">Paso a paso</span>
+                    <span class="chip">Chain of Thought</span>
+                    <span class="chip">Function Calling</span>
+                    <span class="chip">MCP</span>
+                  </div>
+                </div>
+                <div class="family-tile">
+                  <h4>🤖 03 · Autónomos</h4>
+                  <div class="chip-wrap">
+                    <span class="chip">Workflows</span>
+                    <span class="chip">Loops</span>
+                    <span class="chip">Hooks</span>
+                    <span class="chip">Agents</span>
+                    <span class="chip">Subagents</span>
+                    <span class="chip">Skills</span>
+                    <span class="chip">Vibe Coding</span>
+                    <span class="chip">Guardrails</span>
+                    <span class="chip">Scopes</span>
+                  </div>
                 </div>
               </div>
-              <div class="family-box">
-                <h4>🤖 3. Sistemas Autónomos</h4>
-                <div class="chip-list">
-                  <span class="chip">Workflows</span>
-                  <span class="chip">Loops</span>
-                  <span class="chip">Hooks</span>
-                  <span class="chip">Agents</span>
-                  <span class="chip">Subagents</span>
-                  <span class="chip">Skills</span>
-                  <span class="chip">Vibe Coding</span>
-                  <span class="chip">Guardrails</span>
-                  <span class="chip">Scopes</span>
+            </div>
+
+            <!-- Context for Reel 2 -->
+            <div class="context-block" id="ctx-reel-2">
+              <div class="eyebrow">REEL 02 · ECOSISTEMA Y MAPA DE HERRAMIENTAS (00:45 – 01:05)</div>
+              <h2 style="font-family:var(--font-display);font-size:clamp(22px,2.4vw,30px);text-transform:uppercase;line-height:1.1;">
+                Motion Graphics: Mejores IAs y Cuándo Usar Cada Una
+              </h2>
+
+              <div class="k-quote">
+                No existe una única IA para todo. El profesional del 1% selecciona el motor según <strong>ventana de contexto, estilo de redacción, auditoría de instrucciones y automatización</strong>.
+              </div>
+
+              <div class="tools-grid">
+                <div class="tool-tile">
+                  <h4>Claude</h4>
+                  <p>Redacción de estilo natural, seguimiento estricto de directivas complejas, generación de interfaces limpias y menor AI Slop.</p>
+                </div>
+                <div class="tool-tile">
+                  <h4>ChatGPT</h4>
+                  <p>Versatilidad general para oficina, ecosistema maduro de Custom GPTs, razonamiento rápido y automatizaciones masivas.</p>
+                </div>
+                <div class="tool-tile">
+                  <h4>Gemini</h4>
+                  <p>Manejo nativo de millones de tokens de contexto: libros completos, grabaciones de reuniones, repositorios y Google Workspace.</p>
                 </div>
               </div>
             </div>
@@ -852,112 +1444,97 @@
         </div>
       </div>
 
-      <!-- Tab 2: Mapa Mental -->
+      <!-- PESTAÑA 2: MAPA MENTAL INTERACTIVO -->
       <div id="c1-mindmap" class="subtab-panel">
-        <div class="card">
-          <div class="mindmap-toolbar">
-            <div class="btn-group" role="group" aria-label="Modo de visualización del mapa mental">
-              <button class="btn active" data-mm-view="interactive">🗺️ Mapa Interactivo</button>
-              <button class="btn" data-mm-view="markdown">📝 Formato 1: Markdown</button>
-              <button class="btn" data-mm-view="mermaid">📊 Formato 2: Mermaid</button>
+        <div class="k-card">
+          <div class="mm-toolbar">
+            <div class="reel-switcher">
+              <button class="k-btn active" data-mm-view="interactive">🗺️ Mapa Interactivo</button>
+              <button class="k-btn" data-mm-view="markdown">📝 Formato 1: Markdown</button>
+              <button class="k-btn" data-mm-view="mermaid">📊 Formato 2: Mermaid</button>
             </div>
-            <div class="btn-group" id="mm-controls">
-              <button class="btn" id="mm-zoom-in">+ Zoom</button>
-              <button class="btn" id="mm-zoom-out">− Zoom</button>
-              <button class="btn" id="mm-fit">Ajustar Vista</button>
-              <button class="btn" id="mm-copy" style="display:none;">📋 Copiar Código</button>
+            <div class="reel-switcher">
+              <button class="k-btn" id="mm-zoom-in">+ Zoom</button>
+              <button class="k-btn" id="mm-zoom-out">− Zoom</button>
+              <button class="k-btn" id="mm-fit">Ajustar Vista</button>
+              <button class="k-btn k-btn-volt" id="mm-copy" style="display:none;">📋 Copiar Código</button>
             </div>
           </div>
 
-          <div id="mm-interactive-wrap" class="mindmap-canvas-wrap">
+          <div id="mm-interactive-wrap" class="mm-canvas-box">
             <svg id="mindmap-svg"></svg>
-            <div class="mindmap-hint">Haz clic en los círculos para expandir/colapsar ramas · Arrastra para mover · Rueda para zoom</div>
+            <div class="mm-hint">CLIC EN CÍRCULOS: EXPANDIR / COLAPSAR · ARRASTRAR: MOVER · RUEDA: ZOOM</div>
           </div>
 
-          <pre id="mm-markdown-view" class="code-view"></pre>
-          <pre id="mm-mermaid-view" class="code-view"></pre>
+          <pre id="mm-markdown-view" class="code-box"></pre>
+          <pre id="mm-mermaid-view" class="code-box"></pre>
         </div>
       </div>
 
-      <!-- Tab 3: Diapositivas -->
+      <!-- PESTAÑA 3: DIAPOSITIVAS -->
       <div id="c1-slides" class="subtab-panel">
-        <div class="slides-toolbar">
+        <div class="slides-bar">
           <div>
-            <strong>TCS · Módulo 1 · ¿Qué está detrás de la IA?</strong>
-            <span style="color: var(--ink-muted); font-size: 13px; margin-left: 8px;">Usa las flechas ← → dentro de la presentación para navegar</span>
+            <span class="eyebrow" style="margin-bottom:4px;">DECK INTERACTIVO · MÓDULO 1</span>
+            <div style="font-size:14px;color:var(--slate);">Navega con las flechas ← → dentro de la presentación o ábrela en pantalla completa.</div>
           </div>
-          <div class="btn-group">
-            <button class="btn" id="btn-fullscreen-slides">⛶ Pantalla Completa</button>
-            <a class="btn btn-primary" href="clase-1/slides.html" target="_blank" rel="noopener">↗ Abrir en pestaña nueva</a>
+          <div class="reel-switcher">
+            <button class="k-btn" id="btn-fullscreen-slides">⛶ Pantalla Completa</button>
+            <a class="k-btn k-btn-volt" href="clase-1/slides.html" target="_blank" rel="noopener">↗ Abrir en pestaña nueva</a>
           </div>
         </div>
-        <div class="slides-frame-wrap" id="slides-container">
-          <iframe
-            id="slides-iframe"
-            src="clase-1/slides.html"
-            title="Diapositivas Clase 1 — TCS Módulo 1"
-            allowfullscreen
-          ></iframe>
+        <div class="slides-shell" id="slides-container">
+          <iframe src="clase-1/slides.html" title="Diapositivas Clase 1 — TCS Módulo 1" allowfullscreen></iframe>
         </div>
       </div>
     </section>
 
     <!-- ==================== CLASE 2 ==================== -->
     <section id="clase-2" class="class-panel">
-      <div class="class-header">
+      <div class="standby-banner">
         <div>
-          <div class="class-eyebrow">Sesión 2 · 120 Minutos · Próximamente</div>
-          <h2>Clase 2: Documentos Limpios — Markdown, MarkItDown y Diapositivas TCS</h2>
-          <p>Abandona los formatos binarios en favor del texto plano estructurado, convierte documentos complejos con Microsoft MarkItDown y diseña presentaciones ejecutivas sin AI Slop.</p>
+          <strong>SESSION_02 // PRÓXIMAMENTE — CONTINUARÁ</strong>
+          <p>Documentos Limpios: Markdown, Microsoft MarkItDown y Presentaciones Ejecutivas TCS sin AI Slop.</p>
         </div>
+        <span class="badge-status badge-standby">120 MINUTOS</span>
       </div>
 
-      <div class="soon-banner">
-        <div>
-          <strong>⏳ Contenido en preparación — Continuará</strong>
-          <p>Al habilitarse esta sesión encontrarás aquí sus pestañas de recursos, taller en vivo y diapositivas oficiales.</p>
-        </div>
-        <span class="pill">Sesión 2 de 4</span>
-      </div>
-
-      <div class="pillars-grid stagger">
-        <div class="pillar-card">
+      <div class="pillars-grid">
+        <div class="pillar-box">
           <h3>🔬 Qué está detrás</h3>
           <ul>
-            <li>Por qué los Transformers procesan hasta 10× mejor Markdown (<code>.md</code>) que Word o PDF.</li>
+            <li>Por qué los Transformers razonan hasta <strong>10× mejor</strong> sobre Markdown (<code>.md</code>) que sobre Word o PDF.</li>
             <li>Procesamiento lineal continuo sin metadatos binarios que fragmenten tokens.</li>
             <li>Preservación determinista de tablas para análisis exacto.</li>
           </ul>
         </div>
-        <div class="pillar-card">
+        <div class="pillar-box">
           <h3>🛠️ Aplicación diaria</h3>
           <ul>
-            <li>Taller práctico con <strong>Microsoft MarkItDown</strong> (PDFs, Excel y PPTX a Markdown).</li>
-            <li>Laboratorio de Diapositivas TCS sin <em>AI Slop</em>: titulares de acción concluyentes.</li>
-            <li>Estándar visual TCS: paleta 65/25/10 y tipografía Calibri Light/Bold.</li>
+            <li>Taller en vivo con <strong>Microsoft MarkItDown</strong> (PDFs, Excel, PPTX → Markdown).</li>
+            <li>Laboratorio de Diapositivas TCS: paleta 65/25/10 y tipografía Calibri.</li>
+            <li>Eliminación sistemática de <em>AI Slop</em> y titulares de acción concluyentes.</li>
           </ul>
         </div>
-        <div class="pillar-card pillar-deliverable">
+        <div class="pillar-box">
           <h3>🎯 Entregable del alumno</h3>
           <ul>
-            <li><strong>Estructura completa de 8 diapositivas corporativas en Markdown</strong>, lista para integrarse en la plantilla oficial de TCS.</li>
-            <li>Evaluación sobre rúbrica de 10 puntos (C1–C4).</li>
+            <li><strong>Guion completo de 8 diapositivas corporativas en Markdown</strong> listo para la plantilla oficial de TCS.</li>
+            <li>Evaluación sobre rúbrica cuantitativa de 10 puntos.</li>
           </ul>
         </div>
       </div>
 
-      <div class="card">
-        <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 6px;">Cronograma de lo que se abordará (120 min)</h3>
-        <table class="timeline-table">
-          <thead>
-            <tr><th>Bloque</th><th>Duración</th><th>Tema</th></tr>
-          </thead>
+      <div class="k-card">
+        <div class="eyebrow">CRONOGRAMA PREVISTO · 120 MINUTOS</div>
+        <table class="k-table">
+          <thead><tr><th>Bloque</th><th>Duración</th><th>Contenido</th></tr></thead>
           <tbody>
-            <tr><td class="time-badge">00:00 – 00:10</td><td>10 min</td><td>Calibración y retroalimentación de los prompts de la Clase 1.</td></tr>
-            <tr><td class="time-badge">00:10 – 00:30</td><td>20 min</td><td>La supremacía del texto plano: Markdown vs. binarios en Transformers.</td></tr>
-            <tr><td class="time-badge">00:30 – 01:05</td><td>35 min</td><td>Taller práctico con Microsoft <code>markitdown</code> sobre documentos heterogéneos.</td></tr>
-            <tr><td class="time-badge">01:05 – 01:50</td><td>45 min</td><td>Laboratorio de Diapositivas Corporativas TCS sin AI Slop (65/25/10).</td></tr>
-            <tr><td class="time-badge">01:50 – 02:00</td><td>10 min</td><td>Síntesis y entrega de plantilla de sintaxis Markdown.</td></tr>
+            <tr><td class="mono-time">00:00 – 00:10</td><td>10 min</td><td>Calibración y retroalimentación de los prompts de la Clase 1.</td></tr>
+            <tr><td class="mono-time">00:10 – 00:30</td><td>20 min</td><td>La supremacía del texto plano: Markdown vs. formatos binarios.</td></tr>
+            <tr><td class="mono-time">00:30 – 01:05</td><td>35 min</td><td>Taller práctico con Microsoft <code>markitdown</code>.</td></tr>
+            <tr><td class="mono-time">01:05 – 01:50</td><td>45 min</td><td>Laboratorio de Diapositivas Corporativas TCS sin AI Slop.</td></tr>
+            <tr><td class="mono-time">01:50 – 02:00</td><td>10 min</td><td>Síntesis y entrega de plantilla Markdown.</td></tr>
           </tbody>
         </table>
       </div>
@@ -965,58 +1542,48 @@
 
     <!-- ==================== CLASE 3 ==================== -->
     <section id="clase-3" class="class-panel">
-      <div class="class-header">
+      <div class="standby-banner">
         <div>
-          <div class="class-eyebrow">Sesión 3 · 120 Minutos · Próximamente</div>
-          <h2>Clase 3: Decisiones con Datos — Análisis y Dashboards sin Programar</h2>
-          <p>Interroga datos cuantitativos en lenguaje natural, aplica el protocolo de auditoría algebraica para evitar errores probabilísticos y prototipa tableros interactivos con Vibe Coding.</p>
+          <strong>SESSION_03 // PRÓXIMAMENTE — CONTINUARÁ</strong>
+          <p>Decisiones con Datos: Análisis en Lenguaje Natural, Protocolo de Auditoría y Dashboards con Vibe Coding.</p>
         </div>
+        <span class="badge-status badge-standby">120 MINUTOS</span>
       </div>
 
-      <div class="soon-banner">
-        <div>
-          <strong>⏳ Contenido en preparación — Continuará</strong>
-          <p>Próximamente se habilitarán los datasets de práctica, plantillas de auditoría y diapositivas de esta sesión.</p>
-        </div>
-        <span class="pill">Sesión 3 de 4</span>
-      </div>
-
-      <div class="pillars-grid stagger">
-        <div class="pillar-card">
+      <div class="pillars-grid">
+        <div class="pillar-box">
           <h3>🔬 Qué está detrás</h3>
           <ul>
-            <li>Predicción probabilística vs. cálculo aritmético exacto.</li>
-            <li>Por qué un LLM genera cifras con apariencia de certeza absoluta aunque falle el cálculo.</li>
-            <li>Validación de fórmulas y pasos intermedios antes de aceptar conclusiones.</li>
+            <li>Predicción probabilística vs. <strong>cálculo aritmético exacto</strong>.</li>
+            <li>Por qué un LLM genera cifras con apariencia de certeza aun cuando falla.</li>
+            <li>Validación algebraica paso a paso antes de aprobar KPIs.</li>
           </ul>
         </div>
-        <div class="pillar-card">
+        <div class="pillar-box">
           <h3>🛠️ Aplicación diaria</h3>
           <ul>
-            <li>Carga y limpieza asistida de archivos CSV / Excel (anomalías y atípicos).</li>
-            <li>Protocolo de Auditoría: exigir lógica algebraica y fórmulas paso a paso.</li>
+            <li>Carga y limpieza asistida de archivos CSV y Excel.</li>
+            <li><strong>Protocolo de Auditoría</strong>: exigir fórmulas y lógica intermedia.</li>
             <li>Prototipado de Dashboards HTML/JS interactivos mediante <strong>Vibe Coding</strong>.</li>
           </ul>
         </div>
-        <div class="pillar-card pillar-deliverable">
+        <div class="pillar-box">
           <h3>🎯 Entregable del alumno</h3>
           <ul>
-            <li><strong>Informe analítico cuantitativo</strong> con tabla de KPIs auditada y <strong>prototipo de dashboard interactivo funcional</strong> para comité de dirección.</li>
+            <li><strong>Informe analítico cuantitativo</strong> con tabla de KPIs auditada y <strong>dashboard interactivo funcional</strong> para comité de dirección.</li>
           </ul>
         </div>
       </div>
 
-      <div class="card">
-        <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 6px;">Cronograma de lo que se abordará (120 min)</h3>
-        <table class="timeline-table">
-          <thead>
-            <tr><th>Bloque</th><th>Duración</th><th>Tema</th></tr>
-          </thead>
+      <div class="k-card">
+        <div class="eyebrow">CRONOGRAMA PREVISTO · 120 MINUTOS</div>
+        <table class="k-table">
+          <thead><tr><th>Bloque</th><th>Duración</th><th>Contenido</th></tr></thead>
           <tbody>
-            <tr><td class="time-badge">00:00 – 00:10</td><td>10 min</td><td>Dilema cuantitativo: certeza aparente vs. error probabilístico.</td></tr>
-            <tr><td class="time-badge">00:10 – 00:50</td><td>40 min</td><td>Análisis de datos en lenguaje natural, limpieza y Protocolo de Auditoría.</td></tr>
-            <tr><td class="time-badge">00:50 – 01:45</td><td>55 min</td><td>Prototipado de Dashboards HTML/JS interactivos con Vibe Coding.</td></tr>
-            <tr><td class="time-badge">01:45 – 02:00</td><td>15 min</td><td>Prueba cruzada de visualizaciones y resolución de dudas.</td></tr>
+            <tr><td class="mono-time">00:00 – 00:10</td><td>10 min</td><td>Dilema cuantitativo: certeza aparente vs. error probabilístico.</td></tr>
+            <tr><td class="mono-time">00:10 – 00:50</td><td>40 min</td><td>Análisis de datos en lenguaje natural, limpieza y Protocolo de Auditoría.</td></tr>
+            <tr><td class="mono-time">00:50 – 01:45</td><td>55 min</td><td>Prototipado de Dashboards interactivos HTML/JS con Vibe Coding.</td></tr>
+            <tr><td class="mono-time">01:45 – 02:00</td><td>15 min</td><td>Prueba cruzada de visualizaciones y resolución de dudas.</td></tr>
           </tbody>
         </table>
       </div>
@@ -1024,60 +1591,50 @@
 
     <!-- ==================== CLASE 4 ==================== -->
     <section id="clase-4" class="class-panel">
-      <div class="class-header">
+      <div class="standby-banner">
         <div>
-          <div class="class-eyebrow">Sesión 4 · 120 Minutos · Próximamente</div>
-          <h2>Clase 4: El Nivel Pro — Skills Modulares, MCP, Agentes y Seguridad</h2>
-          <p>Empaqueta tareas recurrentes en habilidades portables (<code>SKILL.md</code>), conecta agentes mediante el protocolo MCP y audita riesgos de seguridad corporativa con NVIDIA SkillSpector.</p>
+          <strong>SESSION_04 // PRÓXIMAMENTE — CONTINUARÁ</strong>
+          <p>El Nivel Pro: Skills Modulares (SKILL.md), Protocolo MCP, Orquestación Multiagente y Seguridad SkillSpector.</p>
         </div>
+        <span class="badge-status badge-standby">120 MINUTOS</span>
       </div>
 
-      <div class="soon-banner">
-        <div>
-          <strong>⏳ Contenido en preparación — Continuará</strong>
-          <p>Próximamente se habilitarán las plantillas de <code>SKILL.md</code>, checklist de seguridad y cierre de certificación.</p>
-        </div>
-        <span class="pill">Sesión 4 de 4</span>
-      </div>
-
-      <div class="pillars-grid stagger">
-        <div class="pillar-card">
+      <div class="pillars-grid">
+        <div class="pillar-box">
           <h3>🔬 Qué está detrás</h3>
           <ul>
             <li>Anatomía de una Skill modular (<code>SKILL.md</code>): frontmatter, triggers y validaciones.</li>
-            <li>Arquitectura de <strong>Function Calling</strong> y <strong>MCP (Model Context Protocol)</strong>.</li>
+            <li><strong>Function Calling</strong> y <strong>MCP (Model Context Protocol)</strong>.</li>
             <li>Bucles iterativos y orquestación multiagente (planificador, ejecutor, revisor).</li>
           </ul>
         </div>
-        <div class="pillar-card">
+        <div class="pillar-box">
           <h3>🛠️ Aplicación diaria</h3>
           <ul>
             <li>Taller de creación de Skill corporativa (ej. <code>auditor-diseno-tcs</code>).</li>
             <li>Portabilidad universal en ChatGPT, Claude y entornos de desarrollo.</li>
-            <li>Auditoría con <strong>NVIDIA SkillSpector</strong>: contención de EA1–EA3 y OH1–OH3.</li>
+            <li>Auditoría con <strong>NVIDIA SkillSpector</strong> (EA1–EA3 y OH1–OH3).</li>
           </ul>
         </div>
-        <div class="pillar-card pillar-deliverable">
+        <div class="pillar-box">
           <h3>🎯 Entregable del alumno</h3>
           <ul>
-            <li><strong>Archivo <code>SKILL.md</code> funcional</strong>, validado contra riesgos de seguridad e implementado en al menos <strong>dos plataformas distintas de IA</strong>.</li>
+            <li><strong>Archivo <code>SKILL.md</code> funcional</strong>, auditado en seguridad e implementado en al menos <strong>2 plataformas distintas de IA</strong>.</li>
           </ul>
         </div>
       </div>
 
-      <div class="card">
-        <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 6px;">Cronograma de lo que se abordará (120 min)</h3>
-        <table class="timeline-table">
-          <thead>
-            <tr><th>Bloque</th><th>Duración</th><th>Tema</th></tr>
-          </thead>
+      <div class="k-card">
+        <div class="eyebrow">CRONOGRAMA PREVISTO · 120 MINUTOS</div>
+        <table class="k-table">
+          <thead><tr><th>Bloque</th><th>Duración</th><th>Contenido</th></tr></thead>
           <tbody>
-            <tr><td class="time-badge">00:00 – 00:10</td><td>10 min</td><td>Recapitulación de madurez operativa alcanzada en el programa.</td></tr>
-            <tr><td class="time-badge">00:10 – 00:35</td><td>25 min</td><td>Deconstrucción de una Skill Modular (<code>SKILL.md</code>).</td></tr>
-            <tr><td class="time-badge">00:35 – 01:10</td><td>35 min</td><td>Taller de creación de una Skill corporativa a medida.</td></tr>
-            <tr><td class="time-badge">01:10 – 01:30</td><td>20 min</td><td>Portabilidad universal entre ChatGPT, Claude y herramientas de agentes.</td></tr>
-            <tr><td class="time-badge">01:30 – 01:50</td><td>20 min</td><td>Ecosistema MCP, multiagentes y auditoría con NVIDIA SkillSpector.</td></tr>
-            <tr><td class="time-badge">01:50 – 02:00</td><td>10 min</td><td>Evaluación de cierre, repositorio maestro y certificación.</td></tr>
+            <tr><td class="mono-time">00:00 – 00:10</td><td>10 min</td><td>Recapitulación de madurez operativa alcanzada en el programa.</td></tr>
+            <tr><td class="mono-time">00:10 – 00:35</td><td>25 min</td><td>Deconstrucción de una Skill Modular (<code>SKILL.md</code>).</td></tr>
+            <tr><td class="mono-time">00:35 – 01:10</td><td>35 min</td><td>Taller de creación de Skill corporativa a medida.</td></tr>
+            <tr><td class="mono-time">01:10 – 01:30</td><td>20 min</td><td>Portabilidad universal entre plataformas de IA.</td></tr>
+            <tr><td class="mono-time">01:30 – 01:50</td><td>20 min</td><td>Ecosistema MCP, multiagentes y auditoría NVIDIA SkillSpector.</td></tr>
+            <tr><td class="mono-time">01:50 – 02:00</td><td>10 min</td><td>Evaluación de cierre, repositorio maestro y certificación.</td></tr>
           </tbody>
         </table>
       </div>
@@ -1087,18 +1644,157 @@
 
   <footer class="footer">
     <div class="footer-inner">
-      <span><strong>Tata Consultancy Services (TCS)</strong> · IA LAB · TCS Confidential</span>
-      <span>Repositorio: <a href="https://github.com/jwvargas/tcs-clases-ia" target="_blank" rel="noopener">jwvargas/tcs-clases-ia</a></span>
+      <span>TATA CONSULTANCY SERVICES (TCS) // IA LAB // TCS CONFIDENTIAL</span>
+      <span>DEPLOY: <a href="https://github.com/jwvargas/tcs-clases-ia" target="_blank" rel="noopener">GITHUB.COM/JWVARGAS/TCS-CLASES-IA</a></span>
     </div>
   </footer>
 
-  <!-- Markmap + D3 for interactive mindmap -->
+  <!-- Markmap + D3 -->
   <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.17.2/dist/browser/index.iife.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.17.2/dist/browser/index.js"></script>
 
   <script>
-    // ==================== MINDMAP DATA ====================
+    // ==================== KINETIC PRELOADER ====================
+    (function runPreloader() {
+      const pre = document.getElementById('preloader');
+      const countEl = document.getElementById('pre-count');
+      const barEl = document.getElementById('pre-bar');
+      let p = 0;
+      const timer = setInterval(() => {
+        p += Math.floor(Math.random() * 18) + 12;
+        if (p >= 100) {
+          p = 100;
+          clearInterval(timer);
+          countEl.textContent = '100';
+          barEl.style.width = '100%';
+          setTimeout(() => {
+            pre.classList.add('done');
+            document.body.classList.add('revealed');
+          }, 180);
+        } else {
+          countEl.textContent = String(p).padStart(2, '0');
+          barEl.style.width = p + '%';
+        }
+      }, 45);
+    })();
+
+    // ==================== LIVE HUD CLOCK ====================
+    function updateClock() {
+      const now = new Date();
+      document.getElementById('hud-clock').textContent =
+        now.toTimeString().slice(0, 8) + ' LOC';
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    // ==================== SCROLL PROGRESS & TOPO PARALLAX ====================
+    const scrollBar = document.getElementById('scroll-progress');
+    window.addEventListener('scroll', () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      scrollBar.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
+    }, { passive: true });
+
+    // ==================== CUSTOM CURSOR + PARALLAX ====================
+    const dot = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    const topoSvg = document.getElementById('topo-svg');
+    let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+    let rx = mx, ry = my;
+
+    if (window.matchMedia('(pointer: fine)').matches) {
+      window.addEventListener('mousemove', e => {
+        mx = e.clientX;
+        my = e.clientY;
+        dot.style.left = mx + 'px';
+        dot.style.top = my + 'px';
+
+        const px = (mx / window.innerWidth - 0.5) * 18;
+        const py = (my / window.innerHeight - 0.5) * 18;
+        topoSvg.style.transform = `translate3d(${-px}px, ${-py}px, 0)`;
+      }, { passive: true });
+
+      (function animateRing() {
+        rx += (mx - rx) * 0.16;
+        ry += (my - ry) * 0.16;
+        ring.style.left = rx + 'px';
+        ring.style.top = ry + 'px';
+        requestAnimationFrame(animateRing);
+      })();
+
+      document.querySelectorAll('button, a, video').forEach(el => {
+        el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+        el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+      });
+    }
+
+    // ==================== CLASS NAVIGATION ====================
+    document.querySelectorAll('.class-card-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.class;
+        document.querySelectorAll('.class-card-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.class-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(target).classList.add('active');
+      });
+    });
+
+    // ==================== CLASE 1 SUBTABS ====================
+    let markmapInstance = null;
+
+    document.querySelectorAll('.subtab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.subtab;
+        document.querySelectorAll('.subtab-btn').forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        document.querySelectorAll('.subtab-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        document.getElementById(target).classList.add('active');
+
+        if (target === 'c1-mindmap') initMarkmapOnce();
+      });
+    });
+
+    // ==================== REEL SWITCHER (2 MOTION GRAPHICS VIDEOS) ====================
+    const reelsLayout = document.getElementById('reels-layout');
+    const dualBtn = document.getElementById('btn-dual-reels');
+    const reelButtons = document.querySelectorAll('[data-reel]');
+
+    reelButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.reel;
+        reelsLayout.classList.remove('dual-mode');
+        dualBtn.classList.remove('active');
+        reelButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        document.querySelectorAll('.reel-slot').forEach(s => s.classList.remove('active'));
+        document.getElementById('slot-' + id).classList.add('active');
+
+        document.querySelectorAll('.context-block').forEach(c => c.classList.remove('active'));
+        document.getElementById('ctx-' + id).classList.add('active');
+
+        // Pause inactive video
+        const v1 = document.getElementById('vid-reel-1');
+        const v2 = document.getElementById('vid-reel-2');
+        if (id === 'reel-1') v2.pause(); else v1.pause();
+      });
+    });
+
+    dualBtn.addEventListener('click', () => {
+      const isDual = reelsLayout.classList.toggle('dual-mode');
+      dualBtn.classList.toggle('active', isDual);
+      if (isDual) {
+        reelButtons.forEach(b => b.classList.remove('active'));
+      } else {
+        document.querySelector('[data-reel="reel-1"]').click();
+      }
+    });
+
+    // ==================== MINDMAP DATA & MARKMAP ====================
     const MINDMAP_MARKDOWN = `# 🧠 ¿Qué está detrás de la IA y cómo aplicarlo en tu día a día? (TCS)
 - 🎯 El Hook Diagnóstico: Los 20 Conceptos de la Frontera de IA
   - 🧩 1. Fundamentos Técnicos
@@ -1262,70 +1958,34 @@
       ("🎯 Entregable del alumno")
         ("📦 SKILL.md validado en 2 plataformas")`;
 
-    // Populate text views
     document.getElementById('mm-markdown-view').textContent = MINDMAP_MARKDOWN;
     document.getElementById('mm-mermaid-view').textContent = MINDMAP_MERMAID;
-
-    // ==================== CLASS NAVIGATION ====================
-    document.querySelectorAll('.class-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const target = btn.dataset.class;
-        document.querySelectorAll('.class-btn').forEach(b => b.classList.remove('active'));
-        document.querySelectorAll('.class-panel').forEach(p => p.classList.remove('active'));
-        btn.classList.add('active');
-        document.getElementById(target).classList.add('active');
-      });
-    });
-
-    // ==================== CLASE 1 SUBTABS ====================
-    let markmapInstance = null;
 
     function initMarkmapOnce() {
       if (markmapInstance) {
         setTimeout(() => markmapInstance.fit(), 60);
         return;
       }
-      if (!window.markmap || !window.markmap.Transformer || !window.markmap.Markmap) {
-        return;
-      }
+      if (!window.markmap || !window.markmap.Transformer || !window.markmap.Markmap) return;
       const { Transformer, Markmap } = window.markmap;
       const transformer = new Transformer();
       const { root } = transformer.transform(MINDMAP_MARKDOWN);
       const svg = document.getElementById('mindmap-svg');
-      const tcsColors = ['#0076CE', '#000000', '#005A9E', '#D99B00', '#0F7B4F'];
+      const kineticColors = ['#D2FF00', '#00A8FF', '#F2B705', '#F4F4F0', '#0076CE'];
 
       markmapInstance = Markmap.create(svg, {
         autoFit: true,
-        duration: 400,
+        duration: 420,
         paddingX: 16,
-        spacingHorizontal: 90,
-        spacingVertical: 8,
+        spacingHorizontal: 92,
+        spacingVertical: 9,
         initialExpandLevel: 2,
-        color: node => tcsColors[(node.state?.path?.split('.')[1] || 0) % tcsColors.length]
+        color: node => kineticColors[(node.state?.path?.split('.')[1] || 0) % kineticColors.length]
       }, root);
 
       setTimeout(() => markmapInstance.fit(), 120);
     }
 
-    document.querySelectorAll('.subtab-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const target = btn.dataset.subtab;
-        document.querySelectorAll('.subtab-btn').forEach(b => {
-          b.classList.remove('active');
-          b.setAttribute('aria-selected', 'false');
-        });
-        document.querySelectorAll('.subtab-panel').forEach(p => p.classList.remove('active'));
-        btn.classList.add('active');
-        btn.setAttribute('aria-selected', 'true');
-        document.getElementById(target).classList.add('active');
-
-        if (target === 'c1-mindmap') {
-          initMarkmapOnce();
-        }
-      });
-    });
-
-    // ==================== MINDMAP VIEW TOGGLE & CONTROLS ====================
     let currentMmView = 'interactive';
     const mmInteractiveWrap = document.getElementById('mm-interactive-wrap');
     const mmMarkdownView = document.getElementById('mm-markdown-view');
@@ -1364,10 +2024,10 @@
       try {
         await navigator.clipboard.writeText(text);
         const orig = btnCopy.textContent;
-        btnCopy.textContent = '✓ Copiado';
+        btnCopy.textContent = '✓ COPIADO';
         setTimeout(() => { btnCopy.textContent = orig; }, 1600);
       } catch (e) {
-        alert('No se pudo copiar automáticamente. Selecciona el texto manualmente.');
+        alert('No se pudo copiar automáticamente.');
       }
     });
 

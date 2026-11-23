@@ -1695,10 +1695,27 @@
             </div>
 
             <div class="reel-nav">
-              <a class="ed-btn ed-btn-light active" href="https://chatgpt.com/g/g-68eebb3b3f208191a3f9237d75d7c21b-mentor-de-prompts-3-0/" target="_blank" rel="noopener">Abrir Mentor de Prompts 3.0 ↗</a>
+              <a class="ed-btn ed-btn-light active" href="https://chatgpt.com/g/g-68eebb3b3f208191a3f9237d75d7c21b-mentor-de-prompts-3-0/" target="_blank" rel="noopener">Abrir Mentor 3.0 en ChatGPT ↗</a>
               <button class="ed-btn ed-btn-light" id="btn-copy-mentor" type="button">Copiar Enlace</button>
+              <a class="ed-btn ed-btn-light" href="clase-1/skills/SKILL.md" download="SKILL.md">↓ Descargar SKILL.md</a>
+              <a class="ed-btn ed-btn-light" href="clase-1/skills/Mentor_de_Prompts.docx" download="Mentor_de_Prompts.docx">↓ Descargar Word (.docx)</a>
             </div>
           </div>
+        </div>
+
+        <!-- Live SKILL.md Viewer & 1-Click Copier -->
+        <div class="mm-shell" style="margin-top:20px;">
+          <div class="mm-bar">
+            <div>
+              <span class="nav-prog">ARCHIVO PORTABLE // SKILL.MD — MENTOR DE PROMPTS 3.0</span>
+              <div style="font-size:13px;color:var(--ink-soft);margin-top:2px;">Copia o descarga esta Skill para usarla en ChatGPT, Claude Projects, Cursor o Antigravity.</div>
+            </div>
+            <div class="reel-nav">
+              <button class="ed-btn ed-btn-light active" id="btn-copy-skill" type="button">Copiar SKILL.md</button>
+              <a class="ed-btn ed-btn-light" href="clase-1/skills/SKILL.md" download="SKILL.md">↓ SKILL.md</a>
+            </div>
+          </div>
+          <pre id="skill-md-preview" class="code-pane active" style="max-height:420px;" data-dark-zone>Cargando SKILL.md...</pre>
         </div>
       </div>
     </section>
@@ -2252,6 +2269,28 @@
           const orig = copyMentorBtn.textContent;
           copyMentorBtn.textContent = 'Enlace Copiado';
           setTimeout(() => { copyMentorBtn.textContent = orig; }, 1600);
+        } catch (e) {}
+      });
+    }
+
+    // Load & Copy Mentor de Prompts 3.0 SKILL.md
+    let skillMdText = '';
+    const skillPre = document.getElementById('skill-md-preview');
+    const copySkillBtn = document.getElementById('btn-copy-skill');
+    if (skillPre) {
+      fetch('clase-1/skills/SKILL.md')
+        .then(r => r.ok ? r.text() : Promise.reject())
+        .then(txt => { skillMdText = txt; skillPre.textContent = txt; })
+        .catch(() => { skillPre.textContent = 'Usa el botón Descargar SKILL.md para obtener el archivo completo.'; });
+    }
+    if (copySkillBtn) {
+      copySkillBtn.addEventListener('click', async () => {
+        if (!skillMdText) return;
+        try {
+          await navigator.clipboard.writeText(skillMdText);
+          const orig = copySkillBtn.textContent;
+          copySkillBtn.textContent = 'SKILL.md Copiado';
+          setTimeout(() => { copySkillBtn.textContent = orig; }, 1600);
         } catch (e) {}
       });
     }

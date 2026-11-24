@@ -1842,7 +1842,7 @@
           <span class="cls-state live">EN VIVO</span>
         </div>
         <div class="cls-title">Markdown &amp; Diapos TCS</div>
-        <div class="cls-desc">Video Intro · Diapositivas · Agenda</div>
+        <div class="cls-desc">2 Reels · Diapos · Tarjetas · Infografía</div>
       </button>
 
       <button class="cls-tab" data-class="clase-3">
@@ -1887,10 +1887,6 @@
           <button class="sub-btn" role="tab" aria-selected="false" data-subtab="c1-qr">
             <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM18 18h3v3h-3zM14 19h2M19 14h2"/></svg>
             04 · Prompts &amp; Mentor 3.0
-          </button>
-          <button class="sub-btn" role="tab" aria-selected="false" data-subtab="c1-flashcards">
-            <svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="1"/><path d="M8 9h8M8 13h5"/></svg>
-            05 · Tarjetas Didácticas (7)
           </button>
         </div>
         <span class="nav-prog">CLASE 01 // DEL MECANISMO AL PROMPT PROFESIONAL</span>
@@ -2161,23 +2157,6 @@
           </div>
         </div>
 
-        <!-- Infografía: Anatomía de un Prompt Corporativo Efectivo -->
-        <div class="mm-shell" style="margin-top:24px;">
-          <div class="mm-bar">
-            <div>
-              <span class="nav-prog">INFOGRAFÍA VISUAL // 5 COMPONENTES OBLIGATORIOS</span>
-              <div style="font-size:13px;color:var(--ink-soft);margin-top:2px;">Anatomía de un Prompt Corporativo Efectivo (Rol, Contexto, Tarea, Restricciones y Formato).</div>
-            </div>
-            <div class="reel-nav">
-              <button class="ed-btn ed-btn-light" id="btn-fullscreen-anatomy" type="button">Pantalla Completa</button>
-              <a class="ed-btn ed-btn-light active" href="assets/anatomia-prompt-efectivo.png" download="Anatomia_de_un_prompt_efectivo.png">↓ Descargar PNG</a>
-            </div>
-          </div>
-          <div id="anatomy-img-wrap" style="background:var(--paper);border:1px solid var(--hairline);padding:12px;text-align:center;">
-            <img src="assets/anatomia-prompt-efectivo.png" alt="Anatomía de un Prompt Corporativo Efectivo — 5 componentes" style="width:100%;max-width:1120px;height:auto;display:block;margin:0 auto;" />
-          </div>
-        </div>
-
         <!-- Live SKILL.md Viewer & 1-Click Copier -->
         <div class="mm-shell" style="margin-top:20px;">
           <div class="mm-bar">
@@ -2193,9 +2172,125 @@
           <pre id="skill-md-preview" class="code-pane active" style="max-height:420px;" data-dark-zone>Cargando SKILL.md...</pre>
         </div>
       </div>
+    </section>
 
-      <!-- TAB 05: TARJETAS DIDÁCTICAS 3D -->
-      <div id="c1-flashcards" class="sub-panel">
+    <!-- ==================== CLASE 2 (EN VIVO) ==================== -->
+    <section id="clase-2" class="class-panel">
+      <div class="sub-header">
+        <div class="sub-tabs" role="tablist" aria-label="Secciones de Clase 2">
+          <button class="sub-btn active" role="tab" aria-selected="true" data-subtab="c2-video">
+            <svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+            01 · Motion Reels (2)
+          </button>
+          <button class="sub-btn" role="tab" aria-selected="false" data-subtab="c2-slides">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12"/><path d="M8 20h8M12 16v4"/></svg>
+            02 · Diapositivas (Clase 2)
+          </button>
+          <button class="sub-btn" role="tab" aria-selected="false" data-subtab="c2-flashcards">
+            <svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="1"/><path d="M8 9h8M8 13h5"/></svg>
+            03 · Tarjetas Didácticas (7)
+          </button>
+          <button class="sub-btn" role="tab" aria-selected="false" data-subtab="c2-agenda">
+            <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+            04 · Infografía &amp; Agenda
+          </button>
+        </div>
+        <span class="nav-prog">CLASE 02 // DOCUMENTOS LIMPIOS, PROMPTS Y PRESENTACIONES TCS</span>
+      </div>
+
+      <!-- CLASE 2 TAB 01: MOTION REELS (2 VIDEOS) -->
+      <div id="c2-video" class="sub-panel active">
+        <div class="cinema-block" data-dark-zone>
+          <div class="cinema-top">
+            <div class="reel-nav">
+              <button class="ed-btn active" data-c2-reel="c2-reel-1">01 · Documentos Limpios</button>
+              <button class="ed-btn" data-c2-reel="c2-reel-2">02 · Ingeniería de Prompts</button>
+              <button class="ed-btn" id="btn-dual-reels-c2">Split 2× Paralelo</button>
+            </div>
+            <span class="curtain-meta" style="gap:14px;"><span>9:16 VERTICAL</span><span>720×1280 · MP4</span></span>
+          </div>
+
+          <div class="cinema-grid" id="cinema-grid-c2">
+            <!-- Video 1 -->
+            <div class="reel-slot active" id="slot-c2-reel-1">
+              <div class="reel-frame">
+                <div class="reel-ratio">
+                  <video id="vid-c2-1" controls playsinline preload="metadata">
+                    <source src="clase-2/clase2_documentos_limpios_TCS.mp4" type="video/mp4" />
+                  </video>
+                </div>
+                <div class="reel-caption">
+                  <span>REEL 01 // CLASE2_DOCUMENTOS_LIMPIOS_TCS.MP4</span>
+                  <a class="ed-btn" style="padding:4px 9px;font-size:10px;" href="clase-2/clase2_documentos_limpios_TCS.mp4" download>Descargar</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Video 2 -->
+            <div class="reel-slot" id="slot-c2-reel-2">
+              <div class="reel-frame">
+                <div class="reel-ratio">
+                  <video id="vid-c2-2" controls playsinline preload="metadata">
+                    <source src="clase-2/ingenieria_de_prompts_TCS.mp4" type="video/mp4" />
+                  </video>
+                </div>
+                <div class="reel-caption">
+                  <span>REEL 02 // INGENIERIA_DE_PROMPTS_TCS.MP4</span>
+                  <a class="ed-btn" style="padding:4px 9px;font-size:10px;" href="clase-2/ingenieria_de_prompts_TCS.mp4" download>Descargar</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Editorial Context -->
+            <div class="cinema-editorial">
+              <div class="ctx-pane active" id="ctx-c2-reel-1">
+                <div class="mono-tag">REEL 01 // MARKDOWN, MARKITDOWN &amp; DIAPOSITIVAS TCS</div>
+                <h2 class="ed-h2">Documentos Limpios y Presentaciones Ejecutivas sin AI Slop</h2>
+                <p class="ed-quote">
+                  Los documentos binarios (Word, PDF complejos) inyectan metadatos y etiquetas de formato que fragmentan tokens. En esta sesión pasamos a <strong>texto plano estructurado (.md)</strong>, conversión masiva con <strong>Microsoft MarkItDown</strong> y narrativa ejecutiva TCS.
+                </p>
+                <div class="ed-rows">
+                  <div class="ed-row"><strong>10× Precisión</strong><span>Los Transformers razonan mejor sobre Markdown puro con tablas deterministas.</span></div>
+                  <div class="ed-row"><strong>MarkItDown</strong><span>Pipeline de Microsoft para convertir PDFs, Excel y PPTX a Markdown limpio.</span></div>
+                  <div class="ed-row"><strong>Norma TCS</strong><span>Paleta 65/25/10, tipografía Calibri, titulares de acción y cero AI Slop.</span></div>
+                  <div class="ed-row"><strong>Entregable</strong><span>Estructura completa de 8 diapositivas corporativas en Markdown lista para TCS.</span></div>
+                </div>
+              </div>
+
+              <div class="ctx-pane" id="ctx-c2-reel-2">
+                <div class="mono-tag">REEL 02 // CALIBRACIÓN E INGENIERÍA DE PROMPTS</div>
+                <h2 class="ed-h2">Ingeniería de Prompts Aplicada al Entorno Corporativo TCS</h2>
+                <p class="ed-quote">
+                  Antes de estructurar documentos y presentaciones ejecutivas, calibramos la anatomía de <strong>5 componentes</strong> (Rol, Contexto, Tarea, Restricciones y Formato) para eliminar respuestas genéricas desde la primera iteración.
+                </p>
+                <div class="ed-rows">
+                  <div class="ed-row"><strong>Rol &amp; Contexto</strong><span>Fija la identidad técnica y delimita la audiencia de negocio.</span></div>
+                  <div class="ed-row"><strong>Tarea &amp; Límites</strong><span>Verbos operativos precisos y restricciones explícitas Anti-Slop.</span></div>
+                  <div class="ed-row"><strong>Formato</strong><span>Salida determinista en Markdown, tablas ejecutivas o JSON.</span></div>
+                  <div class="ed-row"><strong>Repaso Activo</strong><span>Usa la pestaña 03 (Tarjetas Didácticas) y 04 (Infografía) para fijar los conceptos.</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CLASE 2 TAB 02: DIAPOSITIVAS -->
+      <div id="c2-slides" class="sub-panel">
+        <div class="slides-top">
+          <span class="nav-prog">DECK INTERACTIVO // TCS · CLASE 2 — USA LAS FLECHAS ← → PARA NAVEGAR</span>
+          <div class="reel-nav">
+            <button class="ed-btn ed-btn-light" id="btn-fullscreen-slides-c2" type="button">Pantalla Completa</button>
+            <a class="ed-btn ed-btn-light active" href="clase-2/slides.html" target="_blank" rel="noopener">Abrir en pestaña ↗</a>
+          </div>
+        </div>
+        <div class="slides-box" id="slides-container-c2" data-dark-zone>
+          <iframe src="clase-2/slides.html" title="Diapositivas Clase 2 — TCS Documentos Limpios" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- CLASE 2 TAB 03: TARJETAS DIDÁCTICAS 3D -->
+      <div id="c2-flashcards" class="sub-panel">
         <div class="fc-shell">
           <div class="fc-toolbar">
             <div class="reel-nav">
@@ -2257,84 +2352,26 @@
           <div class="fc-grid" id="fc-grid"></div>
         </div>
       </div>
-    </section>
 
-    <!-- ==================== CLASE 2 (EN VIVO) ==================== -->
-    <section id="clase-2" class="class-panel">
-      <div class="sub-header">
-        <div class="sub-tabs" role="tablist" aria-label="Secciones de Clase 2">
-          <button class="sub-btn active" role="tab" aria-selected="true" data-subtab="c2-video">
-            <svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg>
-            01 · Video Introductorio
-          </button>
-          <button class="sub-btn" role="tab" aria-selected="false" data-subtab="c2-slides">
-            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12"/><path d="M8 20h8M12 16v4"/></svg>
-            02 · Diapositivas (Clase 2)
-          </button>
-          <button class="sub-btn" role="tab" aria-selected="false" data-subtab="c2-agenda">
-            <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
-            03 · Agenda &amp; MarkItDown
-          </button>
-        </div>
-        <span class="nav-prog">CLASE 02 // DOCUMENTOS LIMPIOS Y PRESENTACIONES EJECUTIVAS</span>
-      </div>
-
-      <!-- CLASE 2 TAB 01: VIDEO INTRODUCTORIO -->
-      <div id="c2-video" class="sub-panel active">
-        <div class="cinema-block" data-dark-zone>
-          <div class="cinema-top">
-            <span class="mono-tag" style="margin:0;">CLASE 02 // MOTION REEL DE APERTURA</span>
-            <span class="curtain-meta" style="gap:14px;"><span>9:16 VERTICAL</span><span>720×1280 · MP4</span></span>
-          </div>
-
-          <div class="cinema-grid">
-            <div class="reel-slot active">
-              <div class="reel-frame">
-                <div class="reel-ratio">
-                  <video id="vid-c2" controls playsinline preload="metadata">
-                    <source src="clase-2/clase2_documentos_limpios_TCS.mp4" type="video/mp4" />
-                  </video>
-                </div>
-                <div class="reel-caption">
-                  <span>CLASE2_DOCUMENTOS_LIMPIOS_TCS.MP4</span>
-                  <a class="ed-btn" style="padding:4px 9px;font-size:10px;" href="clase-2/clase2_documentos_limpios_TCS.mp4" download>Descargar</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="cinema-editorial">
-              <div class="mono-tag">SESIÓN 02 // 120 MINUTOS · MARKDOWN &amp; ESTÁNDAR TCS</div>
-              <h2 class="ed-h2">Documentos Limpios y Presentaciones Ejecutivas sin AI Slop</h2>
-              <p class="ed-quote">
-                Los documentos binarios (Word, PDF complejos) inyectan metadatos y etiquetas de formato que fragmentan tokens. En esta sesión pasamos a <strong>texto plano estructurado (.md)</strong>, conversión masiva con <strong>Microsoft MarkItDown</strong> y narrativa ejecutiva TCS.
-              </p>
-              <div class="ed-rows">
-                <div class="ed-row"><strong>10× Precisión</strong><span>Los Transformers razonan mejor sobre Markdown puro con tablas deterministas.</span></div>
-                <div class="ed-row"><strong>MarkItDown</strong><span>Pipeline de Microsoft para convertir PDFs, Excel y PPTX a Markdown limpio.</span></div>
-                <div class="ed-row"><strong>Norma TCS</strong><span>Paleta 65/25/10, tipografía Calibri, titulares de acción y cero AI Slop.</span></div>
-                <div class="ed-row"><strong>Entregable</strong><span>Estructura completa de 8 diapositivas corporativas en Markdown lista para TCS.</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- CLASE 2 TAB 02: DIAPOSITIVAS -->
-      <div id="c2-slides" class="sub-panel">
-        <div class="slides-top">
-          <span class="nav-prog">DECK INTERACTIVO // TCS · CLASE 2 — USA LAS FLECHAS ← → PARA NAVEGAR</span>
-          <div class="reel-nav">
-            <button class="ed-btn ed-btn-light" id="btn-fullscreen-slides-c2" type="button">Pantalla Completa</button>
-            <a class="ed-btn ed-btn-light active" href="clase-2/slides.html" target="_blank" rel="noopener">Abrir en pestaña ↗</a>
-          </div>
-        </div>
-        <div class="slides-box" id="slides-container-c2" data-dark-zone>
-          <iframe src="clase-2/slides.html" title="Diapositivas Clase 2 — TCS Documentos Limpios" allowfullscreen></iframe>
-        </div>
-      </div>
-
-      <!-- CLASE 2 TAB 03: AGENDA Y MARKITDOWN -->
+      <!-- CLASE 2 TAB 04: INFOGRAFÍA & AGENDA -->
       <div id="c2-agenda" class="sub-panel">
+        <!-- Infografía: Anatomía de un Prompt Corporativo Efectivo -->
+        <div class="mm-shell" style="margin-bottom:24px;">
+          <div class="mm-bar">
+            <div>
+              <span class="nav-prog">INFOGRAFÍA VISUAL // 5 COMPONENTES OBLIGATORIOS</span>
+              <div style="font-size:13px;color:var(--ink-soft);margin-top:2px;">Anatomía de un Prompt Corporativo Efectivo (Rol, Contexto, Tarea, Restricciones y Formato).</div>
+            </div>
+            <div class="reel-nav">
+              <button class="ed-btn ed-btn-light" id="btn-fullscreen-anatomy" type="button">Pantalla Completa</button>
+              <a class="ed-btn ed-btn-light active" href="assets/anatomia-prompt-efectivo.png" download="Anatomia_de_un_prompt_efectivo.png">↓ Descargar PNG</a>
+            </div>
+          </div>
+          <div id="anatomy-img-wrap" style="background:var(--paper);border:1px solid var(--hairline);padding:12px;text-align:center;">
+            <img src="assets/anatomia-prompt-efectivo.png" alt="Anatomía de un Prompt Corporativo Efectivo — 5 componentes" style="width:100%;max-width:1120px;height:auto;display:block;margin:0 auto;" />
+          </div>
+        </div>
+
         <div class="syl-grid">
           <div class="syl-col">
             <h3>01 / Qué está detrás</h3>
@@ -2585,7 +2622,7 @@
       });
     });
 
-    // Dual Reel Switcher
+    // Dual Reel Switcher — Clase 1 (scoped to #cinema-grid)
     const cinemaGrid = document.getElementById('cinema-grid');
     const dualBtn = document.getElementById('btn-dual-reels');
     const reelBtns = document.querySelectorAll('[data-reel]');
@@ -2598,10 +2635,10 @@
         reelBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
 
-        document.querySelectorAll('.reel-slot').forEach(s => s.classList.remove('active'));
+        cinemaGrid.querySelectorAll('.reel-slot').forEach(s => s.classList.remove('active'));
         document.getElementById('slot-' + id).classList.add('active');
 
-        document.querySelectorAll('.ctx-pane').forEach(c => c.classList.remove('active'));
+        cinemaGrid.querySelectorAll('.ctx-pane').forEach(c => c.classList.remove('active'));
         document.getElementById('ctx-' + id).classList.add('active');
 
         const v1 = document.getElementById('vid-reel-1');
@@ -2617,6 +2654,41 @@
         reelBtns.forEach(b => b.classList.remove('active'));
       } else {
         document.querySelector('[data-reel="reel-1"]').click();
+      }
+    });
+
+    // Dual Reel Switcher — Clase 2 (scoped to #cinema-grid-c2)
+    const cinemaGridC2 = document.getElementById('cinema-grid-c2');
+    const dualBtnC2 = document.getElementById('btn-dual-reels-c2');
+    const reelBtnsC2 = document.querySelectorAll('[data-c2-reel]');
+
+    reelBtnsC2.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.c2Reel;
+        cinemaGridC2.classList.remove('dual');
+        dualBtnC2.classList.remove('active');
+        reelBtnsC2.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        cinemaGridC2.querySelectorAll('.reel-slot').forEach(s => s.classList.remove('active'));
+        document.getElementById('slot-' + id).classList.add('active');
+
+        cinemaGridC2.querySelectorAll('.ctx-pane').forEach(c => c.classList.remove('active'));
+        document.getElementById('ctx-' + id).classList.add('active');
+
+        const v1 = document.getElementById('vid-c2-1');
+        const v2 = document.getElementById('vid-c2-2');
+        if (id === 'c2-reel-1') v2.pause(); else v1.pause();
+      });
+    });
+
+    dualBtnC2.addEventListener('click', () => {
+      const isDual = cinemaGridC2.classList.toggle('dual');
+      dualBtnC2.classList.toggle('active', isDual);
+      if (isDual) {
+        reelBtnsC2.forEach(b => b.classList.remove('active'));
+      } else {
+        document.querySelector('[data-c2-reel="c2-reel-1"]').click();
       }
     });
 
@@ -3149,11 +3221,11 @@
         gridEl.querySelectorAll('.fc-card').forEach(c => c.classList.toggle('flipped', allGridFlipped));
       });
 
-      // Spacebar & Arrows when Flashcards tab is active
+      // Spacebar & Arrows when Flashcards tab is active (Clase 2)
       window.addEventListener('keydown', e => {
-        const fcPanel = document.getElementById('c1-flashcards');
-        const c1Panel = document.getElementById('clase-1');
-        if (!c1Panel.classList.contains('active') || !fcPanel.classList.contains('active') || gridMode) return;
+        const fcPanel = document.getElementById('c2-flashcards');
+        const c2Panel = document.getElementById('clase-2');
+        if (!c2Panel.classList.contains('active') || !fcPanel.classList.contains('active') || gridMode) return;
         if (e.code === 'Space') { e.preventDefault(); cardEl.classList.toggle('flipped'); }
         if (e.key === 'ArrowRight') { idx = (idx + 1) % deck.length; renderStudy(); }
         if (e.key === 'ArrowLeft') { idx = (idx - 1 + deck.length) % deck.length; renderStudy(); }

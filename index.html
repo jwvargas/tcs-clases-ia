@@ -2161,6 +2161,23 @@
           </div>
         </div>
 
+        <!-- Infografía: Anatomía de un Prompt Corporativo Efectivo -->
+        <div class="mm-shell" style="margin-top:24px;">
+          <div class="mm-bar">
+            <div>
+              <span class="nav-prog">INFOGRAFÍA VISUAL // 5 COMPONENTES OBLIGATORIOS</span>
+              <div style="font-size:13px;color:var(--ink-soft);margin-top:2px;">Anatomía de un Prompt Corporativo Efectivo (Rol, Contexto, Tarea, Restricciones y Formato).</div>
+            </div>
+            <div class="reel-nav">
+              <button class="ed-btn ed-btn-light" id="btn-fullscreen-anatomy" type="button">Pantalla Completa</button>
+              <a class="ed-btn ed-btn-light active" href="assets/anatomia-prompt-efectivo.png" download="Anatomia_de_un_prompt_efectivo.png">↓ Descargar PNG</a>
+            </div>
+          </div>
+          <div id="anatomy-img-wrap" style="background:var(--paper);border:1px solid var(--hairline);padding:12px;text-align:center;">
+            <img src="assets/anatomia-prompt-efectivo.png" alt="Anatomía de un Prompt Corporativo Efectivo — 5 componentes" style="width:100%;max-width:1120px;height:auto;display:block;margin:0 auto;" />
+          </div>
+        </div>
+
         <!-- Live SKILL.md Viewer & 1-Click Copier -->
         <div class="mm-shell" style="margin-top:20px;">
           <div class="mm-bar">
@@ -2901,6 +2918,16 @@
     if (btnFsC2) {
       btnFsC2.addEventListener('click', () => {
         const el = document.getElementById('slides-container-c2');
+        if (el.requestFullscreen) el.requestFullscreen();
+        else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+      });
+    }
+
+    // Prompt Anatomy Infographic Fullscreen
+    const btnFsAnatomy = document.getElementById('btn-fullscreen-anatomy');
+    if (btnFsAnatomy) {
+      btnFsAnatomy.addEventListener('click', () => {
+        const el = document.getElementById('anatomy-img-wrap');
         if (el.requestFullscreen) el.requestFullscreen();
         else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
       });

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Informe Técnico · Ingeniería de Prompts M365 — TCS IA LAB</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#F2F1EC; --surface:#FFFFFF; --ink:#111211; --muted:#525860; --line:rgba(17,18,17,.14); --blue:#0076CE; --yellow:#F2B705; --volt:#D2FF00; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { background:var(--bg); color:var(--ink); font-family:'Space Grotesk',Calibri,sans-serif; line-height:1.55; }
+    .topbar { background:#111211; color:#F2F1EC; padding:14px 20px; position:sticky; top:0; z-index:20; border-bottom:3px solid var(--volt); }
+    .topbar-in { max-width:980px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+    .brand { display:flex; align-items:center; gap:12px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; }
+    .brand img { height:20px; width:auto; }
+    .actions { display:flex; gap:8px; flex-wrap:wrap; }
+    .btn { font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:8px 13px; border:1px solid rgba(242,241,236,.3); background:transparent; color:#F2F1EC; text-decoration:none; cursor:pointer; }
+    .btn-volt { background:var(--volt); color:#111211; border-color:var(--volt); }
+    .wrap { max-width:980px; margin:0 auto; padding:32px 20px 64px; }
+    .hero { background:var(--surface); border:1px solid var(--ink); padding:28px; margin-bottom:24px; }
+    .eyebrow { font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--blue); margin-bottom:8px; }
+    h1 { font-family:'Barlow Condensed',sans-serif; font-size:clamp(32px,5vw,52px); line-height:.95; text-transform:uppercase; margin-bottom:10px; }
+    .lead { color:var(--muted); font-size:15px; max-width:780px; }
+    .rule { margin-top:18px; padding:14px 16px; background:#FEF8E1; border-left:4px solid var(--yellow); font-size:14px; }
+    h2 { font-family:'Barlow Condensed',sans-serif; font-size:28px; text-transform:uppercase; margin:28px 0 14px; padding-bottom:6px; border-bottom:2px solid var(--ink); }
+    .fw { display:grid; grid-template-columns:repeat(5,1fr); border:1px solid var(--ink); background:var(--surface); }
+    .fw div { padding:14px; border-right:1px solid var(--line); font-size:13px; }
+    .fw div:last-child { border-right:0; }
+    .fw strong { display:block; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--blue); margin-bottom:4px; text-transform:uppercase; }
+    .case { background:var(--surface); border:1px solid var(--ink); margin-bottom:20px; }
+    .case-head { padding:20px 22px 14px; border-bottom:1px solid var(--line); }
+    .tag { display:inline-block; font-family:'JetBrains Mono',monospace; font-size:10.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; background:#111211; color:var(--volt); padding:3px 8px; margin-bottom:8px; }
+    .case h3 { font-family:'Barlow Condensed',sans-serif; font-size:26px; text-transform:uppercase; line-height:1.02; }
+    .obj { font-size:14px; color:var(--muted); margin-top:4px; }
+    .blocks { display:grid; grid-template-columns:repeat(5,1fr); border-bottom:1px solid var(--line); background:#FAF9F6; }
+    .blocks div { padding:12px 14px; border-right:1px solid var(--line); font-size:12.5px; }
+    .blocks div:last-child { border-right:0; }
+    .blocks strong { display:block; font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--blue); text-transform:uppercase; margin-bottom:4px; }
+    .prompt-box { background:#0D0E0E; color:#F2F1EC; padding:18px 22px; }
+    .prompt-top { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:10px; font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.1em; color:var(--volt); }
+    .copy-btn { font-family:'JetBrains Mono',monospace; font-size:10.5px; font-weight:700; text-transform:uppercase; padding:5px 10px; border:1px solid var(--volt); background:transparent; color:var(--volt); cursor:pointer; }
+    .copy-btn:hover { background:var(--volt); color:#111211; }
+    pre { font-family:'JetBrains Mono',monospace; font-size:12px; line-height:1.6; white-space:pre-wrap; }
+    .audit { display:grid; grid-template-columns:repeat(3,1fr); border:1px solid var(--ink); background:var(--surface); }
+    .audit div { padding:18px; border-right:1px solid var(--line); font-size:13.5px; }
+    .audit div:last-child { border-right:0; }
+    .audit strong { display:block; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--blue); text-transform:uppercase; margin-bottom:6px; }
+    footer { text-align:center; padding:24px; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted); text-transform:uppercase; }
+    @media (max-width:860px) { .fw, .blocks, .audit { grid-template-columns:1fr; } .fw div, .blocks div, .audit div { border-right:0; border-bottom:1px solid var(--line); } }
+    @media print { .topbar, .copy-btn { display:none !important; } body { background:#fff; } .prompt-box { background:#f4f7fa; color:#000; border-left:4px solid #0076CE; } .prompt-top { color:#0076CE; } }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-in">
+      <div class="brand">
+        <img src="../assets/logo-tcs.png" alt="TCS" />
+        <span>IA LAB · INFORME TÉCNICO CLASE 3</span>
+      </div>
+      <div class="actions">
+        <a class="btn btn-volt" href="Informe_Ingenieria_Prompts_M365.docx" download="Informe_Ingenieria_Prompts_M365_TCS.docx">↓ Descargar Word (.docx)</a>
+        <button class="btn" type="button" onclick="window.print()">Imprimir / PDF</button>
+        <a class="btn" href="../index.html">← Volver al Portal</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="eyebrow">Tata Consultancy Services · Microsoft 365 Cloud · Framework de los 5 Bloques</div>
+      <h1>Ingeniería de Prompts Corporativos en Microsoft 365</h1>
+      <p class="lead">Estándar operativo para Excel Web, Word Web, PowerPoint Web, Copilot Chat y Power BI. Incluye los 8 casos validados listos para copiar y el Protocolo de las 3 Preguntas de Auditoría.</p>
+      <div class="rule"><strong>Regla de Oro en Datos:</strong> En español las instrucciones consumen ~22% más de tokens y el chat opera por probabilidad. Exige siempre fórmulas nativas en celda (<code>IFS</code>, <code>XLOOKUP</code>) o medidas DAX auditables.</div>
+    </section>
+
+    <h2>1. Framework de los 5 Bloques</h2>
+    <div class="fw">
+      <div><strong>01 · Rol</strong>Fija el subespacio técnico y vocabulario experto.</div>
+      <div><strong>02 · Contexto</strong>Ancla la tabla (Ctrl+T) o archivo con <code>/</code> antes de la tarea.</div>
+      <div><strong>03 · Tarea</strong>Verbos operativos deterministas en pasos concretos.</div>
+      <div><strong>04 · Restricciones</strong>Filtro Anti-Slop y prohibición de cálculo en memoria.</div>
+      <div><strong>05 · Formato</strong>Salida lista para comité: tabla, hoja Excel, slides o DAX.</div>
+    </div>
+
+    <h2>2. Catálogo de 8 Casos Validados (Copiar en 1 Clic)</h2>
+    
+      <article class="case">
+        <div class="case-head">
+          <div>
+            <span class="tag">Caso 01 · Excel Web</span>
+            <h3>Auditoría y Calidad de Datos</h3>
+            <p class="obj">Evaluar la integridad estructural de una tabla transaccional exportada (ServiceNow o core bancario) detectando anomalías sin alterar los datos originales.</p>
+          </div>
+        </div>
+        <div class="blocks">
+          <div><strong>01 · Rol</strong><span>Auditor Senior de Calidad de Datos y Operaciones</span></div>
+          <div><strong>02 · Contexto</strong><span>Tabla oficial (Ctrl + T) recién exportada del sistema transaccional</span></div>
+          <div><strong>03 · Tarea</strong><span>Auditar nulos en campos obligatorios, duplicados por ID y valores atípicos</span></div>
+          <div><strong>04 · Restricciones</strong><span>No modificar, ordenar ni eliminar filas originales; reportar únicamente en el panel</span></div>
+          <div><strong>05 · Formato</strong><span>Reporte de 3 puntos con ID de registro, celda afectada y acción correctiva manual</span></div>
+        </div>
+        <div class="prompt-box">
+          <div class="prompt-top">
+            <span>PROMPT LISTO PARA COPILOT</span>
+            <button type="button" class="copy-btn" data-idx="0">Copiar Prompt</button>
+          </div>
+          <pre id="p-0">Actúa como un Auditor Senior de Calidad de Datos y Operaciones.
+Estamos revisando una tabla recién exportada del sistema transaccional para validar su consistencia antes de la presentación de comités.
+Examina la tabla activa y audita la calidad de los datos en las columnas [ID_Registro], [Fecha] y [Monto_O_Tiempo]:
+1. Identifica si existen celdas vacías o nulas en campos obligatorios.
+2. Señala registros duplicados basados en [ID_Registro].
+3. Detecta valores atípicos que se ubiquen por fuera del rango operativo habitual.
+Restricciones: No modifiques, ordenes ni elimines filas de la tabla original; limita tu intervención a identificar en este panel cuáles son las filas exactas afectadas y la causa de la anomalía.
+Formato de salida: Entrega un reporte estructurado en 3 puntos, indicando ID de registro, celda afectada y acción correctiva manual recomendada.</pre>
+        </div>
+      </article>
+      <article class="case">
+        <div class="case-head">
+          <div>
+            <span class="tag">Caso 02 · Excel Web</span>
+            <h3>Fórmulas Deterministas y Clasificación (IFS)</h3>
+            <p class="obj">Categorizar eventos operativos (mora de créditos o cumplimiento de SLA) garantizando cálculo 100% auditable mediante fórmulas nativas de Excel.</p>
+          </div>
+        </div>
+        <div class="blocks">
+          <div><strong>01 · Rol</strong><span>Especialista en Modelado y Lógica Financiera en Excel</span></div>
+          <div><strong>02 · Contexto</strong><span>Tabla activa con columna continua [Dias_Mora] o tiempos de resolución</span></div>
+          <div><strong>03 · Tarea</strong><span>Insertar columna calculada Clasificacion_Riesgo con 3 umbrales regulatorios</span></div>
+          <div><strong>04 · Restricciones</strong><span>Prohibido calcular en memoria; exigir fórmula nativa IFS o SWITCH ejecutable en celda</span></div>
+          <div><strong>05 · Formato</strong><span>Sintaxis completa de la fórmula para inspección previa e inserción en la tabla</span></div>
+        </div>
+        <div class="prompt-box">
+          <div class="prompt-top">
+            <span>PROMPT LISTO PARA COPILOT</span>
+            <button type="button" class="copy-btn" data-idx="1">Copiar Prompt</button>
+          </div>
+          <pre id="p-1">Actúa como Especialista en Modelado y Lógica Financiera en Excel.
+En la tabla de datos activa, necesitamos estandarizar la clasificación de la cartera según las políticas regulatorias vigentes.
+Inserta una nueva columna calculada llamada 'Clasificacion_Riesgo' que evalúe la columna [Dias_Mora] bajo los siguientes criterios:
+- Asigna 'Normal' si [Dias_Mora] es igual a 0.
+- Asigna 'Alerta Temprana' si [Dias_Mora] está entre 1 y 30.
+- Asigna 'Cartera Vencida' si [Dias_Mora] es mayor a 30.
+Restricciones: No calcules los resultados en memoria ni generes valores estáticos. La columna debe implementar una fórmula formal y determinista de Excel (utilizando IFS o SWITCH). Muestra la sintaxis completa de la fórmula en tu respuesta antes de aplicarla a la tabla.
+Formato de salida: Código de la fórmula de Excel listo para inspección y confirmación de inserción en la tabla activa.</pre>
+        </div>
+      </article>
+      <article class="case">
+        <div class="case-head">
+          <div>
+            <span class="tag">Caso 03 · Excel Web</span>
+            <h3>Dashboards y Tablas Dinámicas Ejecutivas</h3>
+            <p class="obj">Consolidar KPIs por área o torre de servicio en una hoja nueva con visualización ejecutiva ordenada por volumen.</p>
+          </div>
+        </div>
+        <div class="blocks">
+          <div><strong>01 · Rol</strong><span>Consultor de Inteligencia de Negocios y Analítica Ejecutiva</span></div>
+          <div><strong>02 · Contexto</strong><span>Tabla maestra de operaciones validada para comité directivo semanal</span></div>
+          <div><strong>03 · Tarea</strong><span>Crear tabla dinámica en hoja nueva + gráfico de barras apiladas por área y estado</span></div>
+          <div><strong>04 · Restricciones</strong><span>Orden descendente por volumen, formato moneda/miles y estética sobria TCS</span></div>
+          <div><strong>05 · Formato</strong><span>Hoja automatizada 'Dashboard_Ejecutivo' con tabla dinámica y gráfico interactivo</span></div>
+        </div>
+        <div class="prompt-box">
+          <div class="prompt-top">
+            <span>PROMPT LISTO PARA COPILOT</span>
+            <button type="button" class="copy-btn" data-idx="2">Copiar Prompt</button>
+          </div>
+          <pre id="p-2">Actúa como Consultor de Inteligencia de Negocios y Analítica Ejecutiva.
+A partir de la tabla maestra de operaciones, requerimos consolidar el estado del servicio para el comité directivo semanal.
+Genera una tabla dinámica en una hoja nueva de este libro que resuma:
+1. En filas: [Categoria_Area_O_Torre].
+2. En columnas: [Estado_Resolucion_O_Riesgo].
+3. En valores: Recuento total de operaciones y suma consolidada de [Monto_O_Volumen].
+Inserta un gráfico de barras apiladas que represente la concentración de desviaciones por cada área.
+Restricciones: Ordena las filas en sentido descendente según el volumen total. Formatea los valores numéricos como moneda o enteros con separador de miles. Aplica una estética sobria y profesional evitando colores estridentes.
+Formato de salida: Creación automatizada de la hoja 'Dashboard_Ejecutivo' con tabla y gráfico interactivo.</pre>
+        </div>
+      </article>
+      <article class="case">
+        <div class="case-head">
+          <div>
+            <span class="tag">Caso 04 · Word Web (/)</span>
+            <h3>Memorando Ejecutivo y Nota Técnica</h3>
+            <p class="obj">Transformar los hallazgos cuantitativos de un Excel en la nube en una nota técnica de 1 página para comités de dirección.</p>
+          </div>
+        </div>
+        <div class="blocks">
+          <div><strong>01 · Rol</strong><span>Especialista Senior de Gestión Corporativa y Redactor Técnico</span></div>
+          <div><strong>02 · Contexto</strong><span>Archivo Excel alojado en OneDrive/SharePoint vinculado mediante el comando /</span></div>
+          <div><strong>03 · Tarea</strong><span>Redactar memorando con objetivo, 3 hallazgos numéricos, 2 riesgos y plan 30/60/90 días</span></div>
+          <div><strong>04 · Restricciones</strong><span>Cero AI Slop, máximo 450 palabras y 100% de cifras derivadas del Excel referenciado</span></div>
+          <div><strong>05 · Formato</strong><span>Documento Word con encabezados jerárquicos, viñetas concisas y tabla Markdown de acciones</span></div>
+        </div>
+        <div class="prompt-box">
+          <div class="prompt-top">
+            <span>PROMPT LISTO PARA COPILOT</span>
+            <button type="button" class="copy-btn" data-idx="3">Copiar Prompt</button>
+          </div>
+          <pre id="p-3">Actúa como Especialista Senior de Gestión Corporativa y Redactor Técnico de Informes de Decisión.
+Con base exclusiva en los datos contenidos en el archivo /[Seleccionar_Archivo_Excel_En_Nube.xlsx], redacta un Memorando Técnico dirigido al Comité Directivo.
+Estructura obligatoria del informe:
+1. Objetivo y Alcance: Justificación formal del reporte y fecha de corte analizada.
+2. Diagnóstico Cuantitativo: Exactamente 3 hallazgos clave fundamentados en las cifras de la tabla (volúmenes totales, variaciones porcentuales y concentraciones críticas).
+3. Puntos de Alerta y Exposición: Detalle de los dos principales focos de riesgo detectados y su impacto potencial en balance o continuidad de servicio.
+4. Plan de Acción Recomendado: 3 medidas de mitigación concretas con responsable institucional asignado y plazos de ejecución (30, 60 y 90 días).
+Restricciones estrictas: Prohibido utilizar clichés lingüísticos ("en el mundo actual", "un tapiz de oportunidades", "es fundamental destacar"). No utilices más de 450 palabras en total. Todo dato numérico debe derivar de la hoja de cálculo referenciada.
+Formato de salida: Documento estructurado con encabezados formales (#, ##), viñetas concisas y tabla Markdown para el plan de acción.</pre>
+        </div>
+      </article>
+      <article class="case">
+        <div class="case-head">
+          <div>
+            <span class="tag">Caso 05 · Word / Outlook</span>
+            <h3>Síntesis Ejecutiva en 4 Viñetas (Elevator Pitch)</h3>
+            <p class="obj">Condensar un informe extenso en un correo de lectura inmediata para Dirección General enfocado en decisión.</p>
+          </div>
+        </div>
+        <div class="blocks">
+          <div><strong>01 · Rol</strong><span>Asesor Ejecutivo de Comunicación Corporativa</span></div>
+          <div><strong>02 · Contexto</strong><span>Informe técnico extenso finalizado en Word Web o acta de comité</span></div>
+          <div><strong>03 · Tarea</strong><span>Sintetizar en exactamente 4 viñetas: Volumen, Avance, Alerta y Decisión solicitada</span></div>
+          <div><strong>04 · Restricciones</strong><span>Máximo 15 palabras por viñeta; modo indicativo sin saludos ni despedidas</span></div>
+          <div><strong>05 · Formato</strong><span>Lista de 4 viñetas directas listas para copiar en el cuerpo de Outlook Web</span></div>
+        </div>
+        <div class="prompt-box">
+          <div class="prompt-top">
+            <span>PROMPT LISTO PARA COPILOT</span>
+            <button type="button" class="copy-btn" data-idx="4">Copiar Prompt</button>
+          </div>
+          <pre id="p-4">Actúa como Asesor Ejecutivo de Comunicación Corporativa.
+Necesitamos comunicar los resultados del informe anterior a la Dirección General mediante un mensaje de correo electrónico de lectura inmediata.
+Sintetiza la totalidad del documento en exactamente cuatro viñetas estructuradas:
+- Viñeta 1 (Volumen): El total de operaciones analizadas y estado global de la cartera/servicio.
+- Viñeta 2 (Avance): El principal indicador positivo o meta contractual superada en el periodo.
+- Viñeta 3 (Alerta): La desviación más crítica que requiere atención inmediata.
+- Viñeta 4 (Decisión): La acción o aprobación presupuestaria/operativa que se solicita a la Dirección.
+Restricciones: Longitud máxima de 15 palabras por viñeta. Redacción asertiva en modo indicativo, sin preámbulos de cortesía ni despedidas.
+Formato de salida: Lista con viñetas estandarizadas listas para inserción directa en Outlook Web.</pre>
+        </div>
+      </article>
+      <article class="case">
+        <div class="case-head">
+          <div>
+            <span class="tag">Caso 06 · PowerPoint Web</span>
+            <h3>Presentación Corporativa TCS en 5 Slides</h3>
+            <p class="obj">Convertir una nota técnica en la nube en un deck ejecutivo de 5 diapositivas bajo la norma visual TCS 65/25/10.</p>
+          </div>
+        </div>
+        <div class="blocks">
+          <div><strong>01 · Rol</strong><span>Director Ejecutivo de Presentaciones y Storytelling Estratégico</span></div>
+          <div><strong>02 · Contexto</strong><span>Documento Word en la nube referenciado con /[Seleccionar_Nota_Tecnica.docx]</span></div>
+          <div><strong>03 · Tarea</strong><span>Generar 5 slides con Títulos de Acción concluyentes y layouts corporativos (Bento, Split, Métrica, Roadmap)</span></div>
+          <div><strong>04 · Restricciones</strong><span>Regla TCS 65/25/10, tipografía Calibri, máx. 12 palabras por viñeta y cero AI Slop</span></div>
+          <div><strong>05 · Formato</strong><span>Desglose diapositiva por diapositiva indicando Layout TCS, Título de Acción, viñetas y métrica destacada</span></div>
+        </div>
+        <div class="prompt-box">
+          <div class="prompt-top">
+            <span>PROMPT LISTO PARA COPILOT</span>
+            <button type="button" class="copy-btn" data-idx="5">Copiar Prompt</button>
+          </div>
+          <pre id="p-5">Actúa como Director Ejecutivo de Presentaciones Corporativas y Especialista en Comunicación Estratégica.
+A partir del informe /[Seleccionar_Nota_Tecnica.docx], genera y calibra una presentación ejecutiva de exactamente 5 diapositivas para el Comité Operativo.
+Reglas de diseño y estructura obligatorias:
+1. Títulos de Acción Concluyentes: La cabecera de cada diapositiva debe emitir una conclusión numérica o estratégica de negocio (por ejemplo: 'La automatización de procesos redujo el tiempo de resolución en un 18%' en lugar de 'Resultados del Periodo').
+2. Distribución por Diapositiva: Un subtítulo contextual de una línea, máximo 3 viñetas breves (hasta 12 palabras cada una) y un callout box de métrica destacada.
+3. Asignación de Layouts Corporativos TCS:
+   - Slide 1: Portada Ejecutiva con título de sesión y entidad.
+   - Slide 2: Bento Grid de 3 tarjetas para los tres indicadores dominantes.
+   - Slide 3: Split en 2 Columnas comparativas (Diagnóstico vs. Mitigación / Antes vs. Después).
+   - Slide 4: Layout de Métrica destacada para el principal hallazgo de riesgo.
+   - Slide 5: Hoja de ruta de compromisos con fechas límite.
+Restricciones: Erradica el AI Slop visual y textual. Mantén textos limpios, sin adjetivos vacíos y respetando la jerarquía tipográfica Calibri.
+Formato de salida: Desglose diapositiva por diapositiva indicando Layout TCS, Título de Acción, viñetas y contenido de la caja de métrica.</pre>
+        </div>
+      </article>
+      <article class="case">
+        <div class="case-head">
+          <div>
+            <span class="tag">Caso 07 · Copilot Chat</span>
+            <h3>Búsqueda y Cruce de Acuerdos en M365 Graph</h3>
+            <p class="obj">Reconstruir decisiones y compromisos dispersos en Outlook, Teams y SharePoint con trazabilidad exacta de fuente.</p>
+          </div>
+        </div>
+        <div class="blocks">
+          <div><strong>01 · Rol</strong><span>Auditor de Gestión de Compromisos y Procesos Corporativos</span></div>
+          <div><strong>02 · Contexto</strong><span>Entorno Microsoft 365 Copilot Chat consultando Outlook, Teams y SharePoint de los últimos 15 días</span></div>
+          <div><strong>03 · Tarea</strong><span>Rastrear comunicaciones de un proyecto/incidente y compilar acuerdos formales verificados</span></div>
+          <div><strong>04 · Restricciones</strong><span>Prohibido inferir acuerdos no citados; exigir remitente, fecha y asunto exactos</span></div>
+          <div><strong>05 · Formato</strong><span>Tabla Markdown con Fecha, Canal, Autor/Remitente, Acuerdo Formal y Responsable</span></div>
+        </div>
+        <div class="prompt-box">
+          <div class="prompt-top">
+            <span>PROMPT LISTO PARA COPILOT</span>
+            <button type="button" class="copy-btn" data-idx="6">Copiar Prompt</button>
+          </div>
+          <pre id="p-6">Actúa como Auditor de Gestión de Compromisos y Procesos Corporativos.
+En tu entorno de búsqueda empresarial de Microsoft 365, rastrea todas las comunicaciones internas de los últimos 15 días relacionadas con el proyecto o incidente '[Nombre_Proyecto_O_Incidente]'.
+Examina correos electrónicos en Outlook, mensajes en canales de Teams y minutas en SharePoint para consolidar el estado de los acuerdos.
+Restricciones: Prohibido inferir o suponer acuerdos que no estén documentados explícitamente en el texto original. Descarta menciones casuales o no confirmadas. Cita de forma inequívoca el remitente, la fecha y el asunto del mensaje de procedencia.
+Formato de salida: Genera una matriz en tabla Markdown estructurada con las columnas: | Fecha | Canal de Origen | Autor/Remitente | Decisión o Acuerdo Formal | Tarea Pendiente y Responsable Asignado |.</pre>
+        </div>
+      </article>
+      <article class="case">
+        <div class="case-head">
+          <div>
+            <span class="tag">Caso 08 · Power BI + Copilot</span>
+            <h3>Dashboard Ejecutivo y Medidas DAX Auditables</h3>
+            <p class="obj">Diseñar una vista ejecutiva de 1 página en Power BI respaldada por medidas DAX seguras y auditables.</p>
+          </div>
+        </div>
+        <div class="blocks">
+          <div><strong>01 · Rol</strong><span>Arquitecto Senior de Business Intelligence y Modelado DAX en Power BI</span></div>
+          <div><strong>02 · Contexto</strong><span>Modelo semántico activo con [Tabla_Hechos], [Dim_Calendario] y [Dim_Area]</span></div>
+          <div><strong>03 · Tarea</strong><span>Redactar 3 medidas DAX (Total, Variación YoY y % Cumplimiento) + arquitectura de 4 visuales</span></div>
+          <div><strong>04 · Restricciones</strong><span>No inventar columnas; usar DIVIDE seguro contra división por cero y paleta sobria TCS</span></div>
+          <div><strong>05 · Formato</strong><span>Bloque de código DAX comentado + tabla de Visuales, Ejes/Campos y Formato Condicional</span></div>
+        </div>
+        <div class="prompt-box">
+          <div class="prompt-top">
+            <span>PROMPT LISTO PARA COPILOT</span>
+            <button type="button" class="copy-btn" data-idx="7">Copiar Prompt</button>
+          </div>
+          <pre id="p-7">Actúa como Arquitecto Senior de Business Intelligence y Modelado DAX en Power BI.
+Estamos construyendo un reporte ejecutivo sobre el modelo semántico activo que contiene las tablas [Tabla_Hechos], [Dim_Calendario] y [Dim_Area].
+Ejecuta dos tareas en orden:
+1. Redacta 3 medidas DAX auditables:
+   - [Total_Periodo]: suma de [Monto_O_Volumen].
+   - [Variacion_YoY_%]: variación porcentual frente al mismo periodo del año anterior usando SAMEPERIODLASTYEAR y DIVIDE.
+   - [Cumplimiento_Meta_%]: relación entre [Total_Periodo] y [Meta_Objetivo].
+2. Propón la arquitectura visual de una página de dashboard ejecutivo (3 tarjetas KPI superiores, 1 serie temporal mensual, 1 gráfico de barras por área y 2 segmentadores de fecha y unidad).
+Restricciones: Prohibido inventar columnas inexistentes o usar divisiones sin control de cero. Aplica jerarquía sobria TCS (blanco/negro base, azul #0076CE para métrica principal y alerta solo en desviaciones negativas).
+Formato de salida: Bloque de código DAX listo para copiar + tabla con Visual, Ejes/Campos y Regla de Formato Condicional.</pre>
+        </div>
+      </article>
+
+    <h2>3. Protocolo de las 3 Preguntas de Auditoría</h2>
+    <div class="audit">
+      <div><strong>1. El Resultado</strong>¿Es fidedigno contra la fuente? Coteja el dato más crítico contra la celda o archivo original.</div>
+      <div><strong>2. El Camino</strong>¿Cómo llegó al número? Exige a Copilot la fórmula y secuencia lógica paso a paso.</div>
+      <div><strong>3. La Actitud</strong>¿Está siendo complaciente? Pide una auto-auditoría implacable señalando 3 posibles fallas.</div>
+    </div>
+  </main>
+
+  <footer>Tata Consultancy Services (TCS) · IA LAB · TCS Confidential</footer>
+
+  <script>
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const txt = document.getElementById('p-' + btn.dataset.idx).textContent;
+        try {
+          await navigator.clipboard.writeText(txt);
+          const orig = btn.textContent;
+          btn.textContent = '✓ Copiado';
+          setTimeout(() => btn.textContent = orig, 1500);
+        } catch (e) {}
+      });
+    });
+  </script>
+</body>
+</html>

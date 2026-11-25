@@ -599,6 +599,187 @@
       .fc-card { min-height: 430px; }
     }
 
+    /* ==================== CLASE 3: M365 PROMPT CATALOG (5 BLOQUES) ==================== */
+    .pc-shell {
+      background: var(--surface);
+      border: 1px solid var(--ink);
+      padding: 24px;
+    }
+
+    .pc-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      padding-bottom: 18px;
+      margin-bottom: 22px;
+      border-bottom: 1px solid var(--hairline-strong);
+    }
+
+    .pc-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .pc-card {
+      border: 1px solid var(--hairline-strong);
+      background: var(--paper);
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+    }
+
+    .pc-card.hidden { display: none; }
+
+    .pc-meta {
+      padding: 22px 24px;
+      border-right: 1px solid var(--hairline);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .pc-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .pc-app-tag {
+      background: var(--ink);
+      color: var(--volt);
+      padding: 3px 8px;
+    }
+
+    [data-theme="dark"] .pc-app-tag {
+      background: var(--volt);
+      color: #0A0B0D;
+    }
+
+    .pc-title {
+      font-family: var(--font-cond);
+      font-size: 26px;
+      font-weight: 800;
+      text-transform: uppercase;
+      line-height: 1.02;
+      color: var(--ink);
+    }
+
+    .pc-blocks {
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid var(--hairline);
+    }
+
+    .pc-block-row {
+      display: grid;
+      grid-template-columns: 112px 1fr;
+      gap: 10px;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--hairline);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .pc-block-row strong {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--tcs-blue);
+    }
+
+    [data-theme="dark"] .pc-block-row strong { color: var(--volt); }
+    .pc-block-row span { color: var(--ink-soft); }
+
+    .pc-prompt-side {
+      background: var(--cinema);
+      color: var(--cinema-ink);
+      padding: 22px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .pc-prompt-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--cinema-line);
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--volt);
+    }
+
+    .pc-prompt-text {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.65;
+      color: rgba(242, 241, 236, 0.92);
+      white-space: pre-wrap;
+      margin: 0;
+    }
+
+    .fw-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      border: 1px solid var(--ink);
+      background: var(--surface);
+      margin-bottom: 24px;
+    }
+
+    .fw-step {
+      padding: 20px 18px;
+      border-right: 1px solid var(--hairline);
+    }
+
+    .fw-step:last-child { border-right: 0; }
+
+    .fw-num {
+      font-family: var(--font-cond);
+      font-size: 36px;
+      font-weight: 800;
+      line-height: 0.9;
+      color: var(--tcs-blue);
+      margin-bottom: 8px;
+    }
+
+    [data-theme="dark"] .fw-num { color: var(--volt); }
+
+    .fw-step h4 {
+      font-family: var(--font-cond);
+      font-size: 20px;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      color: var(--ink);
+    }
+
+    .fw-step p {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--ink-soft);
+    }
+
+    @media (max-width: 1080px) {
+      .pc-card { grid-template-columns: 1fr; }
+      .pc-meta { border-right: 0; border-bottom: 1px solid var(--hairline); }
+      .fw-grid { grid-template-columns: 1fr; }
+      .fw-step { border-right: 0; border-bottom: 1px solid var(--hairline); }
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     html {
@@ -1760,7 +1941,7 @@
       </div>
       <div class="nav-right">
         <button class="theme-btn" id="theme-toggle" type="button" aria-label="Cambiar tema">Modo Oscuro</button>
-        <span class="nav-live"><i></i> SESIONES 01–02 ACTIVAS</span>
+        <span class="nav-live"><i></i> SESIONES 01–03 ACTIVAS</span>
         <span id="nav-clock">--:--:--</span>
         <span class="nav-sep"></span>
         <img src="assets/logo-tata.png" alt="Tata" class="tata-logo-dark" />
@@ -1848,10 +2029,10 @@
       <button class="cls-tab" data-class="clase-3">
         <div class="cls-top">
           <span class="cls-num">03</span>
-          <span class="cls-state">CONTINUARÁ</span>
+          <span class="cls-state live">EN VIVO</span>
         </div>
-        <div class="cls-title">Datos &amp; Dashboards</div>
-        <div class="cls-desc">Auditoría · Vibe Coding HTML/JS</div>
+        <div class="cls-title">M365 Web: Excel, Word &amp; PPT</div>
+        <div class="cls-desc">Diapos · Catálogo 8 Prompts · 5 Bloques</div>
       </button>
 
       <button class="cls-tab" data-class="clase-4">
@@ -1859,8 +2040,8 @@
           <span class="cls-num">04</span>
           <span class="cls-state">CONTINUARÁ</span>
         </div>
-        <div class="cls-title">Skills, MCP &amp; Seguridad</div>
-        <div class="cls-desc">Agentes · NVIDIA SkillSpector</div>
+        <div class="cls-title">Copilot Studio &amp; SharePoint</div>
+        <div class="cls-desc">Agentes Internos · Seguridad M365</div>
       </button>
     </div>
   </nav>
@@ -2411,51 +2592,123 @@
       </div>
     </section>
 
-    <!-- ==================== CLASE 3 ==================== -->
+    <!-- ==================== CLASE 3 (EN VIVO) ==================== -->
     <section id="clase-3" class="class-panel">
-      <div class="syllabus-head">
-        <div class="syl-big-num">03</div>
-        <div>
-          <h2 class="syl-title">Decisiones con Datos — Análisis y Dashboards sin Programar</h2>
-          <p class="syl-sub">Interroga datos cuantitativos en lenguaje natural, aplica el protocolo de auditoría algebraica para eliminar errores probabilísticos y prototipa tableros interactivos con Vibe Coding.</p>
+      <div class="sub-header">
+        <div class="sub-tabs" role="tablist" aria-label="Secciones de Clase 3">
+          <button class="sub-btn active" role="tab" aria-selected="true" data-subtab="c3-slides">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12"/><path d="M8 20h8M12 16v4"/></svg>
+            01 · Diapositivas (Clase 3)
+          </button>
+          <button class="sub-btn" role="tab" aria-selected="false" data-subtab="c3-prompts">
+            <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+            02 · Catálogo Prompts M365 (8)
+          </button>
+          <button class="sub-btn" role="tab" aria-selected="false" data-subtab="c3-framework">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            03 · 5 Bloques &amp; Auditoría
+          </button>
         </div>
-        <span class="syl-badge">Próximamente · Continuará</span>
+        <span class="nav-prog">CLASE 03 // PRODUCTIVIDAD EN LA NUBE: EXCEL, WORD, PPT &amp; POWER BI</span>
       </div>
 
-      <div class="syl-grid">
-        <div class="syl-col">
-          <h3>01 / Qué está detrás</h3>
-          <ul>
-            <li>Predicción probabilística vs. <strong>cálculo aritmético exacto</strong>.</li>
-            <li>Por qué un LLM genera cifras con apariencia de certeza aun cuando falla.</li>
-            <li>Validación algebraica paso a paso antes de aprobar KPIs ejecutivos.</li>
-          </ul>
+      <!-- CLASE 3 TAB 01: DIAPOSITIVAS -->
+      <div id="c3-slides" class="sub-panel active">
+        <div class="slides-top">
+          <span class="nav-prog">DECK INTERACTIVO // TCS · CLASE 3: TU JORNADA DIARIA CON COPILOT — USA ← →</span>
+          <div class="reel-nav">
+            <button class="ed-btn ed-btn-light" id="btn-fullscreen-slides-c3" type="button">Pantalla Completa</button>
+            <a class="ed-btn ed-btn-light active" href="clase-3/slides.html" target="_blank" rel="noopener">Abrir en pestaña ↗</a>
+          </div>
         </div>
-        <div class="syl-col">
-          <h3>02 / Aplicación diaria</h3>
-          <ul>
-            <li>Carga y limpieza asistida de archivos CSV / Excel (anomalías y atípicos).</li>
-            <li><strong>Protocolo de Auditoría</strong>: exigir fórmulas y pasos intermedios.</li>
-            <li>Prototipado de Dashboards HTML/JS interactivos con <strong>Vibe Coding</strong>.</li>
-          </ul>
-        </div>
-        <div class="syl-col">
-          <h3>03 / Entregable del alumno</h3>
-          <ul>
-            <li><strong>Informe analítico cuantitativo</strong> con tabla de KPIs auditada y <strong>dashboard interactivo funcional</strong> para comité de dirección.</li>
-          </ul>
+        <div class="slides-box" id="slides-container-c3" data-dark-zone>
+          <iframe src="clase-3/slides.html" title="Diapositivas Clase 3 — Tu jornada diaria con Copilot" allowfullscreen></iframe>
         </div>
       </div>
 
-      <table class="sched-table">
-        <thead><tr><th>Bloque</th><th>Duración</th><th>Agenda de la Sesión (120 min)</th></tr></thead>
-        <tbody>
-          <tr><td class="sched-time">00:00 – 00:10</td><td>10 min</td><td>Dilema cuantitativo: certeza aparente vs. error probabilístico.</td></tr>
-          <tr><td class="sched-time">00:10 – 00:50</td><td>40 min</td><td>Análisis en lenguaje natural, limpieza y Protocolo de Auditoría.</td></tr>
-          <tr><td class="sched-time">00:50 – 01:45</td><td>55 min</td><td>Prototipado de Dashboards HTML/JS interactivos mediante Vibe Coding.</td></tr>
-          <tr><td class="sched-time">01:45 – 02:00</td><td>15 min</td><td>Prueba cruzada de visualizaciones y resolución de dudas.</td></tr>
-        </tbody>
-      </table>
+      <!-- CLASE 3 TAB 02: CATÁLOGO DE PROMPTS M365 (5 BLOQUES) -->
+      <div id="c3-prompts" class="sub-panel">
+        <div class="pc-shell">
+          <div class="pc-toolbar">
+            <div class="reel-nav" id="pc-filters">
+              <button class="ed-btn ed-btn-light active" data-pc-filter="all" type="button">Todos (8)</button>
+              <button class="ed-btn ed-btn-light" data-pc-filter="excel" type="button">Excel Web (3)</button>
+              <button class="ed-btn ed-btn-light" data-pc-filter="word" type="button">Word / Outlook (2)</button>
+              <button class="ed-btn ed-btn-light" data-pc-filter="ppt" type="button">PowerPoint Web</button>
+              <button class="ed-btn ed-btn-light" data-pc-filter="chat" type="button">Copilot Chat</button>
+              <button class="ed-btn ed-btn-light" data-pc-filter="powerbi" type="button">Power BI</button>
+            </div>
+            <a class="ed-btn ed-btn-light active" href="clase-3/Informe_Ingenieria_Prompts_M365.docx" download="Informe_Ingenieria_Prompts_M365.docx">↓ Descargar Informe (.docx)</a>
+          </div>
+          <div class="pc-grid" id="pc-grid"></div>
+        </div>
+      </div>
+
+      <!-- CLASE 3 TAB 03: FRAMEWORK 5 BLOQUES & PROTOCOLO DE AUDITORÍA -->
+      <div id="c3-framework" class="sub-panel">
+        <div class="fw-grid">
+          <div class="fw-step">
+            <div class="fw-num">01</div>
+            <h4>Rol / Persona</h4>
+            <p>Fija el subespacio técnico y el vocabulario experto (ej. Auditor Senior o Consultor BI), descartando respuestas genéricas.</p>
+          </div>
+          <div class="fw-step">
+            <div class="fw-num">02</div>
+            <h4>Contexto</h4>
+            <p>Delimita escenario operativo y ancla archivos en la nube con el comando <code>/</code> antes de formular la tarea (+30% atención).</p>
+          </div>
+          <div class="fw-step">
+            <div class="fw-num">03</div>
+            <h4>Tarea</h4>
+            <p>Verbos operativos deterministas (<em>auditar, calcular, sintetizar, estructurar</em>) secuenciados en pasos claros.</p>
+          </div>
+          <div class="fw-step">
+            <div class="fw-num">04</div>
+            <h4>Restricciones</h4>
+            <p>Cortafuegos Anti-Slop y regla de oro: prohibido calcular totales en el chat; exigir fórmulas nativas en celda (<code>IFS</code>, <code>XLOOKUP</code>).</p>
+          </div>
+          <div class="fw-step">
+            <div class="fw-num">05</div>
+            <h4>Formato</h4>
+            <p>Estructura exacta lista para consumo inmediato: tabla Markdown, hoja nueva de Excel, 5 slides Bento o medidas DAX.</p>
+          </div>
+        </div>
+
+        <div class="syl-grid">
+          <div class="syl-col">
+            <h3>Filtro 01 / El Resultado</h3>
+            <ul>
+              <li><strong>Pregunta:</strong> ¿Esto es fidedigno y demostrable contra la fuente primaria?</li>
+              <li><strong>Acción:</strong> Cotejar manualmente el dato cuantitativo más crítico contra la celda o documento original.</li>
+            </ul>
+          </div>
+          <div class="syl-col">
+            <h3>Filtro 02 / El Camino</h3>
+            <ul>
+              <li><strong>Pregunta:</strong> ¿Cómo ha calculado o deducido el modelo esta conclusión?</li>
+              <li><strong>Acción:</strong> Exigir a Copilot la secuencia lógica paso a paso y la fórmula exacta aplicada.</li>
+            </ul>
+          </div>
+          <div class="syl-col">
+            <h3>Filtro 03 / La Actitud</h3>
+            <ul>
+              <li><strong>Pregunta:</strong> ¿El modelo está siendo complaciente sin rigor?</li>
+              <li><strong>Acción:</strong> Forzar auto-auditoría: <em>"Actúa como auditor externo implacable y señala 3 fallas potenciales."</em></li>
+            </ul>
+          </div>
+        </div>
+
+        <table class="sched-table">
+          <thead><tr><th>Bloque</th><th>Duración</th><th>Agenda de la Sesión 3 — M365 Cloud (120 min)</th></tr></thead>
+          <tbody>
+            <tr><td class="sched-time">00:00 – 00:15</td><td>15 min</td><td>Determinismo en celda vs. probabilidad en chat; penalización +22% tokens en español.</td></tr>
+            <tr><td class="sched-time">00:15 – 00:55</td><td>40 min</td><td>Excel Web con Copilot: Auditoría de tablas (Ctrl+T), fórmulas <code>IFS</code> y Dashboard dinámico.</td></tr>
+            <tr><td class="sched-time">00:55 – 01:25</td><td>30 min</td><td>Word Web (comando <code>/</code>) y Outlook: Memorando de 1 página y Elevator Pitch en 4 viñetas.</td></tr>
+            <tr><td class="sched-time">01:25 – 01:50</td><td>25 min</td><td>PowerPoint Web en 2 clics (regla TCS 65/25/10 y Títulos de Acción) + cruce en Copilot Chat.</td></tr>
+            <tr><td class="sched-time">01:50 – 02:00</td><td>10 min</td><td>Protocolo de las 3 Preguntas de Auditoría y entrega del flujo Excel → Word → PPT.</td></tr>
+          </tbody>
+        </table>
+      </div>
     </section>
 
     <!-- ==================== CLASE 4 ==================== -->
@@ -2692,8 +2945,8 @@
       }
     });
 
-    // Mindmap Data
-    const MINDMAP_MARKDOWN = `# 🧠 ¿Qué está detrás de la IA y cómo aplicarlo en tu día a día? (TCS)
+    // Mindmap Data (Actualizado — M365 Cloud & Microsoft Copilot)
+    const MINDMAP_MARKDOWN = `# 🧠 IA y Microsoft Copilot en tu Día a Día (M365 Cloud)
 - 🎯 El Hook Diagnóstico: Los 20 Conceptos de la Frontera de IA
   - 🧩 1. Fundamentos Técnicos
     - 🔤 Tokens
@@ -2704,10 +2957,10 @@
   - ⚙️ 2. Interacción y Lógica
     - ✍️ Prompt
     - 🧭 System Prompt
-    - 🪜 Razonamiento paso a paso
     - 🔗 Chain of Thought
+    - 🪜 Razonamiento paso a paso
     - 🔌 Function Calling
-    - 🌐 MCP (Model Context Protocol)
+    - 🌐 MCP
   - 🤖 3. Sistemas Autónomos
     - 🔀 Workflows
     - 🔁 Loops
@@ -2719,63 +2972,58 @@
     - 🛡️ Guardrails
     - 🔒 Scopes
   - 📊 Dinámica del 1%
-    - 🔴 Menos de 5: Uso Casual
-    - 🟡 5 a 15: Operador
-    - 🟢 Los 20: 1% Avanzado
+    - 🔴 Casual vs Operador vs 1%
 - 📌 Clase 1: El Despertar — Del Mecanismo al Prompt Profesional
   - 🔬 Qué está detrás
-    - 🔤 Tokens y +22% en español
+    - 🔤 Probabilidad de tokens (+22% ES)
     - 📐 Espacio latente y embeddings
-    - 📏 Similitud de coseno
-    - 🧠 Transformers y atención QKV
-    - ⚖️ Prompting vs RAG vs Fine-Tuning
+    - 📏 Similitud de coseno (RAG)
+    - 🧠 Transformers y autoatención
   - 🛠️ Aplicación diaria
-    - ⚖️ Caso RAG: COIP y Tránsito
+    - 🧭 Mentor 3.0 en 4 fases
+    - 🧱 Framework de 5 bloques
+    - ⚖️ Caso legal COIP y Tránsito
     - 🗺️ Mapa: Claude, ChatGPT y Gemini
-    - 🧭 Metodología Mentor 3.0 (4 fases)
-    - 🧱 Prompt corporativo en 5 partes
-    - 🔎 Auditoría: Resultado, Camino, Actitud
   - 🎯 Entregable del alumno
-    - 📄 Prompt corporativo probado (120 min)
-- 📌 Clase 2: Documentos Limpios — Markdown, MarkItDown y Diapositivas TCS
+    - 📄 Prompt corporativo validado (120 min)
+- 📌 Clase 2: Documentos Limpios — Markdown (.md), MarkItDown y Skills en Copilot
   - 🔬 Qué está detrás
-    - 📝 Markdown vs formatos binarios
+    - 📝 Texto plano vs formatos binarios
     - ⚡ Atención lineal sin ruido
-    - 📊 Tablas deterministas para LLMs
-  - 🛠️ Aplicación diaria
-    - 🔄 Conversión con Microsoft MarkItDown
-    - 🎨 Diapositivas TCS (paleta 65/25/10)
-    - 🚫 Eliminación de AI Slop
-    - 📢 Titulares de acción concluyentes
-  - 🎯 Entregable del alumno
-    - 🖥️ 8 diapositivas TCS en Markdown
-- 📌 Clase 3: Decisiones con Datos — Análisis y Dashboards sin Programar
-  - 🔬 Qué está detrás
-    - 🎲 Probabilidad vs cálculo exacto
-    - ⚠️ Riesgo de certeza engañosa
-    - 🧮 Validación algebraica paso a paso
-  - 🛠️ Aplicación diaria
-    - 📂 Carga de CSV y Excel
-    - 🧹 Limpieza y valores atípicos
-    - 🔍 Auditoría explícita de fórmulas
-    - ⚡ Dashboards HTML/JS (Vibe Coding)
-  - 🎯 Entregable del alumno
-    - 📈 Informe KPI auditado + Dashboard
-- 📌 Clase 4: El Nivel Pro — Skills Modulares, MCP, Agentes y Seguridad
-  - 🔬 Qué está detrás
     - 🧰 Arquitectura modular SKILL.md
-    - 🌐 Protocolo MCP y herramientas
-    - 🔁 Loops y orquestación multiagente
   - 🛠️ Aplicación diaria
-    - 🏗️ Taller de Skill corporativa
-    - ♻️ Portabilidad en 2+ plataformas
-    - 🛡️ Auditoría NVIDIA SkillSpector
-    - 🚧 Control EA1–EA3 y OH1–OH3
+    - 🔄 MarkItDown para limpiar archivos
+    - 📤 Carga de Skills en Copilot
+    - 🎨 Diapositivas TCS sin AI Slop
+    - 🃏 Repaso con Tarjetas Didácticas
   - 🎯 Entregable del alumno
-    - 📦 SKILL.md validado en 2 plataformas`;
+    - 📦 Documento .md y Skill operativa
+- 📌 Clase 3: Productividad en la Nube — De Excel a Word y PowerPoint en M365 Web
+  - 🔬 Qué está detrás
+    - 🧮 Cálculo determinista en celda
+    - 🎲 vs Probabilidad en chat
+    - 🔗 Anclaje de contexto en nube
+  - 🛠️ Aplicación diaria
+    - 📊 Fórmulas auditables en Excel Web
+    - ✍️ Comando / en Word Web
+    - 🖥️ Generación PPT en 2 clics
+    - 🔍 Cruce en Copilot Chat y BI
+  - 🎯 Entregable del alumno
+    - 🚀 Flujo Excel → Word → PPT Web
+- 📌 Clase 4: El Nivel Pro — Copilot Studio, Agentes Internos, SharePoint y Seguridad
+  - 🔬 Qué está detrás
+    - 🌐 Flujo RAG de Microsoft Graph
+    - 🔐 Seguridad, permisos y trazabilidad
+    - 🛡️ Gobernanza y guardrails corporativos
+  - 🛠️ Aplicación diaria
+    - 🤖 Agentes en Copilot Studio
+    - 📂 Conexión segura a SharePoint
+    - 🔎 Auditoría de permisos y alcances
+  - 🎯 Entregable del alumno
+    - 🏆 Agente interno conectado a SharePoint`;
 
     const MINDMAP_MERMAID = `mindmap
-  root(("🧠 ¿Qué está detrás de la IA y cómo aplicarlo en tu día a día? (TCS)"))
+  root(("🧠 IA y Microsoft Copilot en tu Día a Día (M365 Cloud)"))
     ("🎯 El Hook Diagnóstico: Los 20 Conceptos")
       ("🧩 1. Fundamentos Técnicos")
         ("🔤 Tokens")
@@ -2786,8 +3034,8 @@
       ("⚙️ 2. Interacción y Lógica")
         ("✍️ Prompt")
         ("🧭 System Prompt")
-        ("🪜 Razonamiento paso a paso")
         ("🔗 Chain of Thought")
+        ("🪜 Razonamiento paso a paso")
         ("🔌 Function Calling")
         ("🌐 MCP")
       ("🤖 3. Sistemas Autónomos")
@@ -2801,60 +3049,55 @@
         ("🛡️ Guardrails")
         ("🔒 Scopes")
       ("📊 Dinámica del 1%")
-        ("🔴 Menos de 5: Uso Casual")
-        ("🟡 5 a 15: Operador")
-        ("🟢 Los 20: 1% Avanzado")
+        ("🔴 Casual vs Operador vs 1%")
     ("📌 Clase 1: El Despertar y Prompting")
       ("🔬 Qué está detrás")
-        ("🔤 Tokens y +22% en español")
+        ("🔤 Probabilidad de tokens (+22% ES)")
         ("📐 Espacio latente y embeddings")
-        ("📏 Similitud de coseno")
-        ("🧠 Transformers y atención QKV")
-        ("⚖️ Prompting vs RAG vs Fine-Tuning")
+        ("📏 Similitud de coseno (RAG)")
+        ("🧠 Transformers y autoatención")
       ("🛠️ Aplicación diaria")
-        ("⚖️ Caso RAG: COIP y Tránsito")
+        ("🧭 Mentor 3.0 en 4 fases")
+        ("🧱 Framework de 5 bloques")
+        ("⚖️ Caso legal COIP y Tránsito")
         ("🗺️ Mapa: Claude, ChatGPT y Gemini")
-        ("🧭 Metodología Mentor 3.0")
-        ("🧱 Prompt corporativo en 5 partes")
-        ("🔎 Auditoría: Resultado, Camino, Actitud")
       ("🎯 Entregable del alumno")
-        ("📄 Prompt corporativo probado")
-    ("📌 Clase 2: Documentos Limpios y Diapos TCS")
+        ("📄 Prompt corporativo validado")
+    ("📌 Clase 2: Markdown, MarkItDown y Skills")
       ("🔬 Qué está detrás")
-        ("📝 Markdown vs formatos binarios")
+        ("📝 Texto plano vs formatos binarios")
         ("⚡ Atención lineal sin ruido")
-        ("📊 Tablas deterministas para LLMs")
-      ("🛠️ Aplicación diaria")
-        ("🔄 Microsoft MarkItDown")
-        ("🎨 Diapositivas TCS 65/25/10")
-        ("🚫 Eliminación de AI Slop")
-        ("📢 Titulares de acción concluyentes")
-      ("🎯 Entregable del alumno")
-        ("🖥️ 8 diapositivas TCS en Markdown")
-    ("📌 Clase 3: Decisiones con Datos")
-      ("🔬 Qué está detrás")
-        ("🎲 Probabilidad vs cálculo exacto")
-        ("⚠️ Riesgo de certeza engañosa")
-        ("🧮 Validación algebraica paso a paso")
-      ("🛠️ Aplicación diaria")
-        ("📂 Carga de CSV y Excel")
-        ("🧹 Limpieza y valores atípicos")
-        ("🔍 Auditoría explícita de fórmulas")
-        ("⚡ Dashboards con Vibe Coding")
-      ("🎯 Entregable del alumno")
-        ("📈 Informe KPI auditado + Dashboard")
-    ("📌 Clase 4: El Nivel Pro — Skills y MCP")
-      ("🔬 Qué está detrás")
         ("🧰 Arquitectura modular SKILL.md")
-        ("🌐 Protocolo MCP y herramientas")
-        ("🔁 Loops y orquestación multiagente")
       ("🛠️ Aplicación diaria")
-        ("🏗️ Taller de Skill corporativa")
-        ("♻️ Portabilidad en 2+ plataformas")
-        ("🛡️ Auditoría NVIDIA SkillSpector")
-        ("🚧 Control EA1–EA3 y OH1–OH3")
+        ("🔄 MarkItDown para limpiar archivos")
+        ("📤 Carga de Skills en Copilot")
+        ("🎨 Diapositivas TCS sin AI Slop")
+        ("🃏 Repaso con Tarjetas Didácticas")
       ("🎯 Entregable del alumno")
-        ("📦 SKILL.md validado en 2 plataformas")`;
+        ("📦 Documento .md y Skill operativa")
+    ("📌 Clase 3: Productividad en M365 Web")
+      ("🔬 Qué está detrás")
+        ("🧮 Cálculo determinista en celda")
+        ("🎲 vs Probabilidad en chat")
+        ("🔗 Anclaje de contexto en nube")
+      ("🛠️ Aplicación diaria")
+        ("📊 Fórmulas auditables en Excel Web")
+        ("✍️ Comando / en Word Web")
+        ("🖥️ Generación PPT en 2 clics")
+        ("🔍 Cruce en Copilot Chat y BI")
+      ("🎯 Entregable del alumno")
+        ("🚀 Flujo Excel → Word → PPT Web")
+    ("📌 Clase 4: Copilot Studio y Seguridad")
+      ("🔬 Qué está detrás")
+        ("🌐 Flujo RAG de Microsoft Graph")
+        ("🔐 Seguridad, permisos y trazabilidad")
+        ("🛡️ Gobernanza y guardrails")
+      ("🛠️ Aplicación diaria")
+        ("🤖 Agentes en Copilot Studio")
+        ("📂 Conexión segura a SharePoint")
+        ("🔎 Auditoría de permisos y alcances")
+      ("🎯 Entregable del alumno")
+        ("🏆 Agente conectado a SharePoint")`;
 
     document.getElementById('mm-markdown-view').textContent = MINDMAP_MARKDOWN;
     document.getElementById('mm-mermaid-view').textContent = MINDMAP_MERMAID;
@@ -3232,6 +3475,234 @@
       });
 
       renderStudy();
+    })();
+
+    // ==================== CLASE 3: FULLSCREEN + M365 PROMPT CATALOG (8 CASOS) ====================
+    const btnFsC3 = document.getElementById('btn-fullscreen-slides-c3');
+    if (btnFsC3) {
+      btnFsC3.addEventListener('click', () => {
+        const el = document.getElementById('slides-container-c3');
+        if (el.requestFullscreen) el.requestFullscreen();
+        else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+      });
+    }
+
+    const M365_PROMPTS = [
+      {
+        num: 'CASO 01',
+        cat: 'excel',
+        app: 'Excel Web',
+        title: 'Auditoría y Calidad de Datos',
+        rol: 'Auditor Senior de Calidad de Datos y Operaciones',
+        ctx: 'Tabla oficial (Ctrl + T) recién exportada de ServiceNow o core bancario',
+        tarea: 'Auditar nulos, duplicados por ID y valores atípicos fuera de rango',
+        rest: 'No modificar, ordenar ni eliminar filas originales; reportar en panel',
+        fmt: 'Reporte de 3 puntos con ID de registro, celda afectada y acción correctiva',
+        prompt: `Actúa como un Auditor Senior de Calidad de Datos y Operaciones.
+Estamos revisando una tabla recién exportada del sistema transaccional para validar su consistencia antes de la presentación de comités.
+Examina la tabla activa y audita la calidad de los datos en las columnas [ID_Registro], [Fecha] y [Monto_O_Tiempo]:
+1. Identifica si existen celdas vacías o nulas en campos obligatorios.
+2. Señala registros duplicados basados en [ID_Registro].
+3. Detecta valores atípicos que se ubiquen por fuera del rango operativo habitual.
+Restricciones: No modifiques, ordenes ni elimines filas de la tabla original; limita tu intervención a identificar en este panel cuáles son las filas exactas afectadas y la causa de la anomalía.
+Formato de salida: Entrega un reporte estructurado en 3 puntos, indicando ID de registro, celda afectada y acción correctiva manual recomendada.`
+      },
+      {
+        num: 'CASO 02',
+        cat: 'excel',
+        app: 'Excel Web',
+        title: 'Fórmulas Deterministas y Clasificación (IFS)',
+        rol: 'Especialista en Modelado y Lógica Financiera en Excel',
+        ctx: 'Tabla activa con columna continua [Dias_Mora] o tiempos de SLA',
+        tarea: 'Insertar columna calculada Clasificacion_Riesgo según 3 umbrales',
+        rest: 'Prohibido cálculo en memoria; exigir fórmula nativa IFS o SWITCH',
+        fmt: 'Sintaxis completa de la fórmula para inspección e inserción en tabla',
+        prompt: `Actúa como Especialista en Modelado y Lógica Financiera en Excel.
+En la tabla de datos activa, necesitamos estandarizar la clasificación de la cartera según las políticas regulatorias vigentes.
+Inserta una nueva columna calculada llamada 'Clasificacion_Riesgo' que evalúe la columna [Dias_Mora] bajo los siguientes criterios:
+- Asigna 'Normal' si [Dias_Mora] es igual a 0.
+- Asigna 'Alerta Temprana' si [Dias_Mora] está entre 1 y 30.
+- Asigna 'Cartera Vencida' si [Dias_Mora] es mayor a 30.
+Restricciones: No calcules los resultados en memoria ni generes valores estáticos. La columna debe implementar una fórmula formal y determinista de Excel (utilizando IFS o SWITCH). Muestra la sintaxis completa de la fórmula en tu respuesta antes de aplicarla a la tabla.
+Formato de salida: Código de la fórmula de Excel listo para inspección y confirmación de inserción en la tabla activa.`
+      },
+      {
+        num: 'CASO 03',
+        cat: 'excel',
+        app: 'Excel Web',
+        title: 'Dashboards y Tablas Dinámicas',
+        rol: 'Consultor de Inteligencia de Negocios y Analítica Ejecutiva',
+        ctx: 'Tabla maestra de operaciones validada para comité semanal',
+        tarea: 'Generar tabla dinámica en hoja nueva + gráfico de barras apiladas',
+        rest: 'Orden descendente por volumen, formato moneda/miles y estética sobria TCS',
+        fmt: 'Hoja nueva Dashboard_Ejecutivo con tabla dinámica y gráfico interactivo',
+        prompt: `Actúa como Consultor de Inteligencia de Negocios y Analítica Ejecutiva.
+A partir de la tabla maestra de operaciones, requerimos consolidar el estado del servicio para el comité directivo semanal.
+Genera una tabla dinámica en una hoja nueva de este libro que resuma:
+1. En filas: [Categoria_Area_O_Torre].
+2. En columnas: [Estado_Resolucion_O_Riesgo].
+3. En valores: Recuento total de operaciones y suma consolidada de [Monto_O_Volumen].
+Inserta un gráfico de barras apiladas que represente la concentración de desviaciones por cada área.
+Restricciones: Ordena las filas en sentido descendente según el volumen total. Formatea los valores numéricos como moneda o enteros con separador de miles. Aplica una estética sobria y profesional evitando colores estridentes.
+Formato de salida: Creación automatizada de la hoja 'Dashboard_Ejecutivo' con tabla y gráfico interactivo.`
+      },
+      {
+        num: 'CASO 04',
+        cat: 'word',
+        app: 'Word Web (/)',
+        title: 'Memorando Ejecutivo y Nota Técnica',
+        rol: 'Especialista Senior de Gestión Corporativa y Redactor Técnico',
+        ctx: 'Archivo Excel en OneDrive/SharePoint vinculado con comando /',
+        tarea: 'Redactar memorando de 1 página: objetivo, 3 hallazgos, 2 riesgos y plan 30/60/90',
+        rest: 'Cero AI Slop, máximo 450 palabras y cifras derivadas 100% del Excel',
+        fmt: 'Encabezados jerárquicos, viñetas concisas y tabla Markdown de acciones',
+        prompt: `Actúa como Especialista Senior de Gestión Corporativa y Redactor Técnico de Informes de Decisión.
+Con base exclusiva en los datos contenidos en el archivo /[Seleccionar_Archivo_Excel_En_Nube.xlsx], redacta un Memorando Técnico dirigido al Comité Directivo.
+Estructura obligatoria del informe:
+1. Objetivo y Alcance: Justificación formal del reporte y fecha de corte analizada.
+2. Diagnóstico Cuantitativo: Exactamente 3 hallazgos clave fundamentados en las cifras de la tabla (volúmenes totales, variaciones porcentuales y concentraciones críticas).
+3. Puntos de Alerta y Exposición: Detalle de los dos principales focos de riesgo detectados y su impacto potencial en balance o continuidad de servicio.
+4. Plan de Acción Recomendado: 3 medidas de mitigación concretas con responsable institucional asignado y plazos de ejecución (30, 60 y 90 días).
+Restricciones estrictas: Prohibido utilizar clichés lingüísticos ("en el mundo actual", "un tapiz de oportunidades", "es fundamental destacar"). No utilices más de 450 palabras en total. Todo dato numérico debe derivar de la hoja de cálculo referenciada.
+Formato de salida: Documento estructurado con encabezados formales (#, ##), viñetas concisas y tabla Markdown para el plan de acción.`
+      },
+      {
+        num: 'CASO 05',
+        cat: 'word',
+        app: 'Word / Outlook',
+        title: 'Síntesis Ejecutiva en 4 Viñetas (Elevator Pitch)',
+        rol: 'Asesor Ejecutivo de Comunicación Corporativa',
+        ctx: 'Informe técnico extenso finalizado en Word Web para Dirección General',
+        tarea: 'Sintetizar en exactamente 4 viñetas: Volumen, Avance, Alerta y Decisión',
+        rest: 'Máximo 15 palabras por viñeta; modo indicativo sin saludos ni relleno',
+        fmt: 'Lista de 4 viñetas directas listas para copiar en Outlook Web',
+        prompt: `Actúa como Asesor Ejecutivo de Comunicación Corporativa.
+Necesitamos comunicar los resultados del informe anterior a la Dirección General mediante un mensaje de correo electrónico de lectura inmediata.
+Sintetiza la totalidad del documento en exactamente cuatro viñetas estructuradas:
+- Viñeta 1 (Volumen): El total de operaciones analizadas y estado global de la cartera/servicio.
+- Viñeta 2 (Avance): El principal indicador positivo o meta contractual superada en el periodo.
+- Viñeta 3 (Alerta): La desviación más crítica que requiere atención inmediata.
+- Viñeta 4 (Decisión): La acción o aprobación presupuestaria/operativa que se solicita a la Dirección.
+Restricciones: Longitud máxima de 15 palabras por viñeta. Redacción asertiva en modo indicativo, sin preámbulos de cortesía ni despedidas.
+Formato de salida: Lista con viñetas estandarizadas listas para inserción directa en Outlook Web.`
+      },
+      {
+        num: 'CASO 06',
+        cat: 'ppt',
+        app: 'PowerPoint Web',
+        title: 'Presentación Corporativa TCS en 5 Slides',
+        rol: 'Director Ejecutivo de Presentaciones y Storytelling Estratégico',
+        ctx: 'Documento Word en la nube referenciado con /[Nota_Tecnica.docx]',
+        tarea: 'Generar mazo de 5 diapositivas con Títulos de Acción y layouts TCS',
+        rest: 'Regla TCS 65/25/10, tipografía Calibri, máx. 12 palabras por viñeta y cero AI Slop',
+        fmt: 'Desglose slide por slide: Layout (Portada, Bento, Split, Métrica, Roadmap) + texto',
+        prompt: `Actúa como Director Ejecutivo de Presentaciones Corporativas y Especialista en Comunicación Estratégica.
+A partir del informe /[Seleccionar_Nota_Tecnica.docx], genera y calibra una presentación ejecutiva de exactamente 5 diapositivas para el Comité Operativo.
+Reglas de diseño y estructura obligatorias:
+1. Títulos de Acción Concluyentes: La cabecera de cada diapositiva debe emitir una conclusión numérica o estratégica de negocio (por ejemplo: 'La automatización de procesos redujo el tiempo de resolución en un 18%' en lugar de 'Resultados del Periodo').
+2. Distribución por Diapositiva: Un subtítulo contextual de una línea, máximo 3 viñetas breves (hasta 12 palabras cada una) y un callout box de métrica destacada.
+3. Asignación de Layouts Corporativos TCS:
+   - Slide 1: Portada Ejecutiva con título de sesión y entidad.
+   - Slide 2: Bento Grid de 3 tarjetas para los tres indicadores dominantes.
+   - Slide 3: Split en 2 Columnas comparativas (Diagnóstico vs. Mitigación / Antes vs. Después).
+   - Slide 4: Layout de Métrica destacada para el principal hallazgo de riesgo.
+   - Slide 5: Hoja de ruta de compromisos con fechas límite.
+Restricciones: Erradica el AI Slop visual y textual. Mantén textos limpios, sin adjetivos vacíos y respetando la jerarquía tipográfica Calibri.
+Formato de salida: Desglose diapositiva por diapositiva indicando Layout TCS, Título de Acción, viñetas y contenido de la caja de métrica.`
+      },
+      {
+        num: 'CASO 07',
+        cat: 'chat',
+        app: 'Copilot Chat',
+        title: 'Búsqueda y Cruce de Acuerdos en M365 Graph',
+        rol: 'Auditor de Gestión de Compromisos y Procesos Corporativos',
+        ctx: 'Grafo M365 (Outlook, Teams, SharePoint) de los últimos 15 días',
+        tarea: 'Rastrear comunicaciones de un proyecto/incidente y compilar acuerdos formales',
+        rest: 'Prohibido inferir acuerdos no citados; incluir remitente, fecha y asunto exacto',
+        fmt: 'Tabla Markdown con Fecha, Canal, Autor, Acuerdo y Responsable',
+        prompt: `Actúa como Auditor de Gestión de Compromisos y Procesos Corporativos.
+En tu entorno de búsqueda empresarial de Microsoft 365, rastrea todas las comunicaciones internas de los últimos 15 días relacionadas con el proyecto o incidente '[Nombre_Proyecto_O_Incidente]'.
+Examina correos electrónicos en Outlook, mensajes en canales de Teams y minutas en SharePoint para consolidar el estado de los acuerdos.
+Restricciones: Prohibido inferir o suponer acuerdos que no estén documentados explícitamente en el texto original. Descarta menciones casuales o no confirmadas. Cita de forma inequívoca el remitente, la fecha y el asunto del mensaje de procedencia.
+Formato de salida: Genera una matriz en tabla Markdown estructurada con las columnas: | Fecha | Canal de Origen | Autor/Remitente | Decisión o Acuerdo Formal | Tarea Pendiente y Responsable Asignado |.`
+      },
+      {
+        num: 'CASO 08',
+        cat: 'powerbi',
+        app: 'Power BI + Copilot',
+        title: 'Dashboard Ejecutivo y Medidas DAX Auditables',
+        rol: 'Arquitecto Senior de Business Intelligence y Modelado DAX en Power BI',
+        ctx: 'Modelo semántico en Power BI con tablas Ventas/Operaciones, Calendario y Áreas',
+        tarea: 'Diseñar layout de 1 página ejecutiva + redactar 3 medidas DAX (Total, Variación YoY y % Cumplimiento)',
+        rest: 'No inventar nombres de columnas; usar DIVIDE seguro contra división por cero y paleta sobria TCS',
+        fmt: 'Bloque de código DAX comentado + especificación de 4 visuales y filtros (slicers)',
+        prompt: `Actúa como Arquitecto Senior de Business Intelligence y Modelado DAX en Power BI.
+Estamos construyendo un reporte ejecutivo sobre el modelo semántico activo que contiene las tablas [Tabla_Hechos], [Dim_Calendario] y [Dim_Area].
+Ejecuta dos tareas en orden:
+1. Redacta 3 medidas DAX auditables:
+   - [Total_Periodo]: suma de [Monto_O_Volumen].
+   - [Variacion_YoY_%]: variación porcentual frente al mismo periodo del año anterior usando SAMEPERIODLASTYEAR y DIVIDE.
+   - [Cumplimiento_Meta_%]: relación entre [Total_Periodo] y [Meta_Objetivo].
+2. Propón la arquitectura visual de una página de dashboard ejecutivo (3 tarjetas KPI superiores, 1 serie temporal mensual, 1 gráfico de barras por área y 2 segmentadores de fecha y unidad).
+Restricciones: Prohibido inventar columnas inexistentes o usar divisiones sin control de cero. Aplica jerarquía sobria TCS (blanco/negro base, azul #0076CE para métrica principal y alerta solo en desviaciones negativas).
+Formato de salida: Bloque de código DAX listo para copiar + tabla con Visual, Ejes/Campos y Regla de Formato Condicional.`
+      }
+    ];
+
+    (function initPromptCatalog() {
+      const grid = document.getElementById('pc-grid');
+      if (!grid) return;
+
+      grid.innerHTML = M365_PROMPTS.map((item, i) => `
+        <article class="pc-card" data-pc-cat="${item.cat}">
+          <div class="pc-meta">
+            <div class="pc-top">
+              <span>${item.num}</span>
+              <span class="pc-app-tag">${item.app}</span>
+            </div>
+            <h3 class="pc-title">${item.title}</h3>
+            <div class="pc-blocks">
+              <div class="pc-block-row"><strong>01 / Rol</strong><span>${item.rol}</span></div>
+              <div class="pc-block-row"><strong>02 / Contexto</strong><span>${item.ctx}</span></div>
+              <div class="pc-block-row"><strong>03 / Tarea</strong><span>${item.tarea}</span></div>
+              <div class="pc-block-row"><strong>04 / Límites</strong><span>${item.rest}</span></div>
+              <div class="pc-block-row"><strong>05 / Formato</strong><span>${item.fmt}</span></div>
+            </div>
+          </div>
+          <div class="pc-prompt-side" data-dark-zone>
+            <div>
+              <div class="pc-prompt-head">
+                <span>PROMPT LISTO PARA COPILOT // 5 BLOQUES</span>
+                <button class="ed-btn" style="padding:5px 10px;font-size:10px;" type="button" data-copy-c3="${i}">Copiar Prompt</button>
+              </div>
+              <pre class="pc-prompt-text" style="margin-top:12px;">${item.prompt.replace(/</g, '&lt;')}</pre>
+            </div>
+          </div>
+        </article>
+      `).join('');
+
+      grid.querySelectorAll('[data-copy-c3]').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const item = M365_PROMPTS[Number(btn.dataset.copyC3)];
+          try {
+            await navigator.clipboard.writeText(item.prompt);
+            const orig = btn.textContent;
+            btn.textContent = '✓ Copiado';
+            setTimeout(() => { btn.textContent = orig; }, 1600);
+          } catch (e) {}
+        });
+      });
+
+      document.querySelectorAll('[data-pc-filter]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const f = btn.dataset.pcFilter;
+          document.querySelectorAll('[data-pc-filter]').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          grid.querySelectorAll('.pc-card').forEach(card => {
+            card.classList.toggle('hidden', f !== 'all' && card.dataset.pcCat !== f);
+          });
+        });
+      });
     })();
   </script>
 </body>

@@ -2866,11 +2866,15 @@
           </button>
           <button class="sub-btn" role="tab" aria-selected="false" data-subtab="c4-eval">
             <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-            02 · Reevaluación 20 Conceptos (1%)
+            02 · Reevaluación 20 Conceptos
+          </button>
+          <button class="sub-btn" role="tab" aria-selected="false" data-subtab="c4-blueprints">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM18 18h3v3h-3zM14 19h2M19 14h2"/></svg>
+            03 · Blueprints Agentes (QR)
           </button>
           <button class="sub-btn" role="tab" aria-selected="false" data-subtab="c4-cierre">
             <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            03 · Rúbrica, Seguridad &amp; Caja Maestra
+            04 · 5 Mandamientos &amp; Cierre
           </button>
         </div>
         <span class="nav-prog">CLASE 04 // AGENTES AUTÓNOMOS POR ÁREAS, SEGURIDAD Y CIERRE</span>
@@ -2913,8 +2917,71 @@
         <div class="ev-families" id="ev-families"></div>
       </div>
 
-      <!-- CLASE 4 TAB 03: RÚBRICA, SEGURIDAD & CAJA DE HERRAMIENTAS MAESTRA -->
+      <!-- CLASE 4 TAB 03: 3 BLUEPRINTS DE AGENTES POR ÁREA + QR -->
+      <div id="c4-blueprints" class="sub-panel">
+        <div class="qr-stage" style="margin-bottom:22px;padding:22px 26px;grid-template-columns:220px 1fr;">
+          <div class="qr-card" style="padding:14px;">
+            <img src="assets/qr-blueprints-c4.svg" alt="Código QR — Blueprints de Agentes TCS y 5 Mandamientos" style="max-width:185px;" />
+            <div class="qr-card-label" style="font-size:10px;margin-top:8px;">ESCANEA LOS BLUEPRINTS</div>
+          </div>
+          <div>
+            <div class="mono-tag" style="color:var(--tcs-blue);">COPILOT STUDIO · SHAREPOINT SEGURO · HUMAN-IN-THE-LOOP</div>
+            <h3 class="ed-h2" style="color:var(--ink);font-size:clamp(24px,2.8vw,34px);">3 Blueprints de Agentes por Área + Tarjeta de 5 Mandamientos</h3>
+            <p style="margin:8px 0 16px;font-size:14px;color:var(--ink-soft);max-width:680px;">
+              Escanea el código QR para llevarte los 3 blueprints completos listos para copiar en Microsoft Copilot Studio (Operaciones/Riesgos, Guardia ITO y Personas/Cumplimiento) junto con la tarjeta imprimible de los 5 Mandamientos de IA Segura.
+            </p>
+            <div class="reel-nav">
+              <a class="ed-btn ed-btn-light active" href="clase-4/blueprints-agentes-tcs.html" target="_blank" rel="noopener">Abrir Guía Web ↗</a>
+              <a class="ed-btn ed-btn-light" href="clase-4/Blueprints_Agentes_TCS.docx" download="Blueprints_Agentes_TCS.docx">↓ Descargar Word (.docx)</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="pc-grid" id="c4-bp-grid"></div>
+      </div>
+
+      <!-- CLASE 4 TAB 04: 5 MANDAMIENTOS, RÚBRICA & CAJA MAESTRA -->
       <div id="c4-cierre" class="sub-panel">
+        <div class="mm-shell" style="margin-bottom:24px;">
+          <div class="mm-bar">
+            <div>
+              <span class="nav-prog">ADOPCIÓN DIARIA // LOS 5 MANDAMIENTOS DE IA SEGURA (TCS)</span>
+              <div style="font-size:13px;color:var(--ink-soft);margin-top:2px;">Haz clic en el mandamiento que te comprometes a aplicar mañana en tu jornada laboral.</div>
+            </div>
+            <div class="reel-nav">
+              <a class="ed-btn ed-btn-light active" href="clase-4/blueprints-agentes-tcs.html" target="_blank" rel="noopener">Imprimir Tarjeta (PDF) ↗</a>
+            </div>
+          </div>
+
+          <div class="fw-grid" id="cmd-grid" style="margin-bottom:0;">
+            <div class="fw-step cmd-pick" style="cursor:pointer;">
+              <div class="fw-num">01</div>
+              <h4>Fórmulas en celda</h4>
+              <p>Copilot escribe la fórmula nativa (<code>IFS</code>, <code>XLOOKUP</code>), nunca el total calculado en memoria.</p>
+            </div>
+            <div class="fw-step cmd-pick" style="cursor:pointer;">
+              <div class="fw-num">02</div>
+              <h4>Comando /</h4>
+              <p>Trae tus archivos de OneDrive o SharePoint al informe antes de formular la tarea.</p>
+            </div>
+            <div class="fw-step cmd-pick" style="cursor:pointer;">
+              <div class="fw-num">03</div>
+              <h4>Títulos de acción</h4>
+              <p>Una tesis concluyente por diapositiva; erradica títulos genéricos y el AI Slop.</p>
+            </div>
+            <div class="fw-step cmd-pick" style="cursor:pointer;">
+              <div class="fw-num">04</div>
+              <h4>Agentes seguros</h4>
+              <p>Alcance acotado a carpetas aprobadas, permisos nativos de SharePoint y visto bueno humano.</p>
+            </div>
+            <div class="fw-step cmd-pick" style="cursor:pointer;">
+              <div class="fw-num">05</div>
+              <h4>Verificación crítica</h4>
+              <p>Resultado, camino y actitud antes de confiar o enviar cualquier entregable.</p>
+            </div>
+          </div>
+        </div>
+
         <div class="syl-grid">
           <div class="syl-col">
             <h3>Seguridad Bancaria &amp; SharePoint</h3>
@@ -2939,7 +3006,7 @@
               <li><a href="clase-1/skills/SKILL.md" download="SKILL.md" style="color:var(--volt);font-weight:700;">↓ SKILL.md — Mentor de Prompts 3.0</a></li>
               <li><a href="clase-1/skills/Mentor_de_Prompts.docx" download="Mentor_de_Prompts.docx" style="color:var(--volt);font-weight:700;">↓ Guía Word — Mentor de Prompts</a></li>
               <li><a href="clase-3/Informe_Ingenieria_Prompts_M365.docx" download="Informe_Ingenieria_Prompts_M365_TCS.docx" style="color:var(--volt);font-weight:700;">↓ Informe Técnico M365 (.docx)</a></li>
-              <li><a href="clase-3/informe-prompts-m365.html" target="_blank" rel="noopener" style="color:var(--volt);font-weight:700;">↗ Catálogo Web 8 Prompts M365</a></li>
+              <li><a href="clase-4/Blueprints_Agentes_TCS.docx" download="Blueprints_Agentes_TCS.docx" style="color:var(--volt);font-weight:700;">↓ Blueprints 3 Agentes + 5 Mandamientos (.docx)</a></li>
               <li><a href="assets/anatomia-prompt-efectivo.png" download="Anatomia_de_un_prompt_efectivo.png" style="color:var(--volt);font-weight:700;">↓ Infografía: Anatomía de 5 Bloques</a></li>
             </ul>
           </div>
@@ -2952,7 +3019,7 @@
             <tr><td class="sched-time">00:15 – 00:50</td><td>35 min</td><td>Casos por área: Operaciones/Riesgos, Guardia/Runbooks ITO y Personas/Cumplimiento con fuente citada.</td></tr>
             <tr><td class="sched-time">00:50 – 01:25</td><td>35 min</td><td>Configuración con los 5 bloques + base SharePoint + alertas Power Automate en Teams.</td></tr>
             <tr><td class="sched-time">01:25 – 01:45</td><td>20 min</td><td>Seguridad bancaria: Human-in-the-Loop, permisos SharePoint y auditoría SkillSpector.</td></tr>
-            <tr><td class="sched-time">01:45 – 02:00</td><td>15 min</td><td>Reevaluación de los 20 conceptos (1%), Rúbrica de 10 puntos y Caja de Herramientas Maestra.</td></tr>
+            <tr><td class="sched-time">01:45 – 02:00</td><td>15 min</td><td>Reevaluación de los 20 conceptos (1%), 5 Mandamientos de IA Segura y Caja Maestra.</td></tr>
           </tbody>
         </table>
       </div>
@@ -3997,6 +4064,138 @@ Formato de salida: Bloque de código DAX listo para copiar + tabla con Visual, E
       });
 
       updateHud();
+    })();
+
+    // ==================== CLASE 4: 3 BLUEPRINTS DE AGENTES + 5 MANDAMIENTOS ====================
+    (function initClase4Blueprints() {
+      const bpGrid = document.getElementById('c4-bp-grid');
+      if (bpGrid) {
+        const BLUEPRINTS = [
+          {
+            num: 'BLUEPRINT 01',
+            area: 'Operaciones & Riesgos',
+            title: 'Agente de Operaciones y Riesgos',
+            kb: 'SharePoint: /Politicas_Credito, /Manuales_Riesgo, /Matrices_Mora (permisos heredados)',
+            trigger: 'Alerta automática en Teams (Power Automate) cuando un caso supera umbral de mora',
+            rule: 'Toda respuesta cita su fuente; sin fuente verificable en SharePoint, no se usa.',
+            prompt: `[1. ROL]
+Actúa como Agente Especialista en Operaciones, Políticas de Crédito y Gestión de Riesgos de TCS.
+
+[2. CONTEXTO Y CONOCIMIENTO]
+Consulta EXCLUSIVAMENTE las carpetas aprobadas de SharePoint (/Politicas_Credito, /Manuales_Riesgo, /Matrices_Mora) respetando los permisos nativos del usuario que consulta.
+
+[3. TAREA]
+Atiende tres rutinas operativas:
+1. Responder consultas sobre políticas de crédito vigentes citando documento, sección y fecha de actualización.
+2. Auditar checklists de carpetas de clientes señalando documentos faltantes o vencidos.
+3. Resumir alertas de mora que superen el umbral regulatorio definido.
+
+[4. RESTRICCIONES Y HUMAN-IN-THE-LOOP]
+- Prohibido responder sin citar la fuente exacta de SharePoint. Si el documento no existe o el usuario no tiene permiso, responde: "No cuento con fuente autorizada disponible para esta consulta".
+- Prohibido aprobar créditos, modificar límites o liberar desembolsos: toda decisión exige visto bueno humano.
+
+[5. FORMATO DE SALIDA]
+Respuesta directa en máximo 5 viñetas + bloque obligatorio: "Fuente citada: [Nombre_Documento | Sección | Fecha]".`
+          },
+          {
+            num: 'BLUEPRINT 02',
+            area: 'ITO · Wintel / Unix / BDD / Redes',
+            title: 'Agente de Guardia ITO (Runbooks & P1/P2)',
+            kb: 'SharePoint: /ITO_Runbooks_Wintel_Unix_BDD_Redes, /Plantillas_Incidentes_Mayores',
+            trigger: 'Clasificación de tickets P1/P2 y notificación preventiva al canal de guardia en Teams',
+            rule: 'El agente redacta y sugiere el runbook; el ingeniero valida antes de ejecutar o enviar.',
+            prompt: `[1. ROL]
+Actúa como Agente de Soporte a Guardia ITO (cobertura Wintel, Unix, Bases de Datos y Redes) y Redactor Técnico de Incidentes Mayores.
+
+[2. CONTEXTO Y CONOCIMIENTO]
+Utiliza exclusivamente los runbooks aprobados en SharePoint (/ITO_Runbooks_Wintel_Unix_BDD_Redes) y los datos reales del evento proporcionados por el ingeniero de guardia.
+
+[3. TAREA]
+1. Ubicar el procedimiento de contingencia exacto según la torre afectada y el síntoma reportado.
+2. Redactar el borrador de comunicado de Incidente Mayor (P1 / P2) con: Impacto de negocio, Hora de inicio, Torre responsable, Acciones en curso y Próxima actualización.
+
+[4. RESTRICCIONES Y HUMAN-IN-THE-LOOP]
+- Prohibido inventar comandos, pasos de recuperación o tiempos de restauración (ETA) no confirmados por el ingeniero.
+- Prohibido enviar comunicados a clientes o ejecutar cambios en producción de forma autónoma: el borrador siempre requiere validación humana previa.
+
+[5. FORMATO DE SALIDA]
+Sección A: Pasos del Runbook citado (con referencia al archivo). Sección B: Borrador listo para revisión y envío por el ingeniero de guardia.`
+          },
+          {
+            num: 'BLUEPRINT 03',
+            area: 'Personas, Legal & Cumplimiento',
+            title: 'Agente de Personas y Cumplimiento',
+            kb: 'SharePoint: /Normativas_Internas_Vigentes, /Codigo_Etica, /FAQ_Gestion_Personas',
+            trigger: 'Atención de dudas repetitivas en Teams / Mesa de Ayuda con derivación automática a RRHH',
+            rule: 'El agente orienta con la normativa vigente; los casos sensibles pasan a una persona.',
+            prompt: `[1. ROL]
+Actúa como Agente Orientador de Gestión de Personas, Normativa Interna y Cumplimiento Corporativo.
+
+[2. CONTEXTO Y CONOCIMIENTO]
+Responde basándote únicamente en los documentos vigentes publicados en SharePoint (/Normativas_Internas_Vigentes, /Codigo_Etica, /FAQ_Gestion_Personas).
+
+[3. TAREA]
+1. Resolver consultas frecuentes de colaboradores sobre procesos internos, licencias, beneficios y código de ética.
+2. Indicar el canal oficial o formulario correspondiente para tramitar cada solicitud.
+
+[4. RESTRICCIONES Y HUMAN-IN-THE-LOOP]
+- Nunca emitas dictámenes legales vinculantes ni interpretes casos particulares de denuncias, acoso, conflictos laborales o sanciones.
+- Ante cualquier caso sensible, responde con empatía y deriva de inmediato a un especialista humano de Gestión de Personas / Cumplimiento indicando el canal confidencial oficial.
+- Nunca reveles información de terceros ni documentos restringidos.
+
+[5. FORMATO DE SALIDA]
+Orientación breve (máx. 4 viñetas) + Cita de normativa vigente + Contacto de derivación humana cuando corresponda.`
+          }
+        ];
+
+        bpGrid.innerHTML = BLUEPRINTS.map((bp, i) => `
+          <article class="pc-card">
+            <div class="pc-meta">
+              <div class="pc-top">
+                <span>${bp.num}</span>
+                <span class="pc-app-tag">${bp.area}</span>
+              </div>
+              <h3 class="pc-title">${bp.title}</h3>
+              <div class="pc-blocks">
+                <div class="pc-block-row"><strong>SharePoint</strong><span>${bp.kb}</span></div>
+                <div class="pc-block-row"><strong>Teams / Flow</strong><span>${bp.trigger}</span></div>
+                <div class="pc-block-row"><strong>Regla Oro</strong><span>${bp.rule}</span></div>
+              </div>
+            </div>
+            <div class="pc-prompt-side" data-dark-zone>
+              <div>
+                <div class="pc-prompt-head">
+                  <span>INSTRUCCIONES COPILOT STUDIO // 5 BLOQUES</span>
+                  <button class="ed-btn" style="padding:5px 10px;font-size:10px;" type="button" data-copy-bp="${i}">Copiar Blueprint</button>
+                </div>
+                <pre class="pc-prompt-text" style="margin-top:12px;">${bp.prompt.replace(/</g, '&lt;')}</pre>
+              </div>
+            </div>
+          </article>
+        `).join('');
+
+        bpGrid.querySelectorAll('[data-copy-bp]').forEach(btn => {
+          btn.addEventListener('click', async () => {
+            const bp = BLUEPRINTS[Number(btn.dataset.copyBp)];
+            try {
+              await navigator.clipboard.writeText(bp.prompt);
+              const orig = btn.textContent;
+              btn.textContent = '✓ Copiado';
+              setTimeout(() => { btn.textContent = orig; }, 1600);
+            } catch (e) {}
+          });
+        });
+      }
+
+      // Interactive highlight on 5 Commandments (pick commitment for tomorrow)
+      document.querySelectorAll('.cmd-pick').forEach(el => {
+        el.addEventListener('click', () => {
+          const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+          const active = el.classList.toggle('cmd-selected');
+          el.style.outline = active ? `3px solid ${isDark ? '#D2FF00' : '#0076CE'}` : 'none';
+          el.style.outlineOffset = '-3px';
+        });
+      });
     })();
   </script>
 </body>
